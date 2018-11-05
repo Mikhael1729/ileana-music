@@ -2,8 +2,8 @@
 
 ## Instrucciones para ejecutar la aplicación
 
-1. Instalar [Visual Studio Code (VSCode]()
-2. Instalar Dotnet 2.1
+1. Instalar [Visual Studio Code (VSCode)](https://code.visualstudio.com/download)
+2. Instalar [.NET Core 2.1 (el SDK de Microsoft)](https://www.microsoft.com/net/download)
 3. Agrega dotnet a las variables de entorno.
 4. Clonar el repositorio
 5. Abrir el proyecto con VSCode
