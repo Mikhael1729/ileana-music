@@ -1,5 +1,15 @@
 # Ilena Music
 
+## Instrucciones para ejecutar la aplicación
+
+1. Instalar [Visual Studio Code (VSCode]()
+2. Instalar Dotnet 2.1
+3. Agrega dotnet a las variables de entorno.
+4. Clonar el repositorio
+5. Abrir el proyecto con VSCode
+6. Ejecútalo con la consola: ```dotnet run``` 
+¡Listo, a programar!
+
 ## Progreso 
 
 > - Con *[x]* se marca cuando una tarea está completa.
