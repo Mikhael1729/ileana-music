@@ -20,9 +20,6 @@ namespace IleanaMusic
                 var menuScreen = new MenuScreen();
                 option = menuScreen.Data();
 
-                // I'm Lehkikm
-                var hello = "I'm Lehkikm";
-
                 // Go to selected screen.
                 switch (option)
                 {
