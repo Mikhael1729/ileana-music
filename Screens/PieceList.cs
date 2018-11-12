@@ -11,11 +11,6 @@ namespace IleanaMusic.Screens
 ------------------";
 
             WriteLine(title);
-            
-            foreach (var piece in AppData.Instance.PieceList)
-            {
-                WriteLine(piece.Name);
-            }
         }
     }
 }
