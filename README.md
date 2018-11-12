@@ -18,7 +18,7 @@
 - [x] Lógica de la aplicación.
 - [x] Menú.
 - [x] Pantalla para agregar una pieza musical a la lista.
-- [ ] Pantalla para listar las canciones.
+- [ ]   para listar las canciones.
 - [ ] Pantalla para editr una canción.
 - [ ] Pantalla para borrar canciones por ID.
 - [ ] Pantalla para buscar una canción.
