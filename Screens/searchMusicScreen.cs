@@ -17,14 +17,14 @@ namespace IleanaMusic.Screens
           Write("- Ingrese el id de su musica: ");
           var InsertId = Convert.ToInt32(ReadLine());
 
-          var prueba = AppData.Instance.PieceList.Where(i => i.Id == InsertId).FirstOrDefault();
-            WriteLine("- Nombre: " + prueba.Name);
-            WriteLine("- Artista: " + prueba.Artist);
-            WriteLine("- Album: " + prueba.Album);
-            WriteLine("- Gender: " + prueba.Gender);
-            WriteLine("- Duracion: " + prueba.Duration);
-            WriteLine("- Quality: " + prueba.Quality);
-            WriteLine("- Formato: " + prueba.Format);
+          var music = AppData.Instance.PieceList.Where(i => i.Id == InsertId).FirstOrDefault();
+            WriteLine("- Nombre: " + music.Name);
+            WriteLine("- Artista: " + music.Artist);
+            WriteLine("- Album: " + music.Album);
+            WriteLine("- Gender: " + music.Gender);
+            WriteLine("- Duracion: " + music.Duration);
+            WriteLine("- Quality: " + music.Quality);
+            WriteLine("- Formato: " + music.Format);
        
         }
        
