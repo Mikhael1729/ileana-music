@@ -11,6 +11,8 @@ namespace IleanaMusic.Screens
 
         public AddPieceScreen() 
         {
+            var pieceList = AppData.Instance.PieceList;
+
             piece = new Piece();
 
             WriteLine("Agregar nueva pieza\n" 
@@ -87,8 +89,16 @@ namespace IleanaMusic.Screens
                     }
                 }
             }
-            
-            AppData.Instance.PieceList.Add(piece);
+
+            // Adding id.
+            var id = 1;
+
+            if(pieceList.Count > 0) {
+                id = pieceList[pieceList.Count-1].Id + 1;
+            }
+
+            piece.Id = id;
+            pieceList.Add(piece);
 
             WriteLine("\n-->> Pieza agregada <<--\n");
         }
