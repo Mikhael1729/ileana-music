@@ -99,7 +99,7 @@ namespace IleanaMusic.Screens
 
             piece.Id = id;
             pieceList.Add(piece);
-
+          
             WriteLine("\n-->> Pieza agregada <<--\n");
         }
 
