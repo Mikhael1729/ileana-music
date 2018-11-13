@@ -6,11 +6,12 @@ namespace IleanaMusic.Screens
     public class PieceList 
     {
         public PieceList() 
-        {
-            var title = @"Lista de canciones
-------------------";
-
-            WriteLine(title);
+        {  
+            WriteLine("Listado de canciones: \n");
+             foreach (var piece in AppData.Instance.PieceList)
+            {
+                WriteLine(piece.Name);
+            }
         }
     }
 }
