@@ -30,11 +30,14 @@ namespace IleanaMusic
                         new PieceList();    
                         break;
                     case 3: 
-                     new EditMusicScreen();
-                     break;
+                        new EditMusicScreen();
+                        break;
+                    case 4: 
+                        new deleteMusicScreen();
+                        break;
                     case 5:
-                     new searchMusicScreen();
-                     break;
+                        new searchMusicScreen();
+                        break;
                 }
 
                 WriteLine("\nPresiona cualquier tecla para volver atrás");
