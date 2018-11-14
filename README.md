@@ -21,7 +21,7 @@
 - [x] Pantalla para listar las canciones.
 - [x] Pantalla para editar una canción.
 - [x] Pantalla para borrar canciones por ID.
-- [ ] Pantalla para buscar una canción.
+- [x] Pantalla para buscar una canción.
 
 ## Entidades:
 
