@@ -36,7 +36,7 @@ namespace IleanaMusic
                         new DeletePieceScreen();
                         break;
                     case 5:
-                        new searchMusicScreen();
+                        new SearchPieceScreen();
                         break;
                 }
 
