@@ -18,10 +18,10 @@
 - [x] Lógica de la aplicación.
 - [x] Menú.
 - [x] Pantalla para agregar una pieza musical a la lista.
-- [ ]   para listar las canciones.
+- [x]  Pantalla para listar las canciones.
 - [ ] Pantalla para editr una canción.
 - [ ] Pantalla para borrar canciones por ID.
-- [ ] Pantalla para buscar una canción.
+- [x] Pantalla para buscar una canción.
 
 ## Entidades:
 

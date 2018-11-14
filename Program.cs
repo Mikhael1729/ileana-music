@@ -29,16 +29,12 @@ namespace IleanaMusic
                     case 2: 
                         new PieceList();    
                         break;
-                    case 3:
-                    //Editar por ID
-                        break;
-                    case 4:
-                    //Borrar por ID
-                        break;
+                    case 3: 
+                     new EditMusicScreen();
+                     break;
                     case 5:
-                        new SearchScreen();
-                        break;
-
+                     new searchMusicScreen();
+                     break;
                 }
 
                 WriteLine("\nPresiona cualquier tecla para volver atrás");
