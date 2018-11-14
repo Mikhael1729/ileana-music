@@ -19,9 +19,9 @@
 - [x] Menú.
 - [x] Pantalla para agregar una pieza musical a la lista.
 - [x] Pantalla para listar las canciones.
-- [x] Pantalla para editr una canción.
+- [x] Pantalla para editar una canción.
 - [ ] Pantalla para borrar canciones por ID.
-- [x] Pantalla para buscar una canción.
+- [ ] Pantalla para buscar una canción.
 
 ## Entidades:
 

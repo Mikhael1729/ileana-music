@@ -30,7 +30,7 @@ namespace IleanaMusic
                         new PieceList();    
                         break;
                     case 3: 
-                        new EditMusicScreen();
+                        new EditPieceScreen();
                         break;
                     case 4: 
                         new deleteMusicScreen();
