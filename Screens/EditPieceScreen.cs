@@ -39,6 +39,7 @@ namespace IleanaMusic.Screens
             else 
             {
                 WriteLine($"\n >> Editando la pieza \"{piece.Name}\" <<\n");
+
                 Write("- Nombre: ");
                 piece.Name = ReadLine();
 
