@@ -37,7 +37,7 @@
     - Salir. Sale de la aplicación.
 
 **Nuevas entidades**
-- [ ] Entidad ```PlayList``` (listas de canciones). Debe tener los siguientes elementos:
+- [x] Entidad ```Playlist``` (listas de canciones). Debe tener los siguientes elementos:
     - Propiedades.
         - Id
         - Nombre
@@ -52,7 +52,7 @@
 
 - [ ] **Listas de canciones** (```PlaylistsMenuScreen```). Muestra las siguientes opciones: 1) Agregar lista de canciones (play list), 2) listar todas las listas de caniones, 3) editar lista, 4) Borrar lista, 5) buscar canción de una lista determinada.
 
-    1. [ ] **Agregar lista de canciones** (```AddPlayListScreen```). Aquí se va a hacer una playlist con los todos los datos de la entidad ```PlayList``` mencionada con anterioridad.
+    1. [ ] **Agregar lista de canciones** (```AddPlayListScreen```). Aquí se va a hacer una playlist con los todos los datos de la entidad ```Playlist``` mencionada con anterioridad.
 
     2. [ ] **Lista de playlists** (```PlayListsScreen```), la cual va a mostrar todas las playlist con la siguiente información:
         - Id
@@ -81,7 +81,7 @@
 - Calidad.
 - Formato.
 
-**Lista de canciones** (```PlayList```). Tiene los siguientes elementos: 
+**Lista de canciones** (```Playlist```). Tiene los siguientes elementos: 
 
 - Propiedades.
     - Id
