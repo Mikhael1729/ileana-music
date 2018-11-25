@@ -7,7 +7,7 @@ namespace IleanaMusic.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public char Logo { get; set; }
+        public string Logo { get; set; }
         public List<Piece> PieceList { get; set; }
 
         // Delete a song from the playlist.
