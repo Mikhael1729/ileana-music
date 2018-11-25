@@ -11,7 +11,13 @@ namespace IleanaMusic
         {
             int option = 0;
 
-            while(option != 6)
+            /* Options (of MenuScreen)
+             *  1. Canciones.
+             *  2. Listas de canciones.
+             *  3. Editar pieza.
+             *  4. Salir. 
+             */
+            while (option != 4)
             {
                 // Refreshing console if there are some content before menu screen.
                 Clear();
@@ -20,29 +26,20 @@ namespace IleanaMusic
                 var menuScreen = new MenuScreen();
                 option = menuScreen.Data();
 
-                // Go to selected screen.
                 switch (option)
                 {
                     case 1:
-                        var pieceScreen = new AddPieceScreen();
-                        break;
-                    case 2: 
-                        new PieceList();    
-                        break;
-                    case 3: 
-                        new EditPieceScreen();
-                        break;
-                    case 4: 
-                        new DeletePieceScreen();
-                        break;
-                    case 5:
-                        new SearchPieceScreen();
+                        new MenuOneScreen();
                         break;
                 }
 
-                WriteLine("\nPresiona cualquier tecla para volver atrás");
-                ReadLine();
-        }
+                // If option is "1" you don't want to show the follow message.
+                if (option != 1)
+                {
+                    WriteLine("\nPresiona cualquier tecla para volver atrás");
+                    ReadLine();
+                }
+            }
         }
     }
 }
