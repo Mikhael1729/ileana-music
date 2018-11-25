@@ -67,7 +67,7 @@
 
 ## Entidades:
 
-**Canción**
+**Canción** (```Piece```)
 - ID. (debe ser automático)
 - Nombre.
 - Artista.
@@ -78,17 +78,26 @@
 - Formato.
 
 ## Pantallas:
-1. Menú. la cual debe tener las opciones:
-    - Agregar canción.
-    - Listar todas las canciones.
-    - Editar canción.
-    - Borrar canción por ID.
-    - Buscar canción.
-2. Agregar canción.
-3. Listar todas las canciones.
-4. Editar canción. 
-5. Borrar canciones por ID.
-6. Buscar:
-    - Por artista.
-    - Por género
-    - Por nombre.
+
+> - Las pantallas se encuentran anidadas para que se entienda cómo se llega a una determinada.
+
+- **Menú** (pantalla inicial de la aplicación). Tiene estas tres opciones: Canciones, Listas de canciones, Salir:
+
+    - **Canciones** (menú de la tarea 1). Tiene las opciones: Agregar canción, Listar todas las canciones, Editar canción, Borrar canción por ID, Buscar canción, Ir atrás
+        - Agregar canción.
+        - Listar todas las canciones.
+        - Editar canción. 
+        - Borrar canciones por ID.
+        - Buscar:
+            - Por artista.
+            - Por género
+            - Por nombre.
+
+    - **Listas de canciones**
+        - Agregar lista de canciones
+        - Lista de playlists
+        - Editar playlist
+        - Borrar playlist
+        - Buscar canción de la playlist
+
+    - **Salir**
