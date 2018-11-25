@@ -10,6 +10,11 @@ namespace IleanaMusic.Models
         public char Logo { get; set; }
         public List<Piece> PieceList { get; set; }
 
+        public void DeletePiece(Piece piece) 
+        {   
+            PieceList.Remove(piece);
+        }
+
         public override string ToString() => Name;
     }
 }
