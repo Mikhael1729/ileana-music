@@ -8,7 +8,8 @@ namespace IleanaMusic.Data
     {
         private static readonly Lazy<AppData> instance = new Lazy<AppData>(() => new AppData());
         public List<Piece> PieceList = new List<Piece>();
-
+        public List<Playlist> Playlists = new List<Playlist>();
+        
         private AppData()
         {
         }
