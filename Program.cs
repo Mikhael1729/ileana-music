@@ -14,7 +14,6 @@ namespace IleanaMusic
             /* Options (of MenuScreen)
              *  1. Canciones.
              *  2. Listas de canciones.
-             *  3. Editar pieza.
              *  4. Salir. 
              */
             while (option != 4)
@@ -30,6 +29,12 @@ namespace IleanaMusic
                 {
                     case 1:
                         new MenuOneScreen();
+                        break;
+                    case 2: 
+                        WriteLine("Nada por aquí (opción 2)");
+                        break;
+                    case 3: 
+                        WriteLine("Nada por aquí (opción 3)");
                         break;
                 }
 
