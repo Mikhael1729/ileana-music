@@ -1,8 +1,12 @@
 # Ilena Music
 
 > Actualmente la última versión del proyecto se encuentra en ```part2-playlists```, por lo que para ejecutar la aplicación en esa branch debes hacer esto desde la consola:
-> - ```git pull```
-> - ```git checkout part2-playlists```
+> - ```git pull``` // Traes todas las ramas remotas.
+> - ```git checkout part2-playlists``` // Te posicionas en la rama para esta parte del trabajo.
+>
+> Luego de haber hecho tus cambios, los debes subir al repositorio remoto a la rama en la que actualmente todos debemos estar trabajando: 
+>
+> - ```git push -u origin part2-playlists```
 
 ## Instrucciones para ejecutar la aplicación
 
