@@ -8,12 +8,10 @@ namespace IleanaMusic
         private int option;
         private const string menu = @"Ileana Music
 ------------
-1. Agregar una nueva pieza a la lista.
-2. Mostrar todas las piezas.
+1. Canciones.
+2. Listas de canciones.
 3. Editar pieza.
-4. Borrar pieza por ID.
-5. Buscar canción.
-6. Salir.
+4. Salir.
 
 Escoge una opción: ";
 
