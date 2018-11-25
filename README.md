@@ -65,7 +65,7 @@
     4. [ ] **Borrar playlist** (```DeletePlayListScreen```)
     5. [ ] **Buscar canción de la playlist** (```SearchPieceFromPlayListScreen```).
 
-## Entidades:
+## Entidades principales
 
 **Canción** (```Piece```)
 - ID. (debe ser automático)
@@ -77,9 +77,19 @@
 - Calidad.
 - Formato.
 
+**Lista de canciones** (```PlayList```). Tiene los siguientes elementos: 
+
+- Propiedades.
+    - Id
+    - Nombre
+    - Logo (un caracter que representa una carátula).
+    - Canciones: Lista de canciones.
+- Métodos:
+    - Borrar canción.
+
 ## Pantallas:
 
-> - Las pantallas se encuentran anidadas para que se entienda cómo se llega a una determinada.
+> Resumen de las pantallas de la aplicación. Éstas se encunetran anidadas para entender cómo se llega a un sitio determinado.
 
 - **Menú** (pantalla inicial de la aplicación). Tiene estas tres opciones: Canciones, Listas de canciones, Salir:
 
