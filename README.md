@@ -1,5 +1,9 @@
 # Ilena Music
 
+> Actualmente la última versión del proyecto se encuentra en ```part2-playlists```, por lo que para ejecutar la aplicación en esa branch debes hacer esto desde la consola:
+> - ```git pull```
+> - ```git checkout part2-playlists```
+
 ## Instrucciones para ejecutar la aplicación
 
 1. Instalar [Visual Studio Code (VSCode)](https://code.visualstudio.com/download)
