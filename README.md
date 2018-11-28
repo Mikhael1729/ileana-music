@@ -70,8 +70,8 @@
         - Listar canciones.
         - Borrar canción.
         - Volver
-    4. [ ] **Borrar playlist** (```DeletePlayListScreen```)
-    5. [ ] **Buscar canción de la playlist** (```SearchPieceFromPlayListScreen```).
+    4. [x] **Borrar playlist** (```DeletePlayListScreen```)
+    5. [x] **Buscar canción de la playlist** (```SearchPieceFromPlayListScreen```).
 
 ## Entidades principales
 
