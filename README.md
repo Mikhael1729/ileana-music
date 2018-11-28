@@ -58,7 +58,7 @@
 
     1. [x] **Agregar lista de canciones** (```AddPlayListScreen```). Aquí se va a hacer una playlist con los todos los datos de la entidad ```Playlist``` mencionada con anterioridad.
 
-    2. [ ] **Lista de playlists** (```PlayListsScreen```), la cual va a mostrar todas las playlist con la siguiente información:
+    2. [x] **Lista de playlists** (```PlayListsScreen```), la cual va a mostrar todas las playlist con la siguiente información:
         - Id
         - Nombre
         - Logo
