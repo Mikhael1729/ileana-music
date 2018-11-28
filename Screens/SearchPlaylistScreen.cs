@@ -5,17 +5,18 @@ using System.Linq;
 using IleanaMusic.Data;
 using System.Collections.Generic;
 
+
 namespace IleanaMusic.Screens
 {
-    public class DeletePlaylitScreen
+    public class SearchPlaylistScreen
     {
         List<Playlist> playlists = AppData.Instance.Playlists;
         Playlist searchedPlaylist;
 
-        public DeletePlaylitScreen()
+        public SearchPlaylistScreen()
         {
 
-            WriteLine("Eliminar playlist\n"
+            WriteLine("Buscar playlist\n"
                     + "-----------------\n");
 
             Write("Escribe el ID o el Nombre de tu playlist: ");
@@ -43,8 +44,12 @@ namespace IleanaMusic.Screens
 
                 if (searchedPlaylist != null)
                 {
-                    WriteLine($">> La playlist llamada \"{searchedPlaylist.Name}\" ha sido eliminada");
-                    playlists.Remove(searchedPlaylist);
+                    WriteLine(">> ¡Playlist encontrada!\n");
+
+                    WriteLine($"- ID: {searchedPlaylist.Id}");
+                    WriteLine($"- Logo: {searchedPlaylist.Logo}");
+                    WriteLine($"- Nombre: {searchedPlaylist.Name}");
+                    WriteLine($"- Cantidad de canciones: {searchedPlaylist.PieceList.Count}");
                 }
                 else
                 {
@@ -56,5 +61,6 @@ namespace IleanaMusic.Screens
                 WriteLine(">> No tienes playlists en tu lista <<");
             }
         }
+
     }
 }
