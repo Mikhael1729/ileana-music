@@ -54,7 +54,7 @@
 **Nuevas pantallas**
 - [x] **Canciones** (```MenuOneScreen```) Lleva al menú de la tarea 1, donde la única diferencia será que, la opción de salir, en vez de decir "salir" debe decir "ir atrás".
 
-- [ ] **Listas de canciones** (```PlaylistsMenuScreen```). Muestra las siguientes opciones: 1) Agregar lista de canciones (play list), 2) listar todas las listas de caniones, 3) editar lista, 4) Borrar lista, 5) buscar canción de una lista determinada.
+- [x] **Listas de canciones** (```PlaylistsMenuScreen```). Muestra las siguientes opciones: 1) Agregar lista de canciones (play list), 2) listar todas las listas de caniones, 3) editar lista, 4) Borrar lista, 5) buscar canción de una lista determinada.
 
     1. [ ] **Agregar lista de canciones** (```AddPlayListScreen```). Aquí se va a hacer una playlist con los todos los datos de la entidad ```Playlist``` mencionada con anterioridad.
 
