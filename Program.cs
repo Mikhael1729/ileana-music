@@ -31,7 +31,7 @@ namespace IleanaMusic
                         new MenuOneScreen();
                         break;
                     case 2: 
-                        WriteLine("Nada por aquí (opción 2)");
+                        var menu2Option = new PlayListsMenuScreen();
                         break;
                     case 3: 
                         WriteLine("Nada por aquí (opción 3)");
