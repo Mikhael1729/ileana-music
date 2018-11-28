@@ -14,7 +14,7 @@ namespace IleanaMusic
             /* Options (of MenuScreen)
              *  1. Canciones.
              *  2. Listas de canciones.
-             *  4. Salir. 
+             *  3. Salir. 
              */
             while (option != 4)
             {

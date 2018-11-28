@@ -10,8 +10,7 @@ namespace IleanaMusic
 ------------
 1. Canciones.
 2. Listas de canciones.
-3. Editar pieza.
-4. Salir.
+3. Salir.
 
 Escoge una opción: ";
 
