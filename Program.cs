@@ -2,6 +2,7 @@
 using static System.Console;
 using IleanaMusic.Models;
 using IleanaMusic.Screens;
+using IleanaMusic.Data;
 
 namespace IleanaMusic
 {
@@ -40,32 +41,43 @@ namespace IleanaMusic
                             5. Buscar canción en playlist
                             6. <<-- Ir atrás
                          */
-                        while (playlistsOption != 6)
+                        if (AppData.Instance.PieceList.Count > 0)
                         {
-                            Clear();
-                            // Showing the menu and getting selected option.
-                            playlistsOption = (new PlayListsMenuScreen()).Data();
-                            Clear();
-                            switch (playlistsOption)
+                            while (playlistsOption != 6)
                             {
-                                case 1:
-                                    new AddPlayListScreen();
-                                    break;
-                                case 2: 
-                                    new PlaylistsScreen();
-                                    break;
-                                case 3:
-                                    new EditPlayListScreen();
-                                    break;
-                                case 4:
-                                    new DeletePlaylitScreen();
-                                    break;
-                                case 5: 
-                                    new SearchPlaylistScreen();
-                                    break;
+                                Clear();
+                                // Showing the menu and getting selected option.
+                                playlistsOption = (new PlayListsMenuScreen()).Data();
+                                Clear();
+                                switch (playlistsOption)
+                                {
+                                    case 1:
+                                        new AddPlayListScreen();
+                                        break;
+                                    case 2:
+                                        new PlaylistsScreen();
+                                        break;
+                                    case 3:
+                                        new EditPlayListScreen();
+                                        break;
+                                    case 4:
+                                        new DeletePlaylitScreen();
+                                        break;
+                                    case 5:
+                                        new SearchPlaylistScreen();
+                                        break;
+                                }
+                                if (playlistsOption != 6)
+                                    Pause();
                             }
-                            if(playlistsOption != 6)
-                                Pause();
+                        }
+                        else
+                        {
+                            WriteLine("Playlists\n"
+                                    + "---------\n");
+                            WriteLine(">> No tienes canciones, por lo que esta función está deshabilitada.");
+                            WriteLine("\nEscribe cualquier tecla para continuar");
+                            ReadLine();
                         }
 
                         playlistsOption = 0;

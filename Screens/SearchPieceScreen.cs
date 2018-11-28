@@ -5,43 +5,107 @@ using IleanaMusic.Data;
 using IleanaMusic.Models;
 using static System.Console;
 
-namespace IleanaMusic 
+namespace IleanaMusic
 {
-    public class SearchPieceScreen 
+    public class SearchPieceScreen
     {
         List<Piece> pieceList = AppData.Instance.PieceList;
+        Piece searchedPiece;
 
-        public SearchPieceScreen() 
+        public SearchPieceScreen()
         {
-            // Title
-            WriteLine(
-                "Buscar una canción\n"
-               +"------------------\n");
 
+            WriteLine("Buscar canción\n"
+                    + "--------------\n");
 
-            // Requesting Id.
-            int pieceId = 0;
-            Piece piece = null;
+            Write("Escribe el ID o el Nombre de tu canción: ");
 
-            while(pieceId == 0) 
+            if (pieceList.Count > 0)
             {
-                Write("- ID de la canción: ");  
+                string option;
+                string name = "";
+                int id = 0;
 
-                if(Int32.TryParse(ReadLine(), out pieceId))
+                option = ReadLine();
+
+                WriteLine("");
+
+                // Si fue ID.
+                if (Int32.TryParse(option, out id))
                 {
-                    piece = pieceList.Where(i => i.Id == pieceId).FirstOrDefault();
-                }      
-            }
+                    searchedPiece = (pieceList.Where(p => p.Id == id)).FirstOrDefault();
+                }
+                else  // Si fue nombre
+                {
+                    name = option;
+                    searchedPiece = (pieceList.Where(p => p.Name.ToLower() == name.ToLower())).FirstOrDefault();
+                }
 
-            if(piece != null) 
-            {
-                WriteLine($"\n>> ¡Canción encontrada! <<\n");
-                WriteLine($"El nombre es: \"{piece.Name}\"");
+                if (searchedPiece != null)
+                {
+                    WriteLine(">> ¡Playlist encontrada!\n");
+
+                    WriteLine($"- ID: {searchedPiece.Id}");
+                    WriteLine($"- Nombre: {searchedPiece.Name}");
+                    WriteLine($"- Artista: {searchedPiece.Artist}");
+                    WriteLine($"- Álbum: {searchedPiece.Album}");
+                    Write($"- Género: Música ");
+                    switch (searchedPiece.Gender)
+                    {
+                        case Gender.Classical:
+                            Write("Clásica");
+                            break;
+                        case Gender.Raggeton:
+                            Write("Raggeton");
+                            break;
+                        case Gender.Rock:
+                            Write("Rock");
+                            break;
+                    }
+
+                    WriteLine("");
+
+                    WriteLine($"- Duración: {searchedPiece.Duration} minutos");
+
+                    Write($"- Calidad: ");
+                    switch (searchedPiece.Quality)
+                    {
+                        case Quality.High:
+                            Write("Alta");
+                            break;
+                        case Quality.Low:
+                            Write("Baja");
+                            break;
+                        case Quality.Medium:
+                            Write("Media");
+                            break;
+                    }
+
+                    WriteLine("");
+
+                    Write("- Formato: ");
+                    switch (searchedPiece.Format)
+                    {
+                        case MusicFormat.Mp3:
+                            Write("Mp3");
+                            break;
+                        case MusicFormat.Mp4:
+                            Write("Mp4");
+                            break;
+                    }
+
+                    WriteLine("");
+                }
+                else
+                {
+                    WriteLine(">> Canción no encontrada");
+                }
             }
-            else 
+            else
             {
-                WriteLine("\n>> Canción no encontrada <<\n");
+                WriteLine(">> No tienes canciones en tu lista <<");
             }
         }
+
     }
 }

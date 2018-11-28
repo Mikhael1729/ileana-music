@@ -39,7 +39,7 @@ namespace IleanaMusic.Screens
                 else  // Si fue nombre
                 {
                     name = option;
-                    searchedPlaylist = (playlists.Where(p => p.Name == name)).FirstOrDefault();
+                    searchedPlaylist = (playlists.Where(p => p.Name.ToLower() == name.ToLower())).FirstOrDefault();
                 }
 
                 if (searchedPlaylist != null)
