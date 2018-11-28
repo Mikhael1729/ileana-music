@@ -63,7 +63,7 @@
         - Nombre
         - Logo
         - Cantidad de canciones
-    3. [ ] **Editar playlist** (```EditPlayListScreen```) (buscar por id), luego, mostrar el siguietne menú
+    3. [x] **Editar playlist** (```EditPlayListScreen```) (buscar por id), luego, mostrar el siguietne menú
         - Editar Nombre
         - Editar logo, 
         - Agregar canción.
