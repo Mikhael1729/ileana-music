@@ -49,7 +49,7 @@ namespace IleanaMusic
                             switch (playlistsOption)
                             {
                                 case 1:
-                                    Write("Hello");
+                                    new AddPlayListScreen();
                                     break;
                             }
                             if(playlistsOption != 6)

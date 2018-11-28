@@ -2,6 +2,7 @@ using IleanaMusic.Data;
 using IleanaMusic.Models;
 using static System.Console;
 using System;
+using System.Collections.Generic;
 
 namespace IleanaMusic.Screens
 {
@@ -19,8 +20,18 @@ namespace IleanaMusic.Screens
             Write("- Nombre: ");
             playlist.Name = ReadLine();
 
-            Write("- Artista: ");
+            Write("- Logo: ");
             playlist.Logo = ReadLine();
+
+            WriteLine("- Escribe los IDs de las piezas que quieres agregar a la playlist: \n");
+            Write("  ");
+            // var ids = ReadLin
+            // string ids = "4,5, 6,7";
+            // var list = ids.Split(',');
+            // foreach (var item in list)
+            // {
+            //     Console.WriteLine("-" + item.Trim());
+            // }
 
             // Adding id.
             var id = 1;
