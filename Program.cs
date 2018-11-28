@@ -51,6 +51,9 @@ namespace IleanaMusic
                                 case 1:
                                     new AddPlayListScreen();
                                     break;
+                                case 2: 
+                                    new PlaylistsScreen();
+                                    break;
                             }
                             if(playlistsOption != 6)
                                 Pause();

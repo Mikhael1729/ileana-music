@@ -56,7 +56,7 @@
 
 - [x] **Listas de canciones** (```PlaylistsMenuScreen```). Muestra las siguientes opciones: 1) Agregar lista de canciones (play list), 2) listar todas las listas de caniones, 3) editar lista, 4) Borrar lista, 5) buscar canción de una lista determinada.
 
-    1. [ ] **Agregar lista de canciones** (```AddPlayListScreen```). Aquí se va a hacer una playlist con los todos los datos de la entidad ```Playlist``` mencionada con anterioridad.
+    1. [x] **Agregar lista de canciones** (```AddPlayListScreen```). Aquí se va a hacer una playlist con los todos los datos de la entidad ```Playlist``` mencionada con anterioridad.
 
     2. [ ] **Lista de playlists** (```PlayListsScreen```), la cual va a mostrar todas las playlist con la siguiente información:
         - Id
