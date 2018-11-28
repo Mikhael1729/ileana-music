@@ -19,10 +19,9 @@ namespace IleanaMusic.Screens
             WriteLine("Buscar playlist\n"
                     + "-----------------\n");
 
-            Write("Escribe el ID o el Nombre de tu playlist: ");
-
             if (playlists.Count > 0)
             {
+                Write("Escribe el ID o el Nombre de tu playlist: ");
                 string option;
                 string name = "";
                 int id = 0;

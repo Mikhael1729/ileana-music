@@ -104,7 +104,7 @@ namespace IleanaMusic.Screens
                         }
                     }
 
-                    WriteLine("\n>> Pieza editada correctamente <<");
+                    WriteLine("\n>> Playlist editada correctamente <<");
                 }
                 else
                 {

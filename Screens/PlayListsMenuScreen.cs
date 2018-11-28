@@ -12,8 +12,9 @@ namespace IleanaMusic.Screens
 2. Listar playlists
 3. Editar playlist
 4. Borrar playlist
-5. Buscar canción en playlist
-6. <<-- Ir atrás
+5. Buscar playlist
+6. Buscar canción en playlist
+7. <<-- Ir atrás
 
 Escoge una opción: ";
 

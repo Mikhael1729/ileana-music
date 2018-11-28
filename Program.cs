@@ -39,11 +39,12 @@ namespace IleanaMusic
                             3. Editar playlist
                             4. Borrar playlist
                             5. Buscar canción en playlist
-                            6. <<-- Ir atrás
+                            6. Buscar pieza en playlist
+                            7. <<-- Ir atrás
                          */
                         if (AppData.Instance.PieceList.Count > 0)
                         {
-                            while (playlistsOption != 6)
+                            while (playlistsOption != 7)
                             {
                                 Clear();
                                 // Showing the menu and getting selected option.
@@ -66,8 +67,11 @@ namespace IleanaMusic
                                     case 5:
                                         new SearchPlaylistScreen();
                                         break;
+                                    case 6: 
+                                        new SearchPieceInPlaylistScreen();
+                                        break;
                                 }
-                                if (playlistsOption != 6)
+                                if (playlistsOption != 7)
                                     Pause();
                             }
                         }
