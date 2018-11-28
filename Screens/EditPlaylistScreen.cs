@@ -20,7 +20,7 @@ namespace IleanaMusic.Screens
             WriteLine("Editar playlist\n"
                     + "---------------\n");
 
-            if (playlists.Count > 0)
+            if (playlists.Count < 0)
             {
                 WriteLine(">> No tines playlists en tu lista. Agrega una para usar esta función.");
             }
