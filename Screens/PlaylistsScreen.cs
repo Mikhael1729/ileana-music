@@ -14,12 +14,21 @@ namespace IleanaMusic.Screens
             WriteLine("Tus playlists\n" 
                     + "-------------\n");
 
-            foreach (var p in playlists)
+            if(playlists.Count > 0)
             {
-                WriteLine($"- ID: {p.Id}");
-                WriteLine($"  Logo: {p.Logo}");
-                WriteLine($"  Nombre: {p.Name}");
-                WriteLine($"  Cantidad de canciones: ${p.PieceList.Count}");
+                foreach (var p in playlists)
+                {
+                    WriteLine($"- ID: {p.Id}");
+                    WriteLine($"  Logo: {p.Logo}");
+                    WriteLine($"  Nombre: {p.Name}");
+                    WriteLine($"  Cantidad de canciones: {p.PieceList.Count}");
+
+                    WriteLine("");
+                }
+            } 
+            else
+            {
+                WriteLine(">> No tienes ninguna playlist <<");
             }
         }
     }
