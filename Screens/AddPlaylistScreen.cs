@@ -3,12 +3,14 @@ using IleanaMusic.Models;
 using static System.Console;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IleanaMusic.Screens
 {
     public class AddPlayListScreen
     {
         Playlist playlist = new Playlist();
+        List<Piece> pieceList = AppData.Instance.PieceList;
 
         public AddPlayListScreen()
         {
@@ -24,14 +26,29 @@ namespace IleanaMusic.Screens
             playlist.Logo = ReadLine();
 
             WriteLine("- Escribe los IDs de las piezas que quieres agregar a la playlist: \n");
-            Write("  ");
-            // var ids = ReadLin
-            // string ids = "4,5, 6,7";
-            // var list = ids.Split(',');
-            // foreach (var item in list)
-            // {
-            //     Console.WriteLine("-" + item.Trim());
-            // }
+            WriteLine("  >> Lista de piezas: \n");
+
+            // Printing pieces.
+            foreach (var piece in pieceList)
+                WriteLine($"     - Id: {piece.Id}, Nombre: {piece.Name}");
+
+            WriteLine("");
+
+            // Requestin piece IDs.
+            Write("  >> Escribe el id de las piezas a gregar (separados por coma): ");
+
+            // Procesing.
+            var ids = ReadLine();
+            var list = ids.Split(',');
+
+            // Adding selected pieces to playlist.
+            foreach (var item in list)
+            {
+                var piece = pieceList.Where(p => p.Id == Convert.ToInt32(item.Trim())).FirstOrDefault();
+
+                if (piece != null)
+                    playlist.PieceList.Add(piece);
+            }
 
             // Adding id.
             var id = 1;
