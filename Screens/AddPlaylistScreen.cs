@@ -13,8 +13,8 @@ namespace IleanaMusic.Screens
         {
             var playlists = AppData.Instance.Playlists;
 
-            WriteLine("Agregar nueva pieza\n"
-                    + "-------------------\n");
+            WriteLine("Agregar nueva playlist \n"
+                    + "----------------------\n");
 
             Write("- Nombre: ");
             playlist.Name = ReadLine();
@@ -33,7 +33,7 @@ namespace IleanaMusic.Screens
             playlist.Id = id;
             playlists.Add(playlist);
 
-            WriteLine("\n-->> Pieza agregada <<--\n");
+            WriteLine("\n-->> Playlist agregada <<--\n");
         }
     }
 }
