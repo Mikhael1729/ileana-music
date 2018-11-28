@@ -8,9 +8,9 @@ namespace IleanaMusic
         private int option;
         private const string menu = @"Ileana Music
 ------------
-1. Canciones.
-2. Listas de canciones.
-3. Salir.
+1. Canciones
+2. Playlists
+3. Salir
 
 Escoge una opción: ";
 
