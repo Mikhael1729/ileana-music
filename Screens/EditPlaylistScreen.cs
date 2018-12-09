@@ -48,7 +48,7 @@ namespace IleanaMusic.Screens
 
                 if (searchedPlaylist != null)
                 {
-                    WriteLine(">> Play list encontrada <<\n");
+                    WriteLine(">> Playlist encontrada <<\n");
 
                     WriteLine($"   ID: {searchedPlaylist.Id}");
                     WriteLine($"1. Logo: {searchedPlaylist.Logo}");
