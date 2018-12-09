@@ -5,6 +5,7 @@ using IleanaMusic.Data;
 using IleanaMusic.Models;
 using static System.Console;
 
+// TODO:
 namespace IleanaMusic
 {
     public class SearchPieceScreen
@@ -43,13 +44,13 @@ namespace IleanaMusic
 
                 if (searchedPiece != null)
                 {
-                    WriteLine(">> ¡Playlist encontrada!\n");
+                    WriteLine(">> ¡Pieza encontrada!\n");
 
-                    WriteLine($"- ID: {searchedPiece.Id}");
-                    WriteLine($"- Nombre: {searchedPiece.Name}");
-                    WriteLine($"- Artista: {searchedPiece.Artist}");
-                    WriteLine($"- Álbum: {searchedPiece.Album}");
-                    Write($"- Género: Música ");
+                    WriteLine($"  ID: {searchedPiece.Id}");
+                    WriteLine($"1. Nombre: {searchedPiece.Name}");
+                    WriteLine($"2. Artista: {searchedPiece.Artist}");
+                    WriteLine($"3. Álbum: {searchedPiece.Album}");
+                    Write($"4. Género: Música ");
                     switch (searchedPiece.Gender)
                     {
                         case Gender.Classical:
