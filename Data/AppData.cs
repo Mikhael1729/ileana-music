@@ -8,9 +8,9 @@ namespace IleanaMusic.Data
     public class AppData
     {
         private static readonly Lazy<AppData> instance = new Lazy<AppData>(() => new AppData());
+        
         public List<Piece> PieceList;
         public List<Playlist> Playlists;
-
         public PieceService PieceService;
 
         private AppData()
