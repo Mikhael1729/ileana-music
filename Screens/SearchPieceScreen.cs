@@ -46,56 +46,7 @@ namespace IleanaMusic
                 {
                     WriteLine(">> ¡Pieza encontrada!\n");
 
-                    WriteLine($"  ID: {searchedPiece.Id}");
-                    WriteLine($"1. Nombre: {searchedPiece.Name}");
-                    WriteLine($"2. Artista: {searchedPiece.Artist}");
-                    WriteLine($"3. Álbum: {searchedPiece.Album}");
-                    Write($"4. Género: Música ");
-                    switch (searchedPiece.Gender)
-                    {
-                        case Gender.Classical:
-                            Write("Clásica");
-                            break;
-                        case Gender.Raggeton:
-                            Write("Raggeton");
-                            break;
-                        case Gender.Rock:
-                            Write("Rock");
-                            break;
-                    }
-
-                    WriteLine("");
-
-                    WriteLine($"- Duración: {searchedPiece.Duration} minutos");
-
-                    Write($"- Calidad: ");
-                    switch (searchedPiece.Quality)
-                    {
-                        case Quality.High:
-                            Write("Alta");
-                            break;
-                        case Quality.Low:
-                            Write("Baja");
-                            break;
-                        case Quality.Medium:
-                            Write("Media");
-                            break;
-                    }
-
-                    WriteLine("");
-
-                    Write("- Formato: ");
-                    switch (searchedPiece.Format)
-                    {
-                        case MusicFormat.Mp3:
-                            Write("Mp3");
-                            break;
-                        case MusicFormat.Mp4:
-                            Write("Mp4");
-                            break;
-                    }
-
-                    WriteLine("");
+                   searchedPiece.Print();
                 }
                 else
                 {

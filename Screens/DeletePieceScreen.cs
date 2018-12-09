@@ -6,40 +6,38 @@ using IleanaMusic.Data.Services;
 using IleanaMusic.Models;
 using static System.Console;
 
-namespace IleanaMusic 
+namespace IleanaMusic
 {
-    public class DeletePieceScreen 
+    public class DeletePieceScreen
     {
         PieceService pieceService = AppData.Instance.PieceService;
 
-        public DeletePieceScreen() 
+        public DeletePieceScreen()
         {
             // Title
             WriteLine(
                 "Borrar una canción\n"
-               +"------------------\n");
+               + "------------------\n");
 
 
             // Requesting Id.
             int pieceId = 0;
             Piece piece = null;
 
-            while(pieceId == 0) 
-            {
-                Write("- ID de la canción: ");  
 
-                if(Int32.TryParse(ReadLine(), out pieceId))
-                    piece = pieceService.Get(pieceId);
-            }
+            Write("- Escribe el ID de la pieza a eliminar: ");
 
-            if(piece != null) 
+            if (Int32.TryParse(ReadLine(), out pieceId))
+                piece = pieceService.Get(pieceId);
+
+            if (piece != null)
             {
+                WriteLine($"\n>> La pieza \"{piece.Name}\" ha sido eliminada <<");
                 pieceService.Delete(piece);
-                WriteLine("\n>> Canción eliminada <<\n");
             }
-            else 
+            else
             {
-                WriteLine("\n>> Canción no encontrada <<\n");
+                WriteLine("\n>> Pieza no encontrada <<\n");
             }
         }
     }
