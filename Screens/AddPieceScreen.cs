@@ -2,22 +2,23 @@ using static System.Console;
 using IleanaMusic.Models;
 using System;
 using IleanaMusic.Data;
+using IleanaMusic.Helpers;
 
 namespace IleanaMusic.Screens
 {
-    public class AddPieceScreen 
+    public class AddPieceScreen
     {
         Piece piece;
 
-        public AddPieceScreen() 
+        public AddPieceScreen()
         {
             var pieceList = AppData.Instance.PieceList;
 
             piece = new Piece();
 
-            WriteLine("Agregar nueva pieza\n" 
+            WriteLine("Agregar nueva pieza\n"
                     + "-------------------\n");
-            
+
             Write("- Nombre: ");
             piece.Name = ReadLine();
 
@@ -29,25 +30,25 @@ namespace IleanaMusic.Screens
 
 
             int genderOption = 0;
-            while(genderOption == 0 && genderOption < 3)
+            while (genderOption == 0 && genderOption < 3)
             {
                 WriteLine("- Género: ");
-                Write("    1. Música clásica: \n" + 
-                        "    2. Rock: \n" + 
+                Write("    1. Música clásica: \n" +
+                        "    2. Rock: \n" +
                         "    3. Raggeton:\n\n" +
                         "    Escoje [1-3]: ");
 
-                if(Int32.TryParse(ReadLine(), out genderOption))
+                if (Int32.TryParse(ReadLine(), out genderOption))
                 {
                     switch (genderOption)
                     {
                         case 1:
                             piece.Gender = Gender.Classical;
                             break;
-                        case 2: 
+                        case 2:
                             piece.Gender = Gender.Raggeton;
                             break;
-                        case 3: 
+                        case 3:
                             piece.Gender = Gender.Rock;
                             break;
                     }
@@ -55,55 +56,77 @@ namespace IleanaMusic.Screens
             }
 
             double duration = 0;
-            while(duration == 0) 
+            while (duration == 0)
             {
                 Write("- Duración: ");
 
-                if(Double.TryParse(ReadLine(), out duration)) 
+                if (Double.TryParse(ReadLine(), out duration))
                     piece.Duration = duration;
             }
 
 
             var quality = 0;
-            while(quality == 0) 
+            while (quality == 0)
             {
-                Write("- Calidad: \n" 
+                Write("- Calidad: \n"
                         + "    1. Baja. \n"
                         + "    2. Media\n"
                         + "    3. Alta \n\n"
                         + "    Escoje [1-3]: ");
-                
-                if(Int32.TryParse(ReadLine(), out quality))
+
+                if (Int32.TryParse(ReadLine(), out quality))
                 {
                     switch (quality)
                     {
-                        case 1: 
+                        case 1:
                             piece.Quality = Quality.Low;
                             break;
-                        case 2: 
+                        case 2:
                             piece.Quality = Quality.Medium;
                             break;
-                        case 3: 
+                        case 3:
                             piece.Quality = Quality.High;
                             break;
                     }
                 }
             }
 
+            // Format.
+            var formatOption = 0;
+            var writer = new ConsoleWriter(0);
+            writer.Write("- Formato: \n");
+            writer.Write(text: "1. Mp3\n", indent: 1);
+            writer.Write(text: "2. Mp4\n\n", indent: 1);
+            writer.Write(text: "Escoge [1-2]: ", indent: 1);
+
+            if (Int32.TryParse(ReadLine(), out formatOption))
+            {
+                switch (formatOption)
+                {
+                    case 1:
+                        piece.Format = MusicFormat.Mp3;
+                        break;
+                    case 2:
+                        piece.Format = MusicFormat.Mp4;
+                        break;
+                }
+            }
+
             // Adding id.
             var id = 1;
 
-            if(pieceList.Count > 0) {
-                id = pieceList[pieceList.Count-1].Id + 1;
+            if (pieceList.Count > 0)
+            {
+                id = pieceList[pieceList.Count - 1].Id + 1;
             }
 
             piece.Id = id;
             pieceList.Add(piece);
-          
+
             WriteLine("\n-->> Pieza agregada <<--\n");
         }
 
-        public Piece Data() 
+        public Piece Data()
         {
             return piece;
         }
