@@ -19,13 +19,21 @@ namespace IleanaMusic.Models
             return Name;
         }
 
-        public void Print()
+        public void Print(bool withNumeration = false, int spaceQuantity = 0)
         {
-            WriteLine($"- ID: {Id}");
-            WriteLine($"  Nombre: {Name}");
-            WriteLine($"  Artista: {Artist}");
-            WriteLine($"  Álbum: {Album}");
-            Write($"  Género: Música ");
+            var spaces = "";
+            for(int i = 0; i < spaceQuantity; i++) {
+                spaces += " ";
+            }
+            
+            var option = withNumeration;
+
+            WriteLine(!option ? $"{spaces}- ID: {Id}" : $"{spaces}   ID: {Id}");
+            WriteLine(!option ? $"{spaces}  Nombre: {Name}" : $"{spaces}1. Nombre: {Name}");
+            WriteLine(!option ? $"{spaces}  Artista: {Artist}" : $"{spaces}2. Artista: {Artist}");
+            WriteLine(!option ? $"{spaces}  Álbum: {Album}" : $"{spaces}3. Álbum: {Album}");
+
+            Write(!option ? $"{spaces}  Género: " : $"{spaces}4. Género: ");
             switch (Gender)
             {
                 case Gender.Classical:
@@ -41,9 +49,9 @@ namespace IleanaMusic.Models
 
             WriteLine("");
 
-            WriteLine($"  Duración: {Duration} minutos");
+            WriteLine(!option ? $"{spaces}  Duración: {Duration} minutos" : $"{spaces}5. Duración: {Duration} minutos");
 
-            Write($"  Calidad: ");
+            Write(!option ? $"{spaces}  Calidad: " : $"{spaces}6. Calidad");
             switch (Quality)
             {
                 case Quality.High:
@@ -59,7 +67,7 @@ namespace IleanaMusic.Models
 
             WriteLine("");
 
-            Write("  Formato: ");
+            Write(!option ? $"{spaces}  Formato: " : $"{spaces}7. Formato: ");
             switch (Format)
             {
                 case MusicFormat.Mp3:
@@ -72,5 +80,6 @@ namespace IleanaMusic.Models
 
             WriteLine("");
         }
+    
     }
 }
