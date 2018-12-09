@@ -25,7 +25,7 @@ namespace IleanaMusic.Models
             for(int i = 0; i < spaceQuantity; i++) {
                 spaces += " ";
             }
-            
+
             var option = withNumeration;
 
             WriteLine(!option ? $"{spaces}- ID: {Id}" : $"{spaces}   ID: {Id}");
@@ -51,7 +51,7 @@ namespace IleanaMusic.Models
 
             WriteLine(!option ? $"{spaces}  Duración: {Duration} minutos" : $"{spaces}5. Duración: {Duration} minutos");
 
-            Write(!option ? $"{spaces}  Calidad: " : $"{spaces}6. Calidad");
+            Write(!option ? $"{spaces}  Calidad: " : $"{spaces}6. Calidad: ");
             switch (Quality)
             {
                 case Quality.High:
