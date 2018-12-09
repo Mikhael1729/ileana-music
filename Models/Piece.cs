@@ -3,9 +3,8 @@ using static System.Console;
 
 namespace IleanaMusic.Models
 {
-    public class Piece
+    public class Piece : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Artist { get; set; }
         public string Album { get; set; }

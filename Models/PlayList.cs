@@ -3,9 +3,8 @@ using IleanaMusic.Models;
 
 namespace IleanaMusic.Models
 {
-    public class Playlist 
+    public class Playlist : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Logo { get; set; }
         public List<Piece> PieceList { get; set; } = new List<Piece>();
