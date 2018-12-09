@@ -82,98 +82,17 @@ namespace IleanaMusic.Models
             WriteLine("");
         }
 
-        public void Request()
+        public void RequestAll(ConsoleWriter consoleWriter = null)
         {
-            Write("- Nombre: ");
-            Name = ReadLine();
+            var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
 
-            Write("- Artista: ");
-            Artist = ReadLine();
-
-            Write("- Álbum: ");
-            Album = ReadLine();
-
-            int genderOption = 0;
-            while (genderOption == 0 && genderOption < 3)
-            {
-                WriteLine("- Género: ");
-                Write("    1. Música clásica: \n" +
-                        "    2. Rock: \n" +
-                        "    3. Raggeton:\n\n" +
-                        "    Escoje [1-3]: ");
-
-                if (Int32.TryParse(ReadLine(), out genderOption))
-                {
-                    switch (genderOption)
-                    {
-                        case 1:
-                            Gender = Gender.Classical;
-                            break;
-                        case 2:
-                            Gender = Gender.Raggeton;
-                            break;
-                        case 3:
-                            Gender = Gender.Rock;
-                            break;
-                    }
-                }
-            }
-
-            double duration = 0;
-            while (duration == 0)
-            {
-                Write("- Duración: ");
-
-                if (Double.TryParse(ReadLine(), out duration))
-                    Duration = duration;
-            }
-
-            var quality = 0;
-            while (quality == 0)
-            {
-                Write("- Calidad: \n"
-                        + "    1. Baja. \n"
-                        + "    2. Media\n"
-                        + "    3. Alta \n\n"
-                        + "    Escoje [1-3]: ");
-
-                if (Int32.TryParse(ReadLine(), out quality))
-                {
-                    switch (quality)
-                    {
-                        case 1:
-                            Quality = Quality.Low;
-                            break;
-                        case 2:
-                            Quality = Quality.Medium;
-                            break;
-                        case 3:
-                            Quality = Quality.High;
-                            break;
-                    }
-                }
-            }
-
-            // Format.
-            var formatOption = 0;
-            var writer = new ConsoleWriter(0);
-            writer.Write("- Formato: \n");
-            writer.Write(text: "1. Mp3\n", indent: 1);
-            writer.Write(text: "2. Mp4\n\n", indent: 1);
-            writer.Write(text: "Escoge [1-2]: ", indent: 1);
-
-            if (Int32.TryParse(ReadLine(), out formatOption))
-            {
-                switch (formatOption)
-                {
-                    case 1:
-                        Format = MusicFormat.Mp3;
-                        break;
-                    case 2:
-                        Format = MusicFormat.Mp4;
-                        break;
-                }
-            }
+            RequestName(writer);
+            RequestArtist(writer);
+            RequestAlbum(writer);
+            RequestGender(writer);
+            RequestDuration(writer);
+            RequestQuality(writer);
+            RequestFormat(writer);
         }
 
         public void RequestName(ConsoleWriter consoleWriter = null)
@@ -194,7 +113,7 @@ namespace IleanaMusic.Models
         {
             var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
 
-            writer.Write("- Álbum");
+            writer.Write("- Álbum: ");
             Album = ReadLine();
         }
         public void RequestGender(ConsoleWriter consoleWriter = null)

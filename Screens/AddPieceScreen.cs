@@ -19,7 +19,7 @@ namespace IleanaMusic.Screens
             WriteLine("Agregar nueva pieza\n"
                     + "-------------------\n");
 
-            piece.Request();
+            piece.RequestAll();
 
             // Adding id.
             pieceService.Add(piece);
