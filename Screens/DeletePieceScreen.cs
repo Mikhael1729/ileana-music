@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using IleanaMusic.Data;
+using IleanaMusic.Data.Services;
 using IleanaMusic.Models;
 using static System.Console;
 
@@ -9,7 +10,7 @@ namespace IleanaMusic
 {
     public class DeletePieceScreen 
     {
-        List<Piece> pieceList = AppData.Instance.PieceList;
+        PieceService pieceService = AppData.Instance.PieceService;
 
         public DeletePieceScreen() 
         {
@@ -28,14 +29,12 @@ namespace IleanaMusic
                 Write("- ID de la canción: ");  
 
                 if(Int32.TryParse(ReadLine(), out pieceId))
-                {
-                    piece = pieceList.Where(i => i.Id == pieceId).FirstOrDefault();
-                }      
+                    piece = pieceService.Get(pieceId);
             }
 
             if(piece != null) 
             {
-                pieceList.Remove(piece);
+                pieceService.Delete(piece);
                 WriteLine("\n>> Canción eliminada <<\n");
             }
             else 

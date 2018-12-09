@@ -20,56 +20,50 @@ namespace IleanaMusic.Screens
                 "Edita una canción\n"
                + "-----------------\n");
 
-            // Requesting Id.
-            int pieceId = 0;
-
             if (pieceList.Count > 0)
             {
-                while (pieceId == 0)
+
+                Write("Escribe el ID o el Nombre de tu canción: ");
+
+                string option;
+                string name = "";
+                int id = 0;
+
+                option = ReadLine();
+
+                WriteLine("");
+
+                // Si fue ID.
+                if (Int32.TryParse(option, out id))
                 {
-                    Write("Escribe el ID o el Nombre de tu canción: ");
+                    piece = (pieceList.Where(p => p.Id == id)).FirstOrDefault();
+                }
+                else  // Si fue nombre
+                {
+                    name = option;
+                    piece = (pieceList.Where(p => p.Name.ToLower() == name.ToLower())).FirstOrDefault();
+                }
 
-                    string option;
-                    string name = "";
-                    int id = 0;
+                if (piece != null)
+                {
+                    WriteLine(">> ¡Pieza encontrada!\n");
 
-                    option = ReadLine();
+                    // Printing piece.
+                    piece.Print(withNumeration: true, spaceQuantity: 3);
+
+                    var writer = new ConsoleWriter(3);
+
+                    writer.Write(text: "¿Qué campos quieres editar? (separa con coma): ", spaceBefore: true);
+                    var options = ReadLine();
+                    var selected = options.Split(',');
 
                     WriteLine("");
 
-                    // Si fue ID.
-                    if (Int32.TryParse(option, out id))
-                    {
-                        piece = (pieceList.Where(p => p.Id == id)).FirstOrDefault();
-                    }
-                    else  // Si fue nombre
-                    {
-                        name = option;
-                        piece = (pieceList.Where(p => p.Name.ToLower() == name.ToLower())).FirstOrDefault();
-                    }
-
-                    if (piece != null)
-                    {
-                        pieceId = piece.Id;
-                        WriteLine(">> ¡Pieza encontrada!\n");
-
-                        // Printing piece.
-                        piece.Print(withNumeration: true, spaceQuantity: 3);
-
-                        var writer = new ConsoleWriter(3);
-
-                        writer.Write(text:"¿Qué campos quieres editar? (separa con coma): ", spaceBefore: true);
-                        var options = ReadLine();
-                        var selected = options.Split(',');
-
-                        WriteLine("");
-
-                        RequestPieceData(selected, writer);
-                    }
-                    else
-                    {
-                        WriteLine("\n>> Canción no encontrada <<\n");
-                    }
+                    RequestPieceData(selected, writer);
+                }
+                else
+                {
+                    WriteLine("\n>> Canción no encontrada <<\n");
                 }
             }
             else
@@ -113,7 +107,7 @@ namespace IleanaMusic.Screens
             }
 
             writer.Write(
-                text: "-->> Pieza editada <<--\n", 
+                text: "-->> Pieza editada <<--\n",
                 spaceBefore: true,
                 cancelSpace: true
             );
