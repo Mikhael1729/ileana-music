@@ -175,5 +175,123 @@ namespace IleanaMusic.Models
                 }
             }
         }
+
+        public void RequestName(ConsoleWriter consoleWriter = null)
+        {
+            var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
+
+            writer.Write("- Nombre: ");
+            Name = ReadLine();
+        }
+        public void RequestArtist(ConsoleWriter consoleWriter = null)
+        {
+            var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
+
+            writer.Write("- Artista: ");
+            Artist = ReadLine();
+        }
+        public void RequestAlbum(ConsoleWriter consoleWriter = null)
+        {
+            var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
+
+            writer.Write("- Álbum");
+            Album = ReadLine();
+        }
+        public void RequestGender(ConsoleWriter consoleWriter = null)
+        {
+            var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
+            int genderOption = 0;
+            while (genderOption == 0 && genderOption < 3)
+            {
+                writer.Write("- Género: \n");
+                writer.Write("    1. Música clásica\n");
+                writer.Write("    2. Rock: \n");
+                writer.Write("    3. Raggeton:\n\n");
+                writer.Write("    Escoje [1-3]: ");
+
+                if (Int32.TryParse(ReadLine(), out genderOption))
+                {
+                    switch (genderOption)
+                    {
+                        case 1:
+                            Gender = Gender.Classical;
+                            break;
+                        case 2:
+                            Gender = Gender.Rock;
+                            break;
+                        case 3:
+                            Gender = Gender.Raggeton;
+                            break;
+                    }
+                }
+            }
+        }
+        public void RequestDuration(ConsoleWriter consoleWriter = null)
+        {
+            var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
+
+            double duration = 0;
+            while (duration == 0)
+            {
+                writer.Write("- Duración: ");
+
+                if (Double.TryParse(ReadLine(), out duration))
+                    Duration = duration;
+            }
+        }
+        public void RequestQuality(ConsoleWriter consoleWriter = null)
+        {
+            var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
+
+            var quality = 0;
+            while (quality == 0)
+            {
+                writer.Write("- Calidad: \n");
+                writer.Write(text: $"1. Baja. \n", indent: 1);
+                writer.Write(text: $"2. Media\n", indent: 1);
+                writer.Write(text: $"3. Alta \n\n", indent: 1);
+                writer.Write(text: $"Escoje [1-3]: ", indent: 1);
+
+                if (Int32.TryParse(ReadLine(), out quality))
+                {
+                    switch (quality)
+                    {
+                        case 1:
+                            Quality = Quality.Low;
+                            break;
+                        case 2:
+                            Quality = Quality.Medium;
+                            break;
+                        case 3:
+                            Quality = Quality.High;
+                            break;
+                    }
+                }
+            }
+        }
+        public void RequestFormat(ConsoleWriter consoleWriter = null)
+        {
+            var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
+
+            var formatOption = 0;
+            writer.Write("- Formato: \n");
+            writer.Write(text: "1. Mp3\n", indent: 1);
+            writer.Write(text: "2. Mp4\n\n", indent: 1);
+            writer.Write(text: "Escoge [1-2]: ", indent: 1);
+
+            if (Int32.TryParse(ReadLine(), out formatOption))
+            {
+                switch (formatOption)
+                {
+                    case 1:
+                        Format = MusicFormat.Mp3;
+                        break;
+                    case 2:
+                        Format = MusicFormat.Mp4;
+                        break;
+                }
+            }
+        }
+
     }
 }
