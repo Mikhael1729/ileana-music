@@ -22,8 +22,7 @@ namespace IleanaMusic.Data.Repositories
 
             entity.Id = id;
             _data.List.Add(entity);
-
-            _data.SaveAll();
+            _data.Save();
 
             return entity;
         }

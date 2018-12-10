@@ -18,30 +18,7 @@ namespace IleanaMusic.Data.Services
         public PieceData()
         {
             InitializeDocument();
-            Add(new Piece {
-                Name = "First",
-                Artist = "Primero",
-                Album = "Mikhaeleano",
-                Gender = Gender.Classical,
-                Duration = 45,
-                Quality = Quality.High,
-                Format = MusicFormat.Mp4,
-            });
-
-            var query =
-                from element in _document.Element("PieceList")?.Elements("Piece")
-                select new Piece
-                {
-                    Name = element.Attribute("Name").Value,
-                    Artist = element.Attribute("Artist").Value,
-                    Album = element.Attribute("Album").Value,
-                    Gender = (Gender)Enum.Parse(typeof(Gender), element.Attribute("Gender").Value),
-                    Duration = Int32.Parse(element.Attribute("Duration").Value),
-                    Quality = (Quality)Enum.Parse(typeof(Quality), element.Attribute("Quality").Value),
-                    Format = (MusicFormat)Enum.Parse(typeof(MusicFormat), element.Attribute("Format").Value),
-                };
-
-            List = query.ToList();
+            List = GetAll();
         }
 
         void InitializeDocument()
@@ -63,8 +40,27 @@ namespace IleanaMusic.Data.Services
             }
         }
 
-        public void Add(Piece piece)
+        public List<Piece> GetAll()
         {
+            var query =
+                from element in _document.Element("PieceList")?.Elements("Piece")
+                select new Piece
+                {
+                    Name = element.Attribute("Name").Value,
+                    Artist = element.Attribute("Artist").Value,
+                    Album = element.Attribute("Album").Value,
+                    Gender = (Gender)Enum.Parse(typeof(Gender), element.Attribute("Gender").Value),
+                    Duration = Int32.Parse(element.Attribute("Duration").Value),
+                    Quality = (Quality)Enum.Parse(typeof(Quality), element.Attribute("Quality").Value),
+                    Format = (MusicFormat)Enum.Parse(typeof(MusicFormat), element.Attribute("Format").Value),
+                };
+
+            return query.ToList();
+        }
+
+        public Piece Save()
+        {
+            var piece = List[List.Count - 1];
             XElement pieceList = null;
 
             using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
@@ -93,6 +89,8 @@ namespace IleanaMusic.Data.Services
                     _document.Save(stream);
                 }
             }
+
+            return piece;
         }
 
         public void SaveAll()
@@ -118,5 +116,6 @@ namespace IleanaMusic.Data.Services
 
             document.Save(filePath);
         }
+
     }
 }
