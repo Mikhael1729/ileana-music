@@ -6,6 +6,7 @@ namespace IleanaMusic.Data
     {
         List<T> List { get; }
         T Save();
+        void Delete(T entity);
         List<T> GetAll();
         void SaveAll();
     }

@@ -43,17 +43,18 @@ namespace IleanaMusic.Data.Services
         public List<Piece> GetAll()
         {
             var query =
-                from element in _document.Element("PieceList")?.Elements("Piece")
-                select new Piece
-                {
-                    Name = element.Attribute("Name").Value,
-                    Artist = element.Attribute("Artist").Value,
-                    Album = element.Attribute("Album").Value,
-                    Gender = (Gender)Enum.Parse(typeof(Gender), element.Attribute("Gender").Value),
-                    Duration = Int32.Parse(element.Attribute("Duration").Value),
-                    Quality = (Quality)Enum.Parse(typeof(Quality), element.Attribute("Quality").Value),
-                    Format = (MusicFormat)Enum.Parse(typeof(MusicFormat), element.Attribute("Format").Value),
-                };
+            from element in _document.Element("PieceList")?.Elements("Piece")
+            select new Piece
+            {
+                Id = Int32.Parse(element.Attribute("Id").Value),
+                Name = element.Attribute("Name").Value,
+                Artist = element.Attribute("Artist").Value,
+                Album = element.Attribute("Album").Value,
+                Gender = (Gender)Enum.Parse(typeof(Gender), element.Attribute("Gender").Value),
+                Duration = Int32.Parse(element.Attribute("Duration").Value),
+                Quality = (Quality)Enum.Parse(typeof(Quality), element.Attribute("Quality").Value),
+                Format = (MusicFormat)Enum.Parse(typeof(MusicFormat), element.Attribute("Format").Value),
+            };
 
             return query.ToList();
         }
@@ -71,6 +72,7 @@ namespace IleanaMusic.Data.Services
                 var pieceElement = new XElement(
                     name: "Piece",
                     content: new[] {
+                        new XAttribute("Id", piece.Id),
                         new XAttribute("Name", piece.Name),
                         new XAttribute("Artist", piece.Artist),
                         new XAttribute("Album", piece.Album),
@@ -117,5 +119,24 @@ namespace IleanaMusic.Data.Services
             document.Save(filePath);
         }
 
+        public void Delete(Piece entity)
+        {
+            var query =
+              (from element in _document.Element("PieceList")?.Elements("Piece")
+               where Int32.Parse(element.Attribute("Id").Value) == entity.Id
+               select element).FirstOrDefault();
+
+            query.Remove();
+
+            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                using (Stream stream = storage.CreateFile(filePath))
+                {
+                    _document.Save(stream);
+                }
+            }
+
+            List.Remove(entity);
+        }
     }
 }

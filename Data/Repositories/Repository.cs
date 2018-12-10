@@ -34,7 +34,7 @@ namespace IleanaMusic.Data.Repositories
 
         public void Delete(T entity)
         {
-            _data.List.Remove(entity);
+            _data.Delete(entity);
         }
 
         public T Get(int id)
