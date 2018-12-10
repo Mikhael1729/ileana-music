@@ -10,5 +10,6 @@ namespace IleanaMusic.Data.Repositories
         T Add(T entity);
         T Update(T entity);
         void Delete(T entity);
+        int Count();
     }
 }

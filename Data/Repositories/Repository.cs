@@ -6,7 +6,7 @@ namespace IleanaMusic.Data.Repositories
 {
     public class BaseRepository<T> : IRepository<T> where T : BaseEntity
     {
-        IData<T> _data;
+        protected IData<T> _data;
         
         public BaseRepository(IData<T> data)
         {
@@ -28,6 +28,11 @@ namespace IleanaMusic.Data.Repositories
             return entity;
         }
 
+        public int Count()
+        {
+            return _data.List.Count;
+        }
+
         public void Delete(T entity)
         {
             _data.List.Remove(entity);
@@ -45,10 +50,18 @@ namespace IleanaMusic.Data.Repositories
 
         public T Update(T entity)
         {
-            var searchedEntity = _data.List.Where(d => d.Id == entity.Id).FirstOrDefault();
-            searchedEntity = entity;
+            var index = 0;
+            for (; index < Count(); index++)
+            {
+                if (_data.List[index].Id == entity.Id)
+                    break;
+            }
 
-            return searchedEntity;
+            _data.List[index] = entity;
+
+            _data.SaveAll();
+
+            return entity;
         }
     }
 }

@@ -19,6 +19,19 @@ namespace IleanaMusic.Models
             return Name;
         }
 
+        public Piece Clone() => (
+            new Piece 
+            {
+                Album = Album,
+                Artist = Artist,
+                Duration = Duration,
+                Quality = Quality,
+                Format = Format,
+                Gender = Gender,
+                Id = Id,
+                Name = Name,
+            });
+
         public void Print(bool withNumeration = false, int spaceQuantity = 0)
         {
             var spaces = "";

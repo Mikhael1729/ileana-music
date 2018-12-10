@@ -5,12 +5,13 @@ using IleanaMusic.Data;
 using IleanaMusic.Models;
 using static System.Console;
 using IleanaMusic.Helpers;
+using IleanaMusic.Data.Services;
 
 namespace IleanaMusic.Screens
 {
     public class EditPieceScreen
     {
-        List<Piece> pieceList = AppData.Instance.PieceService.GetAll();
+        PieceService pieceService = AppData.Instance.PieceService;
         Piece piece;
 
         public EditPieceScreen()
@@ -20,7 +21,7 @@ namespace IleanaMusic.Screens
                 "Edita una canción\n"
                + "-----------------\n");
 
-            if (pieceList.Count > 0)
+            if (pieceService.Count() > 0)
             {
 
                 Write("Escribe el ID o el Nombre de tu canción: ");
@@ -36,12 +37,14 @@ namespace IleanaMusic.Screens
                 // Si fue ID.
                 if (Int32.TryParse(option, out id))
                 {
-                    piece = (pieceList.Where(p => p.Id == id)).FirstOrDefault();
+                    var searchedPiece = pieceService.Get(id);
+                    piece = searchedPiece.Clone();
                 }
                 else  // Si fue nombre
                 {
                     name = option;
-                    piece = (pieceList.Where(p => p.Name.ToLower() == name.ToLower())).FirstOrDefault();
+                    var searchedPiece = pieceService.Find((Piece piece) => piece.Name.ToLower() == name.ToLower());
+                    piece = searchedPiece.Clone();
                 }
 
                 if (piece != null)
@@ -51,14 +54,17 @@ namespace IleanaMusic.Screens
                     // Printing piece.
                     piece.Print(withNumeration: true, spaceQuantity: 3);
 
+                    // Writer.
                     var writer = new ConsoleWriter(3);
 
+                    // Selecting fields to edit.
                     writer.Write(text: "¿Qué campos quieres editar? (separa con coma): ", spaceBefore: true);
                     var options = ReadLine();
                     var selected = options.Split(',');
 
                     WriteLine("");
 
+                    // Requesting selected fields to edit.
                     RequestPieceData(selected, writer);
                 }
                 else
@@ -105,6 +111,8 @@ namespace IleanaMusic.Screens
                         break;
                 }
             }
+
+            pieceService.Update(piece);
 
             writer.Write(
                 text: "-->> Pieza editada <<--\n",
