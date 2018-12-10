@@ -16,10 +16,10 @@ namespace IleanaMusic.Data.Services
 
         public PieceData()
         {
-            _document = XDocument.Load("Pieces.xml");
-            
+            InitializeDocument();
+
             var query =
-                from element in _document.Element("PieceList").Elements("Piece")
+                from element in _document.Element("PieceList")?.Elements("Piece")
                 select new Piece
                 {
                     Name = element.Attribute("Name").Value,
@@ -34,47 +34,61 @@ namespace IleanaMusic.Data.Services
             List = query.ToList();
         }
 
+        void InitializeDocument()
+        {
+            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Pieces.xml");
+
+                // Uploading existing .xml file.
+                if (storage.FileExists(filePath))
+                {
+                    using (var stream = storage.OpenFile(filePath, FileMode.Open))
+                    {
+                        _document = XDocument.Load(stream);
+                    }
+                }
+                else
+                {
+                    _document = new XDocument();
+                }
+            }
+        }
+
         public void Add(Piece piece)
         {
             XElement pieceList = null;
 
             using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                // Uploading existing .xml file.
-                if (storage.FileExists("Pieces.xml"))
-                {
-                    using (var stream = storage.OpenFile("Pieces.xml", FileMode.Open))
-                    {
-                        _document = XDocument.Load(stream);
+                // Getting PieceList node.
+                pieceList = _document.Descendants("PieceList").FirstOrDefault();
+
+                var pieceElement = new XElement(
+                    name: "Piece",
+                    content: new[] {
+                        new XAttribute("Name", piece.Name),
+                        new XAttribute("Artist", piece.Artist),
+                        new XAttribute("Album", piece.Album),
+                        new XAttribute("Gender", piece.Gender),
+                        new XAttribute("Duration", piece.Duration),
+                        new XAttribute("Quality", piece.Quality),
+                        new XAttribute("Format", piece.Format)
                     }
+                );
 
-                    // Getting PieceList node.
-                    pieceList = _document.Descendants("PieceList").FirstOrDefault();
-                }
-                else
-                {
-                    _document = new XDocument();
-                }
-
-                // Creating PieceList node if no exist.
+                // If exists, add the new piece to descendatants
                 if (pieceList != null)
                 {
-                    pieceList.Add(new XElement(
-                          name: "Piece",
-                          content: new[] {
-                                new XAttribute("Name", piece.Name),
-                                new XAttribute("Artist", piece.Artist),
-                                new XAttribute("Album", piece.Album),
-                                new XAttribute("Gender", piece.Gender),
-                                new XAttribute("Duration", piece.Duration),
-                                new XAttribute("Quality", piece.Quality),
-                                new XAttribute("Format", piece.Format)
-                          })
-                    );
+                    pieceList.Add(pieceElement);
                 }
                 else
                 {
-                    pieceList = new XElement("PieceList");
+                    pieceList = new XElement(
+                        name: "PieceList", 
+                        content: new [] { pieceElement }
+                    );
+
                     _document.Add(pieceList);
                 }
 
@@ -83,8 +97,6 @@ namespace IleanaMusic.Data.Services
                     _document.Save(stream);
                 }
             }
-
-
         }
 
         public void SaveAll()
