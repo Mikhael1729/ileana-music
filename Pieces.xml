@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PieceList>
-  <Piece Name="Mikhael!!" Artist="Artista 1" Album="Album 1" Gender="Classical" Duration="23" Quality="High" Format="Mp3" />
-  <Piece Name="Pieza 2" Artist="Artista 2" Album="Album 2" Gender="Classical" Duration="23" Quality="High" Format="Mp3" />
+  <Piece Name="First" Artist="Primero" Album="Mikhaeleano" Gender="Classical" Duration="45" Quality="High" Format="Mp4" />
 </PieceList>

@@ -13,10 +13,20 @@ namespace IleanaMusic.Data.Services
     {
         public List<Piece> List { get; } = new List<Piece>();
         XDocument _document;
+        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Pieces.xml");
 
         public PieceData()
         {
             InitializeDocument();
+            Add(new Piece {
+                Name = "First",
+                Artist = "Primero",
+                Album = "Mikhaeleano",
+                Gender = Gender.Classical,
+                Duration = 45,
+                Quality = Quality.High,
+                Format = MusicFormat.Mp4,
+            });
 
             var query =
                 from element in _document.Element("PieceList")?.Elements("Piece")
@@ -38,8 +48,6 @@ namespace IleanaMusic.Data.Services
         {
             using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Pieces.xml");
-
                 // Uploading existing .xml file.
                 if (storage.FileExists(filePath))
                 {
@@ -50,7 +58,7 @@ namespace IleanaMusic.Data.Services
                 }
                 else
                 {
-                    _document = new XDocument();
+                    _document = new XDocument(new XElement("PieceList"));
                 }
             }
         }
@@ -62,7 +70,7 @@ namespace IleanaMusic.Data.Services
             using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
                 // Getting PieceList node.
-                pieceList = _document.Descendants("PieceList").FirstOrDefault();
+                pieceList = _document.Descendants("PieceList")?.FirstOrDefault();
 
                 var pieceElement = new XElement(
                     name: "Piece",
@@ -78,21 +86,9 @@ namespace IleanaMusic.Data.Services
                 );
 
                 // If exists, add the new piece to descendatants
-                if (pieceList != null)
-                {
-                    pieceList.Add(pieceElement);
-                }
-                else
-                {
-                    pieceList = new XElement(
-                        name: "PieceList", 
-                        content: new [] { pieceElement }
-                    );
+                pieceList?.Add(pieceElement);
 
-                    _document.Add(pieceList);
-                }
-
-                using (Stream stream = storage.CreateFile("Pieces.xml"))
+                using (Stream stream = storage.CreateFile(filePath))
                 {
                     _document.Save(stream);
                 }
@@ -120,7 +116,7 @@ namespace IleanaMusic.Data.Services
                   )
             ));
 
-            document.Save("Pieces.xml");
+            document.Save(filePath);
         }
     }
 }
