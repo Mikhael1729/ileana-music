@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Linq;
 using IleanaMusic.Helpers;
 using static System.Console;
 
@@ -17,6 +18,21 @@ namespace IleanaMusic.Models
         public override string ToString()
         {
             return Name;
+        }
+
+        internal static Piece ConvertFromXElement(XElement element) 
+        {
+            return new Piece
+            {
+                Id = Int32.Parse(element.Attribute("Id").Value),
+                Name = element.Attribute("Name").Value,
+                Artist = element.Attribute("Artist").Value,
+                Album = element.Attribute("Album").Value,
+                Gender = (Gender)Enum.Parse(typeof(Gender), element.Attribute("Gender").Value),
+                Duration = Int32.Parse(element.Attribute("Duration").Value),
+                Quality = (Quality)Enum.Parse(typeof(Quality), element.Attribute("Quality").Value),
+                Format = (MusicFormat)Enum.Parse(typeof(MusicFormat), element.Attribute("Format").Value),
+            };
         }
 
         public Piece Clone() => (

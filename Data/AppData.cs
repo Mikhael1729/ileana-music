@@ -15,7 +15,7 @@ namespace IleanaMusic.Data
         private AppData()
         {
             Playlists = new List<Playlist>();
-            PieceService = new PieceService(new PieceData());
+            PieceService = new PieceService("Pieces.xml");
         }
 
         public static AppData Instance
