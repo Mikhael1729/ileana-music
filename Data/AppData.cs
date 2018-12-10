@@ -9,14 +9,15 @@ namespace IleanaMusic.Data
     {
         private static readonly Lazy<AppData> instance = new Lazy<AppData>(() => new AppData());
         
-        public List<Piece> PieceList;
         public List<Playlist> Playlists;
         public PieceService PieceService;
+        private PieceData PieceData = new PieceData();
 
         private AppData()
         {
-            PieceList = new List<Piece>()
-            {
+            Playlists = new List<Playlist>();
+            
+            PieceData.List.Add(
                 new Piece() {
                     Id = 1,
                     Name = "Pieza 1",
@@ -26,7 +27,9 @@ namespace IleanaMusic.Data
                     Quality = Quality.High,
                     Format = MusicFormat.Mp3,
                     Gender = Gender.Classical
-                },
+            });
+
+            PieceData.List.Add(
                 new Piece() {
                     Id = 2,
                     Name = "Pieza 2",
@@ -36,12 +39,9 @@ namespace IleanaMusic.Data
                     Quality = Quality.High,
                     Format = MusicFormat.Mp3,
                     Gender = Gender.Classical
-                },
-            };
-
-            Playlists = new List<Playlist>();
+            });
             
-            PieceService = new PieceService(data: PieceList);
+            PieceService = new PieceService(PieceData);
         }
 
         public static AppData Instance
