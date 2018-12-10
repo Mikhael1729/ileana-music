@@ -9,7 +9,7 @@ namespace IleanaMusic.Screens
 {
     public class PieceList
     {
-        List<Piece> pieces = AppData.Instance.PieceList;
+        List<Piece> pieces = AppData.Instance.PieceService.GetAll();
 
         public PieceList()
         {
@@ -19,7 +19,7 @@ namespace IleanaMusic.Screens
 
             if (pieces.Count > 0)
             {
-                foreach (var piece in AppData.Instance.PieceList)
+                foreach (var piece in pieces)
                 {
                     piece.Print();
                     WriteLine("");

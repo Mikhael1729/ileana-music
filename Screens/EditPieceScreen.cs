@@ -10,7 +10,7 @@ namespace IleanaMusic.Screens
 {
     public class EditPieceScreen
     {
-        List<Piece> pieceList = AppData.Instance.PieceList;
+        List<Piece> pieceList = AppData.Instance.PieceService.GetAll();
         Piece piece;
 
         public EditPieceScreen()

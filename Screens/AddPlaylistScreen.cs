@@ -10,7 +10,7 @@ namespace IleanaMusic.Screens
     public class AddPlayListScreen
     {
         Playlist playlist = new Playlist();
-        List<Piece> pieceList = AppData.Instance.PieceList;
+        List<Piece> pieceList = AppData.Instance.PieceService.GetAll();
 
         public AddPlayListScreen()
         {

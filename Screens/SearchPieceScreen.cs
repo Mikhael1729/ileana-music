@@ -10,7 +10,7 @@ namespace IleanaMusic
 {
     public class SearchPieceScreen
     {
-        List<Piece> pieceList = AppData.Instance.PieceList;
+        List<Piece> pieceList = AppData.Instance.PieceService.GetAll();
         Piece searchedPiece;
 
         public SearchPieceScreen()

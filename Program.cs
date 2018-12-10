@@ -42,7 +42,7 @@ namespace IleanaMusic
                             6. Buscar pieza en playlist
                             7. <<-- Ir atrás
                          */
-                        if (AppData.Instance.PieceList.Count > 0)
+                        if (AppData.Instance.PieceService.GetAll().Count > 0)
                         {
                             while (playlistsOption != 7)
                             {

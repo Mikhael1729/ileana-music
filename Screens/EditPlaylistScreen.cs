@@ -11,7 +11,7 @@ namespace IleanaMusic.Screens
     public class EditPlayListScreen
     {
         List<Playlist> playlists = AppData.Instance.Playlists;
-        List<Piece> pieceList = AppData.Instance.PieceList;
+        List<Piece> pieceList = AppData.Instance.PieceService.GetAll();
 
         public EditPlayListScreen()
         {
