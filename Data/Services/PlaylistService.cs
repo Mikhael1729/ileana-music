@@ -13,6 +13,7 @@ namespace IleanaMusic.Data.Services
         string _filePath;
         string _rootNode;
         string _playlistNode;
+        int count;
         XDocument _document;
 
         public PlaylistService(string fileName)
@@ -20,6 +21,7 @@ namespace IleanaMusic.Data.Services
             _filePath = Path.Combine(Directory.GetCurrentDirectory(), fileName);
             _rootNode = "Playlists";
             _playlistNode = "Playlist";
+            count = 0;
             InitializeDocument();
         }
 
@@ -33,6 +35,7 @@ namespace IleanaMusic.Data.Services
                     using (var stream = storage.OpenFile(_filePath, FileMode.Open))
                     {
                         _document = XDocument.Load(stream);
+                        this.count = GetAll().Count;
                     }
                 }
                 else
@@ -97,16 +100,19 @@ namespace IleanaMusic.Data.Services
                 }
             }
 
+            this.count++;
+
             return entity;
         }
 
         public int Count()
         {
-            throw new System.NotImplementedException();
+            return count;
         }
 
         public void Delete(Playlist entity)
         {
+            this.count--;
             throw new System.NotImplementedException();
         }
 
