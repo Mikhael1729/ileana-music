@@ -70,7 +70,7 @@ namespace IleanaMusic.Screens
                         }
                         else if (n == 3)
                         {
-                            PlaylistFragments.RequestPieces(ref searchedPlaylist);
+                            PlaylistFragments.EditPlaylistPieces(ref searchedPlaylist);
                         }
                     }
 

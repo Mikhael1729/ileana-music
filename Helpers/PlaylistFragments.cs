@@ -10,8 +10,9 @@ namespace IleanaMusic.Helpers
     public class PlaylistFragments
     {
         static PieceService pieceService = AppData.Instance.PieceService;
+        static PlaylistService playlistService = AppData.Instance.PlaylistService;
 
-        public PlaylistFragments() 
+        public PlaylistFragments()
         {
         }
 
@@ -43,7 +44,7 @@ namespace IleanaMusic.Helpers
             foreach (var piece in playlist.PieceList)
             {
                 writer.WriteLine(
-                    text:$"- ID: {piece.Id}, Nombre: {piece.Name}",
+                    text: $"- ID: {piece.Id}, Nombre: {piece.Name}",
                     indent: indent);
             }
         }
@@ -52,7 +53,7 @@ namespace IleanaMusic.Helpers
         {
             var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
 
-            writer.Write(text:"- Nombre: ", indent:indent);
+            writer.Write(text: "- Nombre: ", indent: indent);
             playlist.Name = ReadLine();
         }
 
@@ -60,7 +61,7 @@ namespace IleanaMusic.Helpers
         {
             var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
 
-            writer.Write(text:"- Logo: ", indent: indent);
+            writer.Write(text: "- Logo: ", indent: indent);
             playlist.Logo = ReadLine();
         }
 
@@ -68,23 +69,23 @@ namespace IleanaMusic.Helpers
         {
             var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
 
-            writer.Write("- Escribe los IDs de las piezas que quieres agregar a la playlist: \n", indent: indent+1);
+            writer.Write("- Escribe los IDs de las piezas que quieres agregar a la playlist: \n", indent: indent + 1);
             writer.Write(
                 text: ">> Lista de piezas: \n",
-                indent: indent+2);
+                indent: indent + 2);
 
             // Printing pieces.
             foreach (var piece in pieceService.GetAll())
                 writer.Write(
                     text: $"- Id: {piece.Id}, Nombre: {piece.Name}\n",
-                    indent: indent+3);
+                    indent: indent + 3);
 
             WriteLine("");
 
             // Requestin piece IDs.
             writer.Write(
                 text: ">> Escribe el id de las piezas a gregar (separados por coma): ",
-                indent: indent+2);
+                indent: indent + 2);
 
             // Procesing.
             var ids = ReadLine();
@@ -99,6 +100,76 @@ namespace IleanaMusic.Helpers
                 if (piece != null)
                 {
                     playlist.PieceList.Add(piece);
+                }
+            }
+        }
+
+        public static void EditPlaylistPieces(ref Playlist playlist, ConsoleWriter consoleWriter = null, int indent = 0)
+        {
+            var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
+
+            writer.WriteLine(
+                text: "- ¿Qué deseas hacer?: \n",
+                indent: indent + 1);
+
+            writer.WriteLine(
+                text: "1. Agregar pieza",
+                indent: indent + 2);
+
+            writer.WriteLine(
+                text:"2. Eliminar pieza\n",
+                indent:indent+2
+            );
+
+            writer.Write(
+                text: "- Escoge [1 y/o 2]: ",
+                indent: indent + 2);
+
+            var options = ReadLine();
+            var separated = options.Split(',');
+
+            WriteLine("");
+            foreach (var i in separated)
+            {
+                var n = Convert.ToInt32(i.Trim());
+                // If you want to add a new piece to playlist.
+                if (n == 1)
+                {
+                    writer.Write(
+                        text: "Agregar piezas (escribe sus id, separados por coma): ",
+                        indent: indent + 3
+                    );
+
+                    var pieceIds = ReadLine();
+                    var pieceIdsSplited = pieceIds.Split(',');
+
+                    foreach (var pieceId in pieceIdsSplited)
+                    {
+                        var piece = pieceService.Get(Convert.ToInt32(pieceId.Trim()));
+
+                        if (piece != null)
+                            playlist.PieceList.Add(piece);
+                    }
+                }
+                // If you want to remove a piece from playlist.PieceList.
+                else if (n == 2)
+                {
+                    WriteLine("");
+                    writer.Write(
+                        text: "- Eliminar piezas (escribe sus id, separados por coma): ",
+                        indent: indent + 3
+                    );
+
+                    var pieceIds = ReadLine();
+                    var pieceIdsSplited = pieceIds.Split(',');
+
+                    foreach (var pieceId in pieceIdsSplited)
+                    {
+                        var piece = pieceService.Get(Convert.ToInt32(pieceId.Trim()));
+
+                        if (piece != null)
+                            playlist.PieceList.Remove(piece);
+                    }
                 }
             }
         }
