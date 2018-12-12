@@ -8,14 +8,15 @@ namespace IleanaMusic.Helpers
 {
     public static class PlaylistFragments
     {
-        public static void PrintPlaylist(Playlist playlist, ConsoleWriter consoleWriter = null)
+        public static void PrintPlaylist(Playlist playlist, ConsoleWriter consoleWriter = null, bool withNumeration = false)
         {
             var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
+            var option = withNumeration;
 
-            writer.Write($"- ID: {playlist.Id}\n");
-            writer.Write($"  Logo: {playlist.Logo}\n");
-            writer.Write($"  Nombre: {playlist.Name}\n");
-            writer.Write($"  Cantidad de canciones: {playlist.PieceList.Count}\n");
+            writer.Write($"{(!option ? "- " : "   ")}ID: {playlist.Id}\n");
+            writer.Write($"{(!option ? "  " : "1. ")}Logo: {playlist.Logo}\n");
+            writer.Write($"{(!option ? "  " : "2. ")}Nombre: {playlist.Name}\n");
+            writer.Write($"{(!option ? "  " : "3. ")}Cantidad de canciones: {playlist.PieceList.Count}\n");
         }
 
         public static void RequestName(ref Playlist playlist, ConsoleWriter consoleWriter = null)
