@@ -106,6 +106,10 @@ namespace IleanaMusic.Helpers
 
         public static void EditPlaylistPieces(ref Playlist playlist, ConsoleWriter consoleWriter = null, int indent = 0)
         {
+
+            for (int i = 0; i < playlist.PieceList.Count; i++)
+                playlist.PieceList[i] = pieceService.Get(playlist.PieceList[i].Id);
+
             var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
 
             writer.WriteLine(
@@ -117,8 +121,8 @@ namespace IleanaMusic.Helpers
                 indent: indent + 2);
 
             writer.WriteLine(
-                text:"2. Eliminar pieza\n",
-                indent:indent+2
+                text: "2. Eliminar pieza\n",
+                indent: indent + 2
             );
 
             writer.Write(
@@ -165,7 +169,7 @@ namespace IleanaMusic.Helpers
 
                     foreach (var pieceId in pieceIdsSplited)
                     {
-                        var piece = pieceService.Get(Convert.ToInt32(pieceId.Trim()));
+                        var piece = playlist.PieceList.Where(p => p.Id == Convert.ToInt32(pieceId.Trim())).FirstOrDefault();
 
                         if (piece != null)
                             playlist.PieceList.Remove(piece);
