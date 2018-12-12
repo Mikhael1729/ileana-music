@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using IleanaMusic.Data;
+using IleanaMusic.Helpers;
 using IleanaMusic.Models;
 using static System.Console;
 
@@ -7,7 +8,7 @@ namespace IleanaMusic.Screens
 {
     public class PlaylistsScreen 
     {
-        List<Playlist> playlists = AppData.Instance.Playlists;
+        List<Playlist> playlists = AppData.Instance.PlaylistService.GetAll();
 
         public PlaylistsScreen() 
         {
@@ -18,11 +19,7 @@ namespace IleanaMusic.Screens
             {
                 foreach (var p in playlists)
                 {
-                    WriteLine($"- ID: {p.Id}");
-                    WriteLine($"  Logo: {p.Logo}");
-                    WriteLine($"  Nombre: {p.Name}");
-                    WriteLine($"  Cantidad de canciones: {p.PieceList.Count}");
-
+                    PlaylistFragments.PrintPlaylist(playlist: p);
                     WriteLine("");
                 }
             } 
