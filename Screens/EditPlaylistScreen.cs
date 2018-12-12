@@ -4,13 +4,14 @@ using IleanaMusic.Data;
 using IleanaMusic.Models;
 using System.Linq;
 using static System.Console;
-
+using IleanaMusic.Helpers;
+using IleanaMusic.Data.Services;
 
 namespace IleanaMusic.Screens
 {
     public class EditPlayListScreen
     {
-        List<Playlist> playlists = AppData.Instance.Playlists;
+        PlaylistService playlistService = AppData.Instance.PlaylistService;
         List<Piece> pieceList = AppData.Instance.PieceService.GetAll();
 
         public EditPlayListScreen()
@@ -20,7 +21,7 @@ namespace IleanaMusic.Screens
             WriteLine("Editar playlist\n"
                     + "---------------\n");
 
-            if (playlists.Count < 0)
+            if (playlistService.Count() < 0)
             {
                 WriteLine(">> No tines playlists en tu lista. Agrega una para usar esta función.");
             }
@@ -38,28 +39,17 @@ namespace IleanaMusic.Screens
                 // Si fue ID.
                 if (Int32.TryParse(option, out id))
                 {
-                    searchedPlaylist = (playlists.Where(p => p.Id == id)).FirstOrDefault();
+                    searchedPlaylist = playlistService.Get(id);
                 }
                 else  // Si fue nombre
                 {
                     name = option;
-                    searchedPlaylist = (playlists.Where(p => p.Name == name)).FirstOrDefault();
+                    searchedPlaylist = playlistService.Find(p => p.Name == name);
                 }
 
                 if (searchedPlaylist != null)
                 {
-                    WriteLine(">> Playlist encontrada <<\n");
-
-                    WriteLine($"   ID: {searchedPlaylist.Id}");
-                    WriteLine($"1. Logo: {searchedPlaylist.Logo}");
-                    WriteLine($"2. Nombre: {searchedPlaylist.Name}");
-                    WriteLine($"3. Canciones:\n");
-
-                    // Printing pieces of playlist.
-                    foreach (var piece in searchedPlaylist.PieceList)
-                        WriteLine($"     - ID: {piece.Id}, Nombre: {piece.Name}");
-
-                    WriteLine("");
+                    PlaylistFragments.PrintPlaylist(playlist: searchedPlaylist, withNumeration:true, withPieces: true);
 
                     // Requesting what fields want to modify.
                     Write(">> ¿Qué campos quieres editar? (separa con coma): ");
@@ -105,6 +95,8 @@ namespace IleanaMusic.Screens
                     }
 
                     WriteLine("\n>> Playlist editada correctamente <<");
+                    
+                    playlistService.Update(searchedPlaylist);
                 }
                 else
                 {

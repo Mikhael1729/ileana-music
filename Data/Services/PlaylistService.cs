@@ -169,5 +169,7 @@ namespace IleanaMusic.Data.Services
 
             return entity;
         }
+
+        public Playlist Find(Func<Playlist, bool> critery) => GetAll().Where(critery).FirstOrDefault();
     }
 }
