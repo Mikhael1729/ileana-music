@@ -115,10 +115,7 @@ namespace IleanaMusic.Data.Services
             throw new System.NotImplementedException();
         }
 
-        public List<Playlist> GetAll()
-        {
-            throw new System.NotImplementedException();
-        }
+        public List<Playlist> GetAll() => GetAllElements().Select(p => Playlist.ConvertFromXElement(p)).ToList();
 
         public Playlist Update(Playlist entity)
         {
