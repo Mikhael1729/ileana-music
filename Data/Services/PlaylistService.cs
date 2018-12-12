@@ -82,8 +82,9 @@ namespace IleanaMusic.Data.Services
                 );
 
                 // Adding piece IDs to Playlist element..
-                var pieces = entity.PieceList.Select<Piece, XElement>(p => {
-                    var element = new XElement("PieceId"); 
+                var pieces = entity.PieceList.Select<Piece, XElement>(p =>
+                {
+                    var element = new XElement("PieceId");
                     element.Add(p.Id);
                     return element;
                 });
@@ -112,20 +113,61 @@ namespace IleanaMusic.Data.Services
 
         public void Delete(Playlist entity)
         {
+            var query = GetAllElements().Where(e => Int32.Parse(e.Attribute("Id").Value) == entity.Id).FirstOrDefault();
+            query.Remove();
+
+            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                using (Stream stream = storage.CreateFile(_filePath))
+                {
+                    _document.Save(stream);
+                }
+            }
+
             this.count--;
-            throw new System.NotImplementedException();
         }
 
         public Playlist Get(int id)
         {
-            throw new System.NotImplementedException();
+            return GetAll().Where(p => p.Id == id).FirstOrDefault();
         }
 
         public List<Playlist> GetAll() => GetAllElements().Select(p => Playlist.ConvertFromXElement(p)).ToList();
 
         public Playlist Update(Playlist entity)
         {
-            throw new System.NotImplementedException();
+            var query = (
+                from element in GetAllElements()
+                where Int32.Parse(element.Attribute("Id").Value) == entity.Id
+                select element).FirstOrDefault();
+
+            query.Attribute("Name").Value = entity.Name;
+            query.Attribute("Logo").Value = entity.Logo;
+
+            // Deleting pieces.
+            query.Elements("PieceId").Remove();
+
+            // Updating with possible modified data.
+            var pieces = entity.PieceList.Select<Piece, XElement>(p =>
+            {
+                var element = new XElement("PieceId");
+                element.Add(p.Id);
+                return element;
+            });
+
+            foreach (var p in pieces)
+                query.Add(p);
+
+
+            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                using (Stream stream = storage.CreateFile(_filePath))
+                {
+                    _document.Save(stream);
+                }
+            }
+
+            return entity;
         }
     }
 }
