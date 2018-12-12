@@ -28,7 +28,7 @@ namespace IleanaMusic.Models
             return new Playlist
             {
                 Id = Int32.Parse(element.Attribute("Id").Value),
-                Name = element.Attribute("Id").Value,
+                Name = element.Attribute("Name").Value,
                 Logo = element.Attribute("Logo").Value,
                 PieceList = pieces
             };
