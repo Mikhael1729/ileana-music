@@ -45,7 +45,7 @@ namespace IleanaMusic.Data.Services
             }
         }
 
-        int GetNextId()
+        int ComputeNextId()
         {
             var query = (
                 from element in _document.Element(_rootNode)?.Elements(_playlistNode)
@@ -63,7 +63,7 @@ namespace IleanaMusic.Data.Services
 
         public Playlist Add(Playlist entity)
         {
-            entity.Id = GetNextId();
+            entity.Id = ComputeNextId();
             XElement playlist = null;
 
             using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
