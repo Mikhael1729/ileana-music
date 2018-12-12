@@ -11,11 +11,13 @@ namespace IleanaMusic.Data
         
         public List<Playlist> Playlists;
         public PieceService PieceService;
+        public PlaylistService PlaylistService;
 
         private AppData()
         {
             Playlists = new List<Playlist>();
             PieceService = new PieceService("Pieces.xml");
+            PlaylistService = new PlaylistService("Playlists.xml");
         }
 
         public static AppData Instance
