@@ -38,7 +38,9 @@ namespace IleanaMusic.Screens
                 if (Int32.TryParse(option, out id))
                 {
                     var searchedPiece = pieceService.Get(id);
-                    piece = searchedPiece.Clone();
+
+                    if (searchedPiece != null)
+                        piece = searchedPiece.Clone();
                 }
                 else  // Si fue nombre
                 {

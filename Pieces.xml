@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PieceList>
-  <Piece Id="2" Name="Yano2" Artist="MFdas" Album="mi madre" Gender="Raggeton" Duration="40" Quality="Low" Format="Mp3" />
-  <Piece Id="3" Name="BWV1080" Artist="Johann Sebastian Bach" Album="El Arte de la Fuga" Gender="Classical" Duration="70" Quality="High" Format="Mp4" />
+  <Piece Id="4" Name="Song" Artist="Mikheal" Album="Mikhael's" Gender="Classical" Duration="20" Quality="High" Format="Mp4" />
+  <Piece Id="5" Name="y" Artist="y" Album="y" Gender="Raggeton" Duration="3" Quality="High" Format="Mp4" />
 </PieceList>

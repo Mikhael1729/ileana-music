@@ -181,7 +181,7 @@ namespace IleanaMusic.Models
             double duration = 0;
             while (duration == 0)
             {
-                writer.Write("- Duración: ");
+                writer.Write("- Duración (en minutos): ");
 
                 if (Double.TryParse(ReadLine(), out duration))
                     Duration = duration;
