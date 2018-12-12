@@ -52,7 +52,7 @@ namespace IleanaMusic.Screens
                     PlaylistFragments.PrintPlaylist(playlist: searchedPlaylist, withNumeration:true, withPieces: true);
 
                     // Requesting what fields want to modify.
-                    Write(">> ¿Qué campos quieres editar? (separa con coma): ");
+                    Write("\n>> ¿Qué campos quieres editar? (separa con coma): ");
                     var options = ReadLine();
                     var selected = options.Split(',');
 
@@ -62,40 +62,20 @@ namespace IleanaMusic.Screens
                         var n = Convert.ToInt32(i.Trim());
                         if (n == 1)
                         {
-                            Write("   - Nuevo Logo: ");
-                            var newLogo = ReadLine();
-
-                            searchedPlaylist.Logo = newLogo;
+                            PlaylistFragments.RequestLogo(ref searchedPlaylist, indent:1);
                         }
                         else if (n == 2)
                         {
-                            Write("   - Nuevo nombre: ");
-                            var newName = ReadLine();
-
-                            searchedPlaylist.Name = newName;
+                            PlaylistFragments.RequestName(ref searchedPlaylist, indent:1);
                         }
                         else if (n == 3)
                         {
-                            Write("   - Cambiando canciones de la lista. Escribe sus IDs (separados por coma): ");
-                            var ids = ReadLine();
-                            var list = ids.Split(',');
-
-                            // Adding selected pieces to playlist.
-                            foreach (var item in list)
-                            {
-                                var piece = pieceList.Where(p => p.Id == Convert.ToInt32(item.Trim())).FirstOrDefault();
-
-                                // Removing all of pieces of the playlist
-                                searchedPlaylist.PieceList.Clear();
-
-                                if (piece != null)
-                                    searchedPlaylist.PieceList.Add(piece);
-                            }
+                            PlaylistFragments.RequestPieces(ref searchedPlaylist);
                         }
                     }
 
                     WriteLine("\n>> Playlist editada correctamente <<");
-                    
+
                     playlistService.Update(searchedPlaylist);
                 }
                 else

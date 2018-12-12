@@ -71,20 +71,20 @@ namespace IleanaMusic.Helpers
             writer.Write("- Escribe los IDs de las piezas que quieres agregar a la playlist: \n", indent: indent+1);
             writer.Write(
                 text: ">> Lista de piezas: \n",
-                indent: indent+1);
+                indent: indent+2);
 
             // Printing pieces.
             foreach (var piece in pieceService.GetAll())
                 writer.Write(
                     text: $"- Id: {piece.Id}, Nombre: {piece.Name}\n",
-                    indent: indent+2);
+                    indent: indent+3);
 
             WriteLine("");
 
             // Requestin piece IDs.
             writer.Write(
                 text: ">> Escribe el id de las piezas a gregar (separados por coma): ",
-                indent: indent+1);
+                indent: indent+2);
 
             // Procesing.
             var ids = ReadLine();
