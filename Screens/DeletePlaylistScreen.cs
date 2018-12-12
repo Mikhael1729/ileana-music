@@ -21,10 +21,9 @@ namespace IleanaMusic.Screens
             WriteLine("Eliminar playlist\n"
                     + "-----------------\n");
 
-            Write("Escribe el ID o el Nombre de tu playlist: ");
-
             if (playlistService.Count() > 0)
             {
+                Write("Escribe el ID o el Nombre de tu playlist: ");
                 string option;
                 string name = "";
                 int id = 0;
