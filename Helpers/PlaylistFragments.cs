@@ -36,6 +36,26 @@ namespace IleanaMusic.Helpers
 
         public static void RequestPieces(ref Playlist playlist, ConsoleWriter consoleWriter = null)
         {
+            var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
+
+            writer.Write("- Escribe los IDs de las piezas que quieres agregar a la playlist: \n");
+            writer.Write(
+                text: ">> Lista de piezas: \n",
+                indent: 1);
+
+            // Printing pieces.
+            foreach (var piece in AppData.Instance.PieceService.GetAll())
+                writer.Write(
+                    text: $"- Id: {piece.Id}, Nombre: {piece.Name}\n",
+                    indent: 2);
+
+            WriteLine("");
+
+            // Requestin piece IDs.
+            writer.Write(
+                text: ">> Escribe el id de las piezas a gregar (separados por coma): ",
+                indent: 1);
+
             // Procesing.
             var ids = ReadLine();
             var list = ids.Split(',');

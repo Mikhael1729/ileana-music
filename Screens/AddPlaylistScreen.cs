@@ -24,26 +24,6 @@ namespace IleanaMusic.Screens
 
             PlaylistFragments.RequestName(ref playlist, writer);
             PlaylistFragments.RequestLogo(ref playlist, writer);
-
-            writer.Write("- Escribe los IDs de las piezas que quieres agregar a la playlist: \n");
-            writer.Write(
-                text: ">> Lista de piezas: \n",
-                indent: 1);
-
-            // Printing pieces.
-            foreach (var piece in pieceList)
-                writer.Write(
-                    text: $"- Id: {piece.Id}, Nombre: {piece.Name}\n",
-                    indent: 2);
-
-            WriteLine("");
-
-            // Requestin piece IDs.
-            writer.Write(
-                text: ">> Escribe el id de las piezas a gregar (separados por coma): ",
-                indent: 1);
-
-            // Procesing.
             PlaylistFragments.RequestPieces(ref playlist, writer);
 
             // Adding id.
