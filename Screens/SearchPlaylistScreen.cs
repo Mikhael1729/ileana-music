@@ -4,12 +4,13 @@ using IleanaMusic.Models;
 using System.Linq;
 using IleanaMusic.Data;
 using System.Collections.Generic;
-
+using IleanaMusic.Data.Services;
 
 namespace IleanaMusic.Screens
 {
     public class SearchPlaylistScreen
     {
+        PlaylistService playlistService = AppData.Instance.PlaylistService;
         List<Playlist> playlists = AppData.Instance.Playlists;
         Playlist searchedPlaylist;
 
@@ -19,7 +20,7 @@ namespace IleanaMusic.Screens
             WriteLine("Buscar playlist\n"
                     + "-----------------\n");
 
-            if (playlists.Count > 0)
+            if (playlistService.Count() > 0)
             {
                 Write("Escribe el ID o el Nombre de tu playlist: ");
                 string option;
@@ -33,12 +34,12 @@ namespace IleanaMusic.Screens
                 // Si fue ID.
                 if (Int32.TryParse(option, out id))
                 {
-                    searchedPlaylist = (playlists.Where(p => p.Id == id)).FirstOrDefault();
+                    searchedPlaylist = playlistService.Get(id);
                 }
                 else  // Si fue nombre
                 {
                     name = option;
-                    searchedPlaylist = (playlists.Where(p => p.Name.ToLower() == name.ToLower())).FirstOrDefault();
+                    searchedPlaylist = playlistService.Find(p => p.Name.ToLower() == name.ToLower());
                 }
 
                 if (searchedPlaylist != null)
