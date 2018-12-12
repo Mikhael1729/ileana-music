@@ -91,13 +91,13 @@ namespace IleanaMusic.Helpers
             var list = ids.Split(',');
 
             // Adding selected pieces to playlist.
+            playlist.PieceList.Clear();
             foreach (var item in list)
             {
                 var piece = pieceService.Get(Convert.ToInt32(item.Trim()));
 
                 if (piece != null)
                 {
-                    playlist.PieceList.Clear();
                     playlist.PieceList.Add(piece);
                 }
             }

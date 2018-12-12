@@ -5,6 +5,7 @@ using System.Linq;
 using IleanaMusic.Data;
 using System.Collections.Generic;
 using IleanaMusic.Data.Services;
+using IleanaMusic.Helpers;
 
 namespace IleanaMusic.Screens
 {
@@ -29,6 +30,7 @@ namespace IleanaMusic.Screens
                 string option;
                 string name = "";
                 int id = 0;
+                var writer = new ConsoleWriter(0);
 
                 option = ReadLine();
 
@@ -47,9 +49,11 @@ namespace IleanaMusic.Screens
 
                 if (searchedPlaylist != null)
                 {
-                    WriteLine($">> ¿Qué canción quieres buscar en la playlist \"{searchedPlaylist.Name}\"\n");
+                    writer.WriteLine(
+                        text:$">> ¿Qué canción quieres buscar en la playlist \"{searchedPlaylist.Name}\"?\n",
+                        indent: 1);
 
-                    Write("- Escribe el ID o el Nombre de la canción: ");
+                    writer.Write("- Escribe el ID o el Nombre de la canción: ", indent:2);
 
                     string pieceOption;
                     
@@ -74,6 +78,10 @@ namespace IleanaMusic.Screens
 
                         searchedPiece.Print();
                         WriteLine("");
+                    } 
+                    else 
+                    {
+                        WriteLine(">> No se encontraron resultados <<\n");
                     }
                 }
                 else
