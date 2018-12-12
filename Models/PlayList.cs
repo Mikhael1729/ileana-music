@@ -23,8 +23,7 @@ namespace IleanaMusic.Models
 
         internal static Playlist ConvertFromXElement(XElement element)
         {
-            var pieceService = AppData.Instance.PieceService;
-            var pieces = element.Elements("PieceId").Select<XElement, Piece>(e => pieceService.Get(Int32.Parse(e.Value))).ToList();
+            var pieces = element.Elements("PieceId").Select<XElement, Piece>(e => new Piece { Id = Int32.Parse(e.Value) }).ToList();
 
             return new Playlist
             {
