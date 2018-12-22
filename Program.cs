@@ -100,7 +100,7 @@ namespace IleanaMusic
             switch (reporterMenuScreen.Data())
             {
                 case 1:
-
+                
                 break;
 
                 case 2: 
