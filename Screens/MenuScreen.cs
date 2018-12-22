@@ -11,7 +11,8 @@ namespace IleanaMusic
 
 1. Canciones
 2. Playlists
-3. Salir
+3. Menú de reportes.
+4. Salir
 
 Escoge una opción: ";
 

@@ -16,9 +16,10 @@ namespace IleanaMusic
             /* Options (of MenuScreen)
              *  1. Canciones.
              *  2. Listas de canciones.
-             *  3. Salir. 
+             *  3. Menú de reportes
+             *  4. Salir. 
              */
-            while (option != 3)
+            while (option != 4)
             {
                 // Refreshing console if there are some content before menu screen.
                 Clear();
@@ -87,7 +88,8 @@ namespace IleanaMusic
                         playlistsOption = 0;
                         break;
                     case 3:
-                        WriteLine("Nada por aquí (opción 3)");
+                        new ReporterMenuScreen();
+                        ReadLine();
                         break;
                 }
 
