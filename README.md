@@ -73,7 +73,55 @@
     4. [x] **Borrar playlist** (```DeletePlayListScreen```)
     5. [x] **Buscar canción de la playlist** (```SearchPieceFromPlayListScreen```).
 
-## Entidades principales
+### Parte 3 (final)
+
+Esta tercera parte está orientada a la reportería de las piezas. Básicamente consiste en dar la habilidad a nuestra aplicación de exportar e importar piezas. 
+
+Solamente hay tres nuevas pantallas. A continuación, las enumero:
+
+**Pantallas**
+
+- **Menú de reportes** (5 puntos):
+  - Pantalla:
+
+    Elige el formato:
+
+    1. PDF.
+    2. CSV.
+    3. Excel
+
+  - Formato del reporte:
+    ```
+    NOMBRE DE LA LISTA
+
+    | ID | Nombre | Artista | Genero | Album | Duracion | Calidad | Formato
+    .
+    .
+    .
+
+
+    Total de canciones: N, donde N es el número de canciones en la lista.
+    ```
+
+- **Exportar canciones** (2.5)
+  1. XML.
+  2. JSON
+
+**Reglas de negocio**
+
+Se debe informar al usuario cuando se vaya a infringir alguna de estas reglas. Estas reglas no se tienen que aplicar en la importacion, de data.
+
+1. El nombre de una playlist debe ser único. M
+2. No se puede agregar dos veces la misma cancion a la misma lista.
+3. Una cancion no puede pertenecer a mas de tres listas.
+4. Una lista no puede tener mas de 10 canciones.
+5. No pueden existir dos canciones con el mismo Nombre y Artista
+
+- Si es muy complicado al usuario se pierden putnos. Se pierden puntos si explota el programa.
+
+- Se va a entregar miércoles de la décima semana.
+
+## Entidades
 
 **Canción** (```Piece```)
 - ID. (debe ser automático)
