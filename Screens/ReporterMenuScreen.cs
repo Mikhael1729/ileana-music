@@ -22,9 +22,9 @@ namespace IleanaMusic.Screens
         "3. Excel\n"
       );
 
-      // Instruction.
+      // Instruction. 
       writer.Write(">> Elija el formato para el reporte: ");
-      var option = ReadNumber();
+      option = ReadNumber();
     }
 
     public void Title()

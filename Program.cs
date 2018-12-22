@@ -96,11 +96,11 @@ namespace IleanaMusic
                 3. Excel 
             */
             var reporterMenuScreen = new ReporterMenuScreen();
-
+            Clear();
             switch (reporterMenuScreen.Data())
             {
                 case 1:
-                
+                  new PdfReportScreen();
                 break;
 
                 case 2: 
