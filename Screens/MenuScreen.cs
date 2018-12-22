@@ -11,8 +11,10 @@ namespace IleanaMusic
 
 1. Canciones
 2. Playlists
-3. Menú de reportes.
-4. Salir
+3. Menú de reportes
+4. Exportar piezas
+5. Importar piezas
+6. Salir
 
 Escoge una opción: ";
 

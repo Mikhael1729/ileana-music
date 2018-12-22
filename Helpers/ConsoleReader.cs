@@ -61,7 +61,7 @@ namespace IleanaMusic.Helpers
 
     public static string ReadLine()
     {
-      return ReadLine();
+      return System.Console.ReadLine();
     }
 
     public static int ReadNumber()

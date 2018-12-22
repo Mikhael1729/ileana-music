@@ -107,6 +107,9 @@ Solamente hay tres nuevas pantallas. A continuación, las enumero:
   1. XML.
   2. JSON
 
+- **Importar canciones** 
+
+
 **Reglas de negocio**
 
 Se debe informar al usuario cuando se vaya a infringir alguna de estas reglas. Estas reglas no se tienen que aplicar en la importacion, de data.
