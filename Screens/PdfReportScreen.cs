@@ -9,6 +9,7 @@ using IleanaMusic.Models;
 using System.Reflection;
 using System.Linq;
 using OfficeOpenXml;
+using static System.Diagnostics.Process;
 
 namespace IleanaMusic.Screens
 {
@@ -32,23 +33,97 @@ namespace IleanaMusic.Screens
         excel.Workbook.Worksheets.Add("Worksheet1");
         excel.Workbook.Worksheets.Add("Worksheet2");
         excel.Workbook.Worksheets.Add("Worksheet3");
-        
+
         var headerRow = new List<string[]>()
         {
           new string[] { "ID", "First Name", "Last Name", "DOB" }
         };
-        
+
         // Determine the header range (e.g. A1:D1)
-        string headerRange = "A1:" + Char.ConvertFromUtf32(headerRow[0].Length + 64) + "1";
+        var headerRange = "A1:" + Char.ConvertFromUtf32(headerRow[0].Length + 64) + "1";
 
         // Target a worksheet
         var worksheet = excel.Workbook.Worksheets["Worksheet1"];
-        
+
         // Popular header row data
         worksheet.Cells[headerRange].LoadFromArrays(headerRow);
-        
-        FileInfo excelFile = new FileInfo(fileName);
+
+        var excelFile = new FileInfo(fileName);
         excel.SaveAs(excelFile);
+
+        ConvertExcelToPdf(filePath:fileName);
+      }
+    }
+
+    static bool ConvertExcelToPdf(string filePath)
+    {
+      // Creating application
+      var excel = new Application()
+      {
+        ScreenUpdating = false,
+        DisplayAlerts = false
+      };
+
+      // Opening book
+      var book = excel.Workbooks.Open(filePath);
+
+      // Returning false if there aren't a .xlsx file.
+      if (book == null)
+      {
+        excel.Quit();
+        ReleaseObject(excel);
+        ReleaseObject(book);
+
+        return false;
+      }
+
+      // Exporting to PDF.
+      var exportSuccessful = true;
+      try
+      {
+        book.ExportAsFixedFormat(XlFixedFormatType.xlTypePDF, filePath);
+      }
+      catch (Exception e)
+      {
+        exportSuccessful = false;      
+      }
+      finally
+      {
+        book.Close();
+        excel.Quit();
+
+        ReleaseObject(excel);
+        ReleaseObject(book);
+      }
+
+      // Opening PDF file
+      if (File.Exists(filePath))
+      {
+        try
+        {
+          Start(filePath);
+        }
+        catch(Exception e) 
+        { }
+      }
+
+      return exportSuccessful;
+    }
+
+    static void ReleaseObject(object obj)
+    {
+      try
+      {
+        System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+        obj = null;
+      }
+      catch (Exception ex)
+      {
+        obj = null;
+      }
+      finally
+      {
+        GC.Collect();
       }
     }
 
