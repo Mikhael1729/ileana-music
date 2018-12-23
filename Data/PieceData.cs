@@ -23,7 +23,7 @@ namespace IleanaMusic.Data.Services
 
         void InitializeDocument()
         {
-            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
             {
                 // Uploading existing .xml file.
                 if (storage.FileExists(filePath))
@@ -64,7 +64,7 @@ namespace IleanaMusic.Data.Services
             var piece = List[List.Count - 1];
             XElement pieceList = null;
 
-            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
             {
                 // Getting PieceList node.
                 pieceList = _document.Descendants("PieceList")?.FirstOrDefault();
@@ -128,7 +128,7 @@ namespace IleanaMusic.Data.Services
 
             query.Remove();
 
-            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
             {
                 using (Stream stream = storage.CreateFile(filePath))
                 {

@@ -1,0 +1,15 @@
+D:\Coding.Desktop\IleanaMusic\IleanaMusic\obj\Debug\IleanaMusic.csprojAssemblyReference.cache
+D:\Coding.Desktop\IleanaMusic\IleanaMusic\obj\Debug\IleanaMusic.csproj.CoreCompileInputs.cache
+D:\Coding.Desktop\IleanaMusic\IleanaMusic\obj\Debug\IleanaMusic.exe
+D:\Coding.Desktop\IleanaMusic\IleanaMusic\obj\Debug\IleanaMusic.pdb
+D:\Coding.Desktop\IleanaMusic\IleanaMusic\obj\Debug\IleanaMusic.csproj.CopyComplete
+D:\Coding.Desktop\IleanaMusic\IleanaMusic\IleanaMusic.exe.config
+D:\Coding.Desktop\IleanaMusic\IleanaMusic\IleanaMusic.exe
+D:\Coding.Desktop\IleanaMusic\IleanaMusic\IleanaMusic.pdb
+D:\Coding.Desktop\IleanaMusic\IleanaMusic\GemBox.Spreadsheet.dll
+D:\Coding.Desktop\IleanaMusic\IleanaMusic\GemBox.Spreadsheet.xml
+D:\Coding.Desktop\IleanaMusic\IleanaMusic\bin\Debug\IleanaMusic.exe.config
+D:\Coding.Desktop\IleanaMusic\IleanaMusic\bin\Debug\IleanaMusic.exe
+D:\Coding.Desktop\IleanaMusic\IleanaMusic\bin\Debug\IleanaMusic.pdb
+D:\Coding.Desktop\IleanaMusic\IleanaMusic\bin\Debug\GemBox.Spreadsheet.dll
+D:\Coding.Desktop\IleanaMusic\IleanaMusic\bin\Debug\GemBox.Spreadsheet.xml

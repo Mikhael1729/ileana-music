@@ -1,5 +1,4 @@
 using System.Linq;
-using IleanaMusic.Data.Repositories;
 using IleanaMusic.Models;
 using System;
 using System.Collections.Generic;
@@ -16,14 +15,15 @@ namespace IleanaMusic.Data.Services
 
         public PieceService(string fileName)
         {
-            filePath = Path.Combine(Directory.GetCurrentDirectory(), fileName);
+            filePath = fileName;
             InitializeDocument();
         }
 
         void InitializeDocument()
         {
-            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
             {
+                var h = Path.GetFullPath(storage.GetFileNames()[0]);
                 // Uploading existing .xml file.
                 if (storage.FileExists(filePath))
                 {
@@ -50,16 +50,18 @@ namespace IleanaMusic.Data.Services
             return query != null ? Int32.Parse(query.Attribute("Id").Value) + 1 : 1;
         }
 
-        IEnumerable<XElement> GetAllElements() =>
-            from element in _document.Element("PieceList")?.Elements("Piece")
-            select element;
+        IEnumerable<XElement> GetAllElements()
+        {
+            return from element in _document.Element("PieceList")?.Elements("Piece")
+                   select element;
+        }
 
         public Piece Add(Piece entity)
         {
             entity.Id = GetNextId();
             XElement pieceList = null;
 
-            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
             {
                 // Getting PieceList node.
                 pieceList = _document.Descendants("PieceList")?.FirstOrDefault();
@@ -80,8 +82,8 @@ namespace IleanaMusic.Data.Services
 
                 // If exists, add the new piece to descendatants
                 pieceList?.Add(pieceElement);
-
-                using (Stream stream = storage.CreateFile(filePath))
+                var fileName = Path.GetFileName(filePath);
+                using (Stream stream = storage.CreateFile(fileName))
                 {
                     _document.Save(stream);
                 }
@@ -100,7 +102,7 @@ namespace IleanaMusic.Data.Services
             var query = GetAllElements().Where(e => Int32.Parse(e.Attribute("Id").Value) == entity.Id).FirstOrDefault();
             query.Remove();
 
-            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
             {
                 using (Stream stream = storage.CreateFile(filePath))
                 {
@@ -128,7 +130,7 @@ namespace IleanaMusic.Data.Services
             query.Attribute("Quality").Value = Enum.GetName(entity.Quality.GetType(), entity.Quality);
             query.Attribute("Format").Value =  Enum.GetName(entity.Format.GetType(), entity.Format);
             
-            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
             {
                 using (Stream stream = storage.CreateFile(filePath))
                 {

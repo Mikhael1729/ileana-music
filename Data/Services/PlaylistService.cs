@@ -18,7 +18,7 @@ namespace IleanaMusic.Data.Services
 
         public PlaylistService(string fileName)
         {
-            _filePath = Path.Combine(Directory.GetCurrentDirectory(), fileName);
+            _filePath = fileName;
             _rootNode = "Playlists";
             _playlistNode = "Playlist";
             count = 0;
@@ -27,7 +27,7 @@ namespace IleanaMusic.Data.Services
 
         void InitializeDocument()
         {
-            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
             {
                 // Uploading existing .xml file.
                 if (storage.FileExists(_filePath))
@@ -66,7 +66,7 @@ namespace IleanaMusic.Data.Services
             entity.Id = ComputeNextId();
             XElement playlist = null;
 
-            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
             {
                 // Playlists (parent node).
                 playlist = _document.Descendants(_rootNode)?.FirstOrDefault();
@@ -116,7 +116,7 @@ namespace IleanaMusic.Data.Services
             var query = GetAllElements().Where(e => Int32.Parse(e.Attribute("Id").Value) == entity.Id).FirstOrDefault();
             query.Remove();
 
-            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
             {
                 using (Stream stream = storage.CreateFile(_filePath))
                 {
@@ -159,7 +159,7 @@ namespace IleanaMusic.Data.Services
                 query.Add(p);
 
 
-            using (var storage = IsolatedStorageFile.GetUserStoreForApplication())
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
             {
                 using (Stream stream = storage.CreateFile(_filePath))
                 {
