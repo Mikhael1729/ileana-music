@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using IleanaMusic.Models;
 using System.Reflection;
 using System.Linq;
+using OfficeOpenXml;
 
 namespace IleanaMusic.Screens
 {
@@ -26,75 +27,31 @@ namespace IleanaMusic.Screens
       var pieces = pieceService.GetAll();
       var fileName = Path.Combine(Directory.GetCurrentDirectory(), "Cosas.xlsx");
 
-      // Creating excel instance.
-      var excel = new Application()
+      using (ExcelPackage excel = new ExcelPackage())
       {
-        SheetsInNewWorkbook = 1,
-        Visible = true,
-      };
+        excel.Workbook.Worksheets.Add("Worksheet1");
+        excel.Workbook.Worksheets.Add("Worksheet2");
+        excel.Workbook.Worksheets.Add("Worksheet3");
+        
+        var headerRow = new List<string[]>()
+        {
+          new string[] { "ID", "First Name", "Last Name", "DOB" }
+        };
+        
+        // Determine the header range (e.g. A1:D1)
+        string headerRange = "A1:" + Char.ConvertFromUtf32(headerRow[0].Length + 64) + "1";
 
-      // Creating workbook with a sheet.
-      var workbook = (Workbook)(excel.Workbooks.Add(Missing.Value));
-      var sheet = (Worksheet)excel.ActiveSheet;
-
-      AddPiecesToSheet(
-        workSheet: ref sheet,
-        pieces: pieces
-      );
-
-      var m = Missing.Value;
-
-      workbook.SaveAs(fileName);
-      workbook.Close();
-
-      ReleaseObject(sheet);
-      ReleaseObject(workbook);
-      ReleaseObject(excel);
-    }
-
-    static void ReleaseObject(object obj)
-    {
-      try
-      {
-        System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
-        obj = null;
-      }
-      catch (Exception ex)
-      {
-        obj = null;
-      }
-      finally
-      {
-        GC.Collect();
+        // Target a worksheet
+        var worksheet = excel.Workbook.Worksheets["Worksheet1"];
+        
+        // Popular header row data
+        worksheet.Cells[headerRange].LoadFromArrays(headerRow);
+        
+        FileInfo excelFile = new FileInfo(fileName);
+        excel.SaveAs(excelFile);
       }
     }
 
-    private static AddPiecesToSheet(ref Worksheet workSheet, List<Piece> pieces)
-    {
-      string[] headers = { "ID", "Nombre", "Artista", "Genero", "Album", "Duracion", "Calidad", "Formato" };
-
-      // Adding headers.
-      for (int i = 0; i < headers.Length; i++)
-      {
-        ((Range)workSheet.Range[1, i+1]).Value= headers[i];
-      }
-
-      // Adding pieces
-      for (int i = 0; i < pieces.Count; i++)
-      { 
-        var piece = pieces[i];
-        workSheet.Cells[(i + 1), 1] = piece.Id.ToString();
-        workSheet.Cells[(i + 1), 2] = piece.Name;
-        workSheet.Cells[(i + 1), 3] = piece.Artist;
-        workSheet.Cells[(i + 1), 4] = ConvertGenderToSpanish(piece.Gender);
-        workSheet.Cells[(i + 1), 5] = piece.Album;
-        workSheet.Cells[(i + 1), 6] = $"{piece.Duration} minutos";
-        workSheet.Cells[(i + 1), 7] = ConvertQualityToSpanish(piece.Quality);
-        workSheet.Cells[(i + 1), 8] = ConvertGenderToString(piece);
-      }
-
-      workSheet.Name = "Piezas";
-    }
 
     private string ConvertGenderToString(Piece piece)
     {
