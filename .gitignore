@@ -2,7 +2,6 @@ debug
 obj
 bin
 
-*.config
 *.pdb
 *.dll
 *.exe

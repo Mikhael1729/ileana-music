@@ -97,7 +97,6 @@
     <Compile Include="Screens\SearchPlaylistScreen.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".gitignore" />
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="README.md" />
