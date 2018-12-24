@@ -81,6 +81,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screens\AddPieceScreen.cs" />
     <Compile Include="Screens\AddPlaylistScreen.cs" />
+    <Compile Include="Screens\CsvReportScreen.cs" />
     <Compile Include="Screens\DeletePieceScreen.cs" />
     <Compile Include="Screens\DeletePlaylistScreen.cs" />
     <Compile Include="Screens\EditPieceScreen.cs" />

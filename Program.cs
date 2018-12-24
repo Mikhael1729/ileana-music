@@ -108,7 +108,7 @@ namespace IleanaMusic
                 break;
 
                 case 3:
-                  
+                  new CsvReportScreen();
                 break;
             }
             break;
