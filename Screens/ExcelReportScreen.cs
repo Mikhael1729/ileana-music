@@ -2,11 +2,6 @@
 using IleanaMusic.Data.Services;
 using IleanaMusic.Helpers;
 using IleanaMusic.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static System.Console;
 
 namespace IleanaMusic.Screens
@@ -49,7 +44,7 @@ namespace IleanaMusic.Screens
         {
             writer.WriteLine(
                 "Reporte en Excel\n" +
-                "--------------\n"
+                "----------------\n"
             );
         }
     }

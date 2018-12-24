@@ -18,8 +18,8 @@ namespace IleanaMusic.Screens
       // Options.
       writer.WriteLine(
         "1. PDF\n" +
-        "2. CSV\n" +
-        "3. Excel\n"
+        "2. Excel\n"+
+        "3. CSV\n" 
       );
 
       // Instruction. 

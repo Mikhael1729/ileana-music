@@ -92,8 +92,8 @@ namespace IleanaMusic
           case 3:
             /*
                 1. PDF
-                2. CSV
-                3. Excel 
+                2. Excel 
+                3. CSV
             */
             var reporterMenuScreen = new ReporterMenuScreen();
             Clear();
@@ -103,10 +103,12 @@ namespace IleanaMusic
                   new PdfReportScreen();
                 break;
 
-                case 2: 
+                case 2:
+                  new ExcelReportScreen();
                 break;
 
                 case 3:
+                  
                 break;
             }
             break;
