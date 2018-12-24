@@ -69,12 +69,14 @@
     <Compile Include="Helpers\ConsoleReader.cs" />
     <Compile Include="Helpers\ConsoleWriter.cs" />
     <Compile Include="Helpers\PlaylistFragments.cs" />
+    <Compile Include="Helpers\ReportingHelper.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\MusicFormat.cs" />
     <Compile Include="Models\Piece.cs" />
     <Compile Include="Models\PlayList.cs" />
     <Compile Include="Models\Quality.cs" />
+    <Compile Include="Models\ReportType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screens\AddPieceScreen.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="Screens\SearchPlaylistScreen.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".gitignore" />
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="README.md" />

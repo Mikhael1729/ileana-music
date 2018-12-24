@@ -2,6 +2,7 @@ using IleanaMusic.Models;
 using System.Collections.Generic;
 using System;
 using IleanaMusic.Data.Services;
+using IleanaMusic.Helpers;
 
 namespace IleanaMusic.Data
 {
@@ -12,12 +13,14 @@ namespace IleanaMusic.Data
         public List<Playlist> Playlists;
         public PieceService PieceService;
         public PlaylistService PlaylistService;
+        public ReportingHelper ReportingHelper;
 
         private AppData()
         {
             Playlists = new List<Playlist>();
             PieceService = new PieceService("Pieces.xml");
             PlaylistService = new PlaylistService("Playlists.xml");
+            ReportingHelper = new ReportingHelper();
         }
 
         public static AppData Instance
