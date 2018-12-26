@@ -1,9 +1,7 @@
-using System;
-using static System.Console;
-using IleanaMusic.Models;
-using IleanaMusic.Screens;
 using IleanaMusic.Data;
 using IleanaMusic.Helpers;
+using IleanaMusic.Screens;
+using static System.Console;
 
 namespace IleanaMusic
 {
@@ -11,7 +9,9 @@ namespace IleanaMusic
     {
         static void Main(string[] args)
         {
-            ExporterHelper.ExportPiecesToXml();
+            var exporter = ExporterHelper.Instance;
+
+            exporter.ExportPiecesToJson();
 
             int option = 0;
             int playlistsOption = 0;

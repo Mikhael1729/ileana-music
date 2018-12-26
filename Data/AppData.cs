@@ -13,18 +13,20 @@ namespace IleanaMusic.Data
     {
         private static readonly Lazy<AppData> instance = new Lazy<AppData>(() => new AppData());
         
-        public PieceService PieceService;
-        public PlaylistService PlaylistService;
-        public ReportingHelper ReportingHelper;
+        public PieceService PieceService { get; set; }
+        public PlaylistService PlaylistService { get; set; }
+        public ReportingHelper ReportingHelper { get; set; }
 
         private AppData()
         {
+
             // Piece service.
             PieceService = new PieceService("Pieces.xml");
 
             // Playlist service.
             PlaylistService = new PlaylistService("Playlists.xml");
-
+           
+            // Reporting helper
             ReportingHelper = new ReportingHelper();
         }
 
