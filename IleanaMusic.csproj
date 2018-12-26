@@ -68,6 +68,7 @@
     <Compile Include="Data\Services\PlaylistService.cs" />
     <Compile Include="Helpers\ConsoleReader.cs" />
     <Compile Include="Helpers\ConsoleWriter.cs" />
+    <Compile Include="Helpers\ExporterHelper.cs" />
     <Compile Include="Helpers\PlaylistFragments.cs" />
     <Compile Include="Helpers\ReportingHelper.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -105,5 +106,8 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="Testing\MyXmlFile.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

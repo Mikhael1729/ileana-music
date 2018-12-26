@@ -3,6 +3,7 @@ using static System.Console;
 using IleanaMusic.Models;
 using IleanaMusic.Screens;
 using IleanaMusic.Data;
+using IleanaMusic.Helpers;
 
 namespace IleanaMusic
 {
@@ -10,6 +11,7 @@ namespace IleanaMusic
   {
     static void Main(string[] args)
     {
+            ExporterHelper.ExportPiecesToXml();
       int option = 0;
       int playlistsOption = 0;
 
