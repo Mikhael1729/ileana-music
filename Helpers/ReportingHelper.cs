@@ -65,7 +65,14 @@ namespace IleanaMusic.Helpers
         public bool ReportPieces(string fileName, List<Piece> pieces, ReportType type, bool portrait=true, string title="Reporte", string sheetName="Piezas")
         {
             var created = false; // Report has been created?
-            var path = Path.Combine(Directory.GetCurrentDirectory(), fileName);
+            var reportsPath = Path.Combine(Directory.GetCurrentDirectory(), "Reportes");
+
+            if (!File.Exists(reportsPath))
+            {
+                Directory.CreateDirectory(reportsPath);
+            }
+
+            var path = Path.Combine(reportsPath, fileName);
             var report = BaseReport( // Report
                 pieces: pieces,
                 reportTitle: title,
