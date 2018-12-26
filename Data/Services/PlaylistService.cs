@@ -10,29 +10,30 @@ namespace IleanaMusic.Data.Services
 {
     public class PlaylistService : IPlaylistService
     {
-        string _filePath;
-        string _rootNode;
-        string _playlistNode;
+        readonly string isolatedFilePath;
+        readonly string isolatedDirectory = "IleanaData";
+        readonly string rootNode;
+        readonly string playlistNode;
         int count;
         XDocument _document;
 
         public PlaylistService(string fileName)
         {
-            _filePath = fileName;
-            _rootNode = "Playlists";
-            _playlistNode = "Playlist";
+            isolatedFilePath = Path.Combine(isolatedDirectory, fileName);
+            rootNode = "Playlists";
+            playlistNode = "Playlist";
             count = 0;
             InitializeDocument();
         }
 
         void InitializeDocument()
         {
-            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null))
             {
                 // Uploading existing .xml file.
-                if (storage.FileExists(_filePath))
+                if (storage.FileExists(isolatedFilePath))
                 {
-                    using (var stream = storage.OpenFile(_filePath, FileMode.Open))
+                    using (var stream = storage.OpenFile(isolatedFilePath, FileMode.Open))
                     {
                         _document = XDocument.Load(stream);
                         this.count = GetAll().Count;
@@ -40,7 +41,7 @@ namespace IleanaMusic.Data.Services
                 }
                 else
                 {
-                    _document = new XDocument(new XElement(_rootNode));
+                    _document = new XDocument(new XElement(rootNode));
                 }
             }
         }
@@ -48,7 +49,7 @@ namespace IleanaMusic.Data.Services
         int ComputeNextId()
         {
             var query = (
-                from element in _document.Element(_rootNode)?.Elements(_playlistNode)
+                from element in _document.Element(rootNode)?.Elements(playlistNode)
                 select element
             ).LastOrDefault();
 
@@ -57,7 +58,7 @@ namespace IleanaMusic.Data.Services
         }
 
         IEnumerable<XElement> GetAllElements() =>
-            from element in _document.Element(_rootNode)?.Elements(_playlistNode)
+            from element in _document.Element(rootNode)?.Elements(playlistNode)
             select element;
 
 
@@ -66,14 +67,14 @@ namespace IleanaMusic.Data.Services
             entity.Id = ComputeNextId();
             XElement playlist = null;
 
-            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null))
             {
                 // Playlists (parent node).
-                playlist = _document.Descendants(_rootNode)?.FirstOrDefault();
+                playlist = _document.Descendants(rootNode)?.FirstOrDefault();
 
                 // Playlist element (child node)
                 var playlistElement = new XElement(
-                    name: _playlistNode,
+                    name: playlistNode,
                     content: new[] {
                         new XAttribute("Id", entity.Id),
                         new XAttribute("Name", entity.Name),
@@ -95,7 +96,7 @@ namespace IleanaMusic.Data.Services
                 // If exists, add the new piece to descendatants
                 playlist?.Add(playlistElement);
 
-                using (Stream stream = storage.CreateFile(_filePath))
+                using (Stream stream = storage.CreateFile(isolatedFilePath))
                 {
                     _document.Save(stream);
                 }
@@ -116,9 +117,9 @@ namespace IleanaMusic.Data.Services
             var query = GetAllElements().Where(e => Int32.Parse(e.Attribute("Id").Value) == entity.Id).FirstOrDefault();
             query.Remove();
 
-            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null))
             {
-                using (Stream stream = storage.CreateFile(_filePath))
+                using (Stream stream = storage.CreateFile(isolatedFilePath))
                 {
                     _document.Save(stream);
                 }
@@ -159,9 +160,9 @@ namespace IleanaMusic.Data.Services
                 query.Add(p);
 
 
-            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null))
             {
-                using (Stream stream = storage.CreateFile(_filePath))
+                using (Stream stream = storage.CreateFile(isolatedFilePath))
                 {
                     _document.Save(stream);
                 }

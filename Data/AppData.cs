@@ -23,7 +23,7 @@ namespace IleanaMusic.Data
             PieceService = new PieceService("Pieces.xml");
 
             // Playlist service.
-            PlaylistService = new PlaylistService(@"Playlists.xml");
+            PlaylistService = new PlaylistService("Playlists.xml");
 
             ReportingHelper = new ReportingHelper();
         }
