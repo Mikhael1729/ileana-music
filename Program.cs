@@ -12,6 +12,7 @@ namespace IleanaMusic
         static void Main(string[] args)
         {
             ExporterHelper.ExportPiecesToXml();
+
             int option = 0;
             int playlistsOption = 0;
 

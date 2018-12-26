@@ -14,6 +14,8 @@ namespace IleanaMusic.Data.Services
         readonly string isolatedDirectory = "IleanaData";
         XDocument _document;
 
+        public XDocument Document { get => _document; }
+
         public PieceService(string fileName)
         {
             this.isolatedFilePath = Path.Combine(isolatedDirectory, fileName);

@@ -1,10 +1,14 @@
-﻿using System;
+﻿using IleanaMusic.Data;
+using IleanaMusic.Data.Services;
+using System;
 using System.IO; 
 
 namespace IleanaMusic.Helpers
 {
     public class ExporterHelper
     {
+        static readonly PieceService pieceService = AppData.Instance.PieceService;
+
         public ExporterHelper()
         {
 
@@ -14,17 +18,15 @@ namespace IleanaMusic.Helpers
         {
             var completeExport = false;
 
-            var basePath = Path.Combine(Directory.GetCurrentDirectory());
-            var toCopy = Path.Combine(Directory.GetCurrentDirectory(), "MyXmlFile.xml");
-            var toPaste = Path.Combine(Directory.GetCurrentDirectory(), "Exports", "MyXmlFileExported.xml");
+            var basePath = Path.Combine(Directory.GetCurrentDirectory(), "Exportaciones");
+            var piecesPath = Path.Combine(basePath, "Piezas.xml");
 
             try
             {
-                if(File.Exists(basePath))
-                {
+                if(!File.Exists(basePath))
+                    Directory.CreateDirectory(basePath);
 
-                }
-                File.Copy(toCopy, toPaste);
+                pieceService.Document.Save(piecesPath);
             }
             catch (Exception e)
             { }
