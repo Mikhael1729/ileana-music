@@ -55,7 +55,6 @@
   <ItemGroup>
     <Compile Include="Data\AppData.cs" />
     <Compile Include="Data\IData.cs" />
-    <Compile Include="Data\PieceData.cs" />
     <Compile Include="Data\Repositories\IRepository.cs" />
     <Compile Include="Data\Repositories\Repository.cs" />
     <Compile Include="Data\Services\IPieceService.cs" />
