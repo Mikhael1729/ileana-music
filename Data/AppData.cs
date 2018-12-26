@@ -5,6 +5,7 @@ using IleanaMusic.Data.Services;
 using IleanaMusic.Helpers;
 using static System.IO.Path;
 using static System.IO.Directory;
+using System.IO;
 
 namespace IleanaMusic.Data
 {
@@ -19,7 +20,7 @@ namespace IleanaMusic.Data
         private AppData()
         {
             // Piece service.
-            PieceService = new PieceService(@"Pieces.xml");
+            PieceService = new PieceService("Pieces.xml");
 
             // Playlist service.
             PlaylistService = new PlaylistService(@"Playlists.xml");

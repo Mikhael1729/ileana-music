@@ -10,26 +10,38 @@ namespace IleanaMusic.Data.Services
 {
     public class PieceService : IPieceService
     {
-        string filePath;
+        readonly string isolatedFilePath;
+        readonly string isolatedDirectory = "IleanaData";
         XDocument _document;
 
         public PieceService(string fileName)
         {
-            filePath = fileName;
+            this.isolatedFilePath = Path.Combine(isolatedDirectory, fileName);
             InitializeDocument();
         }
 
         void InitializeDocument()
         {
-            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null))
             {
+                if (!storage.DirectoryExists(isolatedDirectory))
+                    storage.CreateDirectory(isolatedDirectory);
+
                 var h = storage.GetFileNames();
+
                 // Uploading existing .xml file.
-                if (storage.FileExists(filePath))
+                if (storage.FileExists(isolatedFilePath))
                 {
-                    using (var stream = storage.OpenFile(filePath, FileMode.Open))
+                    using (var stream = storage.OpenFile(isolatedFilePath, FileMode.Open))
                     {
-                        _document = XDocument.Load(stream);
+                        try
+                        {
+                            _document = XDocument.Load(stream);
+                        } 
+                        catch(System.Xml.XmlException e)
+                        {
+                            _document = new XDocument(new XElement("PieceList"));
+                        }
                     }
                 }
                 else
@@ -61,7 +73,7 @@ namespace IleanaMusic.Data.Services
             entity.Id = GetNextId();
             XElement pieceList = null;
 
-            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null))
             {
                 // Getting PieceList node.
                 pieceList = _document.Descendants("PieceList")?.FirstOrDefault();
@@ -83,7 +95,7 @@ namespace IleanaMusic.Data.Services
                 // If exists, add the new piece to descendatants
                 pieceList?.Add(pieceElement);
 
-                using (Stream stream = storage.CreateFile(filePath))
+                using (Stream stream = storage.CreateFile(isolatedFilePath))
                 {
                     _document.Save(stream);
                 }
@@ -102,9 +114,9 @@ namespace IleanaMusic.Data.Services
             var query = GetAllElements().Where(e => Int32.Parse(e.Attribute("Id").Value) == entity.Id).FirstOrDefault();
             query.Remove();
 
-            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null))
             {
-                using (Stream stream = storage.CreateFile(filePath))
+                using (Stream stream = storage.CreateFile(isolatedFilePath))
                 {
                     _document.Save(stream);
                 }
@@ -130,9 +142,9 @@ namespace IleanaMusic.Data.Services
             query.Attribute("Quality").Value = Enum.GetName(entity.Quality.GetType(), entity.Quality);
             query.Attribute("Format").Value =  Enum.GetName(entity.Format.GetType(), entity.Format);
             
-            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null))
             {
-                using (Stream stream = storage.CreateFile(filePath))
+                using (Stream stream = storage.CreateFile(isolatedFilePath))
                 {
                     _document.Save(stream);
                 }

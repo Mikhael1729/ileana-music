@@ -14,11 +14,16 @@ namespace IleanaMusic.Helpers
         {
             var completeExport = false;
 
-            var toCopy = Path.Combine(Directory.GetCurrentDirectory(), "Testing", "MyXmlFile.xml");
+            var basePath = Path.Combine(Directory.GetCurrentDirectory());
+            var toCopy = Path.Combine(Directory.GetCurrentDirectory(), "MyXmlFile.xml");
             var toPaste = Path.Combine(Directory.GetCurrentDirectory(), "Exports", "MyXmlFileExported.xml");
 
             try
             {
+                if(File.Exists(basePath))
+                {
+
+                }
                 File.Copy(toCopy, toPaste);
             }
             catch (Exception e)
