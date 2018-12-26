@@ -87,6 +87,7 @@
     <Compile Include="Screens\EditPieceScreen.cs" />
     <Compile Include="Screens\EditPlaylistScreen.cs" />
     <Compile Include="Screens\ExcelReportScreen.cs" />
+    <Compile Include="Screens\ExportPiecesScreen.cs" />
     <Compile Include="Screens\MenuOneScreen.cs" />
     <Compile Include="Screens\MenuScreen.cs" />
     <Compile Include="Screens\PdfReportScreen.cs" />

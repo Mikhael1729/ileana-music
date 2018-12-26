@@ -84,16 +84,16 @@ namespace IleanaMusic.Helpers
         {
             var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
 
-            writer.Write("- Escribe los IDs de las piezas que quieres agregar a la playlist: \n", indent: indent + 1);
+            writer.Write("- Escribe los IDs de las piezas que quieres agregar a la playlist: \n", indent: indent);
             writer.Write(
                 text: ">> Lista de piezas: \n",
-                indent: indent + 2);
+                indent: indent + 1);
 
             // Printing pieces.
             foreach (var piece in pieceService.GetAll())
                 writer.Write(
                     text: $"- Id: {piece.Id}, Nombre: {piece.Name}\n",
-                    indent: indent + 3);
+                    indent: indent + 2);
 
 
             WriteLine("");
@@ -101,7 +101,7 @@ namespace IleanaMusic.Helpers
             // Requestin piece IDs.
             writer.Write(
                 text: ">> Escribe el id de las piezas a gregar (separados por coma): ",
-                indent: indent + 2);
+                indent: indent + 1);
 
             // Procesing.
             var ids = ReadLine();

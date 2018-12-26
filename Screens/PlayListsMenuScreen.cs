@@ -8,6 +8,7 @@ namespace IleanaMusic.Screens
         int option;
         const string menu = @"Playlists
 ----------
+
 1. Agregar playlist
 2. Listar playlists
 3. Editar playlist

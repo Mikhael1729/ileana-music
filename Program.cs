@@ -123,7 +123,7 @@ namespace IleanaMusic
         }
 
         // If option is "1" you don't want to show the follow message.
-        if (option != 1 && playlistsOption == 0)
+        if (option != 1 && playlistsOption != 0)
         {
           Pause();
         }
