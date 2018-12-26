@@ -19,10 +19,10 @@ namespace IleanaMusic
             WriteLine("Buscar canción\n"
                     + "--------------\n");
 
-            Write("Escribe el ID o el Nombre de tu canción: ");
-
             if (pieceList.Count > 0)
             {
+                Write("Escribe el ID o el Nombre de tu canción: ");
+
                 string option;
                 string name = "";
                 int id = 0;

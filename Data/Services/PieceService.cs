@@ -23,7 +23,7 @@ namespace IleanaMusic.Data.Services
         {
             using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null))
             {
-                var h = Path.GetFullPath(storage.GetFileNames()[0]);
+                var h = storage.GetFileNames();
                 // Uploading existing .xml file.
                 if (storage.FileExists(filePath))
                 {
@@ -82,8 +82,8 @@ namespace IleanaMusic.Data.Services
 
                 // If exists, add the new piece to descendatants
                 pieceList?.Add(pieceElement);
-                var fileName = Path.GetFileName(filePath);
-                using (Stream stream = storage.CreateFile(fileName))
+
+                using (Stream stream = storage.CreateFile(filePath))
                 {
                     _document.Save(stream);
                 }

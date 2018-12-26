@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1AFBE7A9-D21A-4DBF-A6D4-8CCC733B8AA5}</ProjectGuid>
+    <ProjectGuid>{B019DA07-6566-4CB0-A4D6-99C43802B1EA}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>IleanaMusic</RootNamespace>
     <AssemblyName>IleanaMusic</AssemblyName>
@@ -34,10 +34,6 @@
   <ItemGroup>
     <Reference Include="GemBox.Spreadsheet, Version=43.0.35.1084, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
       <HintPath>..\packages\GemBox.Spreadsheet.43.0.0.1084\lib\net35\GemBox.Spreadsheet.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -101,13 +97,10 @@
     <Compile Include="Screens\SearchPlaylistScreen.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".gitignore" />
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Content Include="Testing\MyXmlFile.xml" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
