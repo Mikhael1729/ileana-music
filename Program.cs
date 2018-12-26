@@ -9,9 +9,6 @@ namespace IleanaMusic
     {
         static void Main(string[] args)
         {
-            var exporter = ExporterHelper.Instance;
-
-            exporter.ExportPiecesToJson();
 
             int option = 0;
             int playlistsOption = 0;
