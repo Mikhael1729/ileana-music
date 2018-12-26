@@ -12,7 +12,6 @@ namespace IleanaMusic.Screens
     {
         PlaylistService playlistService = AppData.Instance.PlaylistService;
 
-        List<Playlist> playlists = AppData.Instance.Playlists;
         Playlist searchedPlaylist;
 
         public DeletePlaylitScreen()

@@ -13,7 +13,6 @@ namespace IleanaMusic.Screens
     {
         PlaylistService playlistService = AppData.Instance.PlaylistService;
         PieceService pieceService = AppData.Instance.PieceService;
-        List<Playlist> playlists = AppData.Instance.Playlists;
         Playlist searchedPlaylist;
         Piece searchedPiece;
 
