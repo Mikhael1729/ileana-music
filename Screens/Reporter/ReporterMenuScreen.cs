@@ -7,7 +7,7 @@ namespace IleanaMusic.Screens
 {
     public class ReporterMenuScreen
     {
-        int option = 0;
+        readonly int option = 0;
 
         public ReporterMenuScreen()
         {
