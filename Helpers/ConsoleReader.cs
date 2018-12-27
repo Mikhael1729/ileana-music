@@ -1,82 +1,99 @@
 using System;
-using static System.Console;
+using static IleanaMusic.Helpers.TurnHelper;
 
 namespace IleanaMusic.Helpers
 {
-  public static class ConsoleReader
-  {
-    public static int[] ReadNumberOptions(char separationSign = ',')
+    /// <summary>
+    /// Has methods to read integers, arrays and strings from console
+    /// </summary>
+    public static class ConsoleReader
     {
-      var lecture = ReadLine();
-      var parts = lecture.Split(separationSign);
-
-      var options = new int[parts.Length];
-      for (int i = 0; i < parts.Length; i++)
-      {
-        var part = parts[i].Trim();
-        try
+        public static int[] ReadNumberOptions(char separationSign = ',')
         {
-          var numberOption = Int32.Parse(part);
+            var lecture = ReadLine();
+            var parts = lecture.Split(separationSign);
 
-          options[i] = numberOption;
+            var options = new int[parts.Length];
+            for (int i = 0; i < parts.Length; i++)
+            {
+            var part = parts[i].Trim();
+            try
+            {
+                var numberOption = Int32.Parse(part);
+
+                options[i] = numberOption;
+            }
+            catch (Exception e)
+            { }
+            }
+
+            return options;
         }
-        catch (Exception e)
-        { }
-      }
 
-      return options;
-    }
-
-    public static string[] ReadStrings(char separationSign = ',')
-    {
-      var lecture = ReadLine();
-      var parts = lecture.Split(separationSign);
-
-      var options = new string[parts.Length];
-
-      for (int i = 0; i < options.Length; i++)
-        options[i] = parts[i].Trim();
-
-      return options;
-    }
-
-    public static char[] ReadCharacters(char separationSign = ',')
-    {
-      var lecture = ReadLine();
-      var parts = lecture.Split(separationSign);
-
-      var options = new char[parts.Length];
-      for (int i = 0; i < parts.Length; i++)
-      {
-        try
+        public static string[] ReadStrings(char separationSign = ',')
         {
-          options[i] = char.Parse(parts[i].Trim());
+            var lecture = ReadLine();
+            var parts = lecture.Split(separationSign);
+
+            var options = new string[parts.Length];
+
+            for (int i = 0; i < options.Length; i++)
+            options[i] = parts[i].Trim();
+
+            return options;
         }
-        catch (Exception e)
-        { }
-      }
 
-      return options;
-    }
+        public static char[] ReadCharacters(char separationSign = ',')
+        {
+            var lecture = ReadLine();
+            var parts = lecture.Split(separationSign);
 
-    public static string ReadLine()
-    {
-      return System.Console.ReadLine();
-    }
+            var options = new char[parts.Length];
+            for (int i = 0; i < parts.Length; i++)
+            {
+            try
+            {
+                options[i] = char.Parse(parts[i].Trim());
+            }
+            catch (Exception e)
+            { }
+            }
 
-    public static int ReadNumber()
-    {
-      string lecture = ReadLine();
-      int option = 0;
-      try
-      {
-        option = Int32.Parse(lecture);
-        return option;
-      }
-      catch (Exception e)
-      {
-        return option;
-      }
+            return options;
+        }
+
+        public static string ReadLine()
+        {
+            return Console.ReadLine();
+        }
+
+        public static int ReadNumber()
+        {
+            string lecture = ReadLine();
+            int option = 0;
+            try
+            {
+                option = Int32.Parse(lecture);
+                return option;
+            }
+            catch (Exception e)
+            {
+                return option;
+            }
+        }
+
+        public static int ReadNumberWithValidation(Func<int> iteration)
+        {
+            int option;
+
+            while (!Int32.TryParse(ReadLine(), out option))
+            {
+                Clear();
+
+                iteration();
+            }
+
+            return option;
+        }
     }
-  }
 }

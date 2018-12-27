@@ -9,7 +9,6 @@ namespace IleanaMusic
     {
         static void Main(string[] args)
         {
-
             int option = 0;
             int playlistsOption = 0;
 
