@@ -11,21 +11,10 @@ namespace IleanaMusic.Screens
 
         public ReporterMenuScreen()
         {
+            Render();
+            Clear();
+
             var thereArePieces = AppData.Instance.PieceService.Count() > 0;
-
-            // Title.
-            Title();
-
-            PrintLine("");
-
-            // Options.
-            PrintLine(
-                "1. PDF\n" +
-                "2. Excel\n"+
-                "3. CSV\n"+
-                "4. <<-- Atrás\n"
-            );
-
 
             if (!thereArePieces)
             {
@@ -34,25 +23,53 @@ namespace IleanaMusic.Screens
             }
             else
             {
-                Print("Elija el formato para el reporte: ");
-                option = ReadNumber();
-
-                // Instruction. 
-                switch (option)
+                while(option != 4)
                 {
-                    case 1:
-                        new PdfReportScreen();
-                        break;
+                    option = ReadNumberWithValidation(() =>
+                    {
+                        Clear();
+                        Render();
+                    });
 
-                    case 2:
-                        new ExcelReportScreen();
-                        break;
+                    Clear();
+                    // Instruction. 
+                    switch (option)
+                    {
+                        case 1:
+                            new PdfReportScreen();
+                            break;
 
-                    case 3:
-                        new CsvReportScreen();
-                        break;
+                        case 2:
+                            new ExcelReportScreen();
+                            break;
+
+                        case 3:
+                            new CsvReportScreen();
+                            break;
+                    }
+
+                    if(option != 4)
+                        Pause();
                 }
             }
+        }
+
+        public void Render()
+        {
+            // Title.
+            Title();
+
+            PrintLine("");
+
+            // Options.
+            PrintLine(
+                "1. PDF\n" +
+                "2. Excel\n" +
+                "3. CSV\n" +
+                "4. <<-- Atrás\n"
+            );
+
+            Print("Elija el formato para el reporte: ");
         }
 
         public void Title()
