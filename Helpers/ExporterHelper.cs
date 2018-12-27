@@ -1,10 +1,13 @@
 ﻿using IleanaMusic.Data;
 using IleanaMusic.Data.Services;
+using IleanaMusic.Models;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
+using System.Linq;
 
 namespace IleanaMusic.Helpers
 {
@@ -54,7 +57,21 @@ namespace IleanaMusic.Helpers
 
             try
             {
-                var json = JsonConvert.SerializeObject(pieceService.GetAll(), Newtonsoft.Json.Formatting.Indented);
+                var pieces = pieceService.GetAll()
+                    .AsEnumerable()
+                    .Select(piece => new
+                    {
+                        Id = piece.Id,
+                        Name = piece.Name,
+                        Artist = piece.Artist,
+                        Album = piece.Album,
+                        Gender = Enum.GetName(piece.Gender.GetType(), piece.Gender),
+                        Duration = piece.Duration,
+                        Quality = Enum.GetName(piece.Quality.GetType(), piece.Quality),
+                        Format = Enum.GetName(piece.Format.GetType(), piece.Format)
+                    });
+
+                var json = JsonConvert.SerializeObject(pieces, Newtonsoft.Json.Formatting.Indented);
                 File.WriteAllText(piecesJsonPath, json);
                 completeExport = true;
             }
