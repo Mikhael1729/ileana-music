@@ -37,7 +37,29 @@ namespace IleanaMusic.Helpers
             );
         }
 
-        string GenerateSpaces(int spaceQuantity)
+        public static void PrintLine(string text, int indent = 0, bool spaceBefore = false)
+        {
+            var extra = GenerateSpaces(indent);
+
+            System.Console.WriteLine(
+                (spaceBefore ? "\n" : "")
+                + extra
+                + text
+            );
+        }
+
+        public static void Print(string text, int indent = 0, bool spaceBefore = false)
+        {
+            var extra = GenerateSpaces(indent);
+
+            System.Console.Write(
+                (spaceBefore ? "\n" : "")
+                + extra
+                + text
+            );
+        }
+
+        static string GenerateSpaces(int spaceQuantity)
         {
             var spaces = "";
 

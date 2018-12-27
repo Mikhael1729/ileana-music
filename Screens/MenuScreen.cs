@@ -1,33 +1,44 @@
-using System;
 using static IleanaMusic.Helpers.ConsoleReader;
+using static IleanaMusic.Helpers.ConsoleWriter;
 using static IleanaMusic.Helpers.TurnHelper;
 
-namespace IleanaMusic 
+namespace IleanaMusic
 {
     public class MenuScreen 
     {
         private int option;
-        private const string menu = @"Ileana Music
-------------
-
-1. Canciones
-2. Playlists
-3. Menú de reportes
-4. Exportar piezas
-5. Importar piezas
-6. Salir
-
-Escoge una opción: ";
-
 
         public MenuScreen() 
         {
-            option = ReadNumberWithValidation(() => { Clear(); Console.Write(menu);  });
+            option = ReadNumberWithValidation(() => 
+            {
+                Clear();
+                Screen();
+            });
         }
 
         public int Data() 
         {
             return option;
+        }
+
+        private void Screen()
+        {
+            PrintLine(
+                 "Ileana Music \n" +
+                 "------------\n"
+            );
+
+            PrintLine(
+                "1. Canciones\n" +
+                "2. Playlists\n" +
+                "3. Menú de reportes\n" +
+                "4. Exportar piezas\n" +
+                "5. Importar piezas\n" +
+                "6. Salir\n"
+            );
+
+            Print("Escoge una opción: ");
         }
     }
 }
