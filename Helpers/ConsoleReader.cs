@@ -82,15 +82,13 @@ namespace IleanaMusic.Helpers
             }
         }
 
-        public static int ReadNumberWithValidation(Func<int> iteration)
+        public static int ReadNumberWithValidation(Action forEachIteration)
         {
             int option;
 
             while (!Int32.TryParse(ReadLine(), out option))
             {
-                Clear();
-
-                iteration();
+                forEachIteration();
             }
 
             return option;

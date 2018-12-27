@@ -1,5 +1,6 @@
 using System;
-using static System.Console;
+using static IleanaMusic.Helpers.ConsoleReader;
+using static IleanaMusic.Helpers.TurnHelper;
 
 namespace IleanaMusic 
 {
@@ -23,15 +24,9 @@ Escoge una opción: ";
         {
             option = 0; 
 
-            Write(menu);
+            Console.Write(menu);
 
-            while(!Int32.TryParse(ReadLine(), out option))
-            {
-                Clear();
-
-                // Menu screen.
-                Write(menu);
-            }
+            option = ReadNumberWithValidation(() => { Console.Write(menu); Clear(); });
 
             Clear();
         }
