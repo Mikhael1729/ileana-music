@@ -56,6 +56,7 @@ namespace IleanaMusic.Helpers
             {
                 var json = JsonConvert.SerializeObject(pieceService.GetAll(), Newtonsoft.Json.Formatting.Indented);
                 File.WriteAllText(piecesJsonPath, json);
+                completeExport = true;
             }
             catch(Exception e)
             { }

@@ -47,7 +47,7 @@ namespace IleanaMusic
                         new ReporterMenuScreen();
                         break;
                     case 4:
-                        PrintLine("Nothing here 4");
+                        new ExportMenuScreen();
                         break;
 
                     case 5:
