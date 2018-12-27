@@ -61,12 +61,12 @@ namespace IleanaMusic.Helpers
                     .AsEnumerable()
                     .Select(piece => new
                     {
-                        Id = piece.Id,
-                        Name = piece.Name,
-                        Artist = piece.Artist,
-                        Album = piece.Album,
+                        piece.Id,
+                        piece.Name,
+                        piece.Artist,
+                        piece.Album,
                         Gender = Enum.GetName(piece.Gender.GetType(), piece.Gender),
-                        Duration = piece.Duration,
+                        piece.Duration,
                         Quality = Enum.GetName(piece.Quality.GetType(), piece.Quality),
                         Format = Enum.GetName(piece.Format.GetType(), piece.Format)
                     });
