@@ -81,6 +81,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screens\Export\ExportMenuScreen.cs" />
     <Compile Include="Screens\Export\JsonExportScreen.cs" />
+    <Compile Include="Screens\Export\XmlExportScreen.cs" />
     <Compile Include="Screens\Piece\AddPieceScreen.cs" />
     <Compile Include="Screens\Playlist\AddPlaylistScreen.cs" />
     <Compile Include="Screens\Reporter\CsvReportScreen.cs" />

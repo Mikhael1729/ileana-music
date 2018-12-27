@@ -37,6 +37,7 @@ namespace IleanaMusic.Screens
                 switch (option)
                 {
                     case 1:
+                        new XmlExportScreen();
                         break;
                     case 2:
                         new JsonExportScreen();
