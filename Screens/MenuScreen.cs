@@ -22,13 +22,7 @@ Escoge una opción: ";
 
         public MenuScreen() 
         {
-            option = 0; 
-
-            Console.Write(menu);
-
-            option = ReadNumberWithValidation(() => { Console.Write(menu); Clear(); });
-
-            Clear();
+            option = ReadNumberWithValidation(() => { Clear(); Console.Write(menu);  });
         }
 
         public int Data() 

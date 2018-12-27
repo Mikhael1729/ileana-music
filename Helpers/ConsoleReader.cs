@@ -86,6 +86,8 @@ namespace IleanaMusic.Helpers
         {
             int option;
 
+            forEachIteration();
+
             while (!Int32.TryParse(ReadLine(), out option))
             {
                 forEachIteration();
