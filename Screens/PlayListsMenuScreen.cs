@@ -1,44 +1,69 @@
-using System;
-using static System.Console;
+using static IleanaMusic.Helpers.ConsoleReader;
+using static IleanaMusic.Helpers.ConsoleWriter;
+using static IleanaMusic.Helpers.TurnHelper;
 
 namespace IleanaMusic.Screens
 {
     public class PlayListsMenuScreen
     {
         int option;
-        const string menu = @"Playlists
-----------
 
-1. Agregar playlist
-2. Listar playlists
-3. Editar playlist
-4. Borrar playlist
-5. Buscar playlist
-6. Buscar canción en playlist
-7. <<-- Ir atrás
-
-Escoge una opción: ";
 
         public PlayListsMenuScreen()
         {
-            option = 0;
-
-            Write(menu);
-
-            while (!Int32.TryParse(ReadLine(), out option))
+            var option = ReadNumberWithValidation(() =>
             {
                 Clear();
+                Render();
+            });
 
-                // Menu screen.
-                Write(menu);
+            while (option != 7)
+            {
+                Clear();
+                switch (option)
+                {
+                    case 1:
+                        new AddPlayListScreen();
+                        break;
+                    case 2:
+                        new PlaylistsScreen();
+                        break;
+                    case 3:
+                        new EditPlayListScreen();
+                        break;
+                    case 4:
+                        new DeletePlaylitScreen();
+                        break;
+                    case 5:
+                        new SearchPlaylistScreen();
+                        break;
+                    case 6:
+                        new SearchPieceInPlaylistScreen();
+                        break;
+                }
+                if (option != 7)
+                    Pause();
             }
-
-            Clear();
         }
 
-        public int Data()
+        private void Render()
         {
-            return option;
+            PrintLine(
+                 "Playlists \n" +
+                 "---------\n"
+            );
+
+            PrintLine(
+                "1. Agregar playlist\n" +
+                "2. Listar playlists\n" +
+                "3. Editar playlist\n" +
+                "4. Borrar playlist\n" +
+                "5. Buscar playlist\n" +
+                "6. Buscar canción en playlist\n"+
+                "7. <<-- Ir atrás\n"
+            );
+
+            Print("Escoge una opción: ");
         }
     }
 }
