@@ -51,7 +51,7 @@ namespace IleanaMusic
                         break;
 
                     case 5:
-                        PrintLine("Nothing here 5");
+                        new ImportMenuScreen();
                         break;
                 }
             }
