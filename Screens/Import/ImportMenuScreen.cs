@@ -37,7 +37,7 @@ namespace IleanaMusic.Screens
                 switch (option)
                 {
                     case 1:
-                        PrintLine("Nothing here");
+                        new ImportFromXmlScreen();
                         break;
                     case 2:
                         PrintLine("Nothing here 2");
@@ -45,6 +45,8 @@ namespace IleanaMusic.Screens
                     default:
                         break;
                 }
+
+                Pause();
             }
         }
     }
