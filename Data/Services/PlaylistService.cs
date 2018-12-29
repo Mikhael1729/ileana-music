@@ -64,54 +64,50 @@ namespace IleanaMusic.Data.Services
 
         public Playlist Add(Playlist entity)
         {
-            if(ItCanBeAdded(entity))
+            if (!ItCanBeAdded(entity))
+                throw new InvalidOperationException("No se puede tener una lista de reproducción con el nombre de otra ya existente");
+ 
+            entity.Id = ComputeNextId();
+            XElement playlist = null;
+
+            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null))
             {
-                entity.Id = ComputeNextId();
-                XElement playlist = null;
+                // Playlists (parent node).
+                playlist = _document.Descendants(rootNode)?.FirstOrDefault();
 
-                using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null))
-                {
-                    // Playlists (parent node).
-                    playlist = _document.Descendants(rootNode)?.FirstOrDefault();
-
-                    // Playlist element (child node)
-                    var playlistElement = new XElement(
-                        name: playlistNode,
-                        content: new[] {
-                            new XAttribute("Id", entity.Id),
-                            new XAttribute("Name", entity.Name),
-                            new XAttribute("Logo", entity.Logo),
-                        }
-                    );
-
-                    // Adding piece IDs to Playlist element..
-                    var pieces = entity.PieceList.Select<Piece, XElement>(p =>
-                    {
-                        var element = new XElement("PieceId");
-                        element.Add(p.Id);
-                        return element;
-                    });
-
-                    foreach (var p in pieces)
-                        playlistElement.Add(p);
-
-                    // If exists, add the new piece to descendatants
-                    playlist?.Add(playlistElement);
-
-                    using (Stream stream = storage.CreateFile(isolatedFilePath))
-                    {
-                        _document.Save(stream);
+                // Playlist element (child node)
+                var playlistElement = new XElement(
+                    name: playlistNode,
+                    content: new[] {
+                        new XAttribute("Id", entity.Id),
+                        new XAttribute("Name", entity.Name),
+                        new XAttribute("Logo", entity.Logo),
                     }
+                );
+
+                // Adding piece IDs to Playlist element..
+                var pieces = entity.PieceList.Select<Piece, XElement>(p =>
+                {
+                    var element = new XElement("PieceId");
+                    element.Add(p.Id);
+                    return element;
+                });
+
+                foreach (var p in pieces)
+                    playlistElement.Add(p);
+
+                // If exists, add the new piece to descendatants
+                playlist?.Add(playlistElement);
+
+                using (Stream stream = storage.CreateFile(isolatedFilePath))
+                {
+                    _document.Save(stream);
                 }
-
-                this.count++;
-
-                return entity;
             }
-            else
-            {
-                throw new InvalidOperationException("No se puede agregar una lista de reproducción con el nombre de una ya existente");
-            }
+
+            this.count++;
+
+            return entity;
         }
 
         public int Count()
