@@ -69,6 +69,7 @@
     <Compile Include="Helpers\ExporterHelper.cs" />
     <Compile Include="Helpers\PieceImporterHelper.cs" />
     <Compile Include="Helpers\PlaylistFragments.cs" />
+    <Compile Include="Helpers\PlaylistValidationHelper.cs" />
     <Compile Include="Helpers\ReportingHelper.cs" />
     <Compile Include="Helpers\TurnHelper.cs" />
     <Compile Include="Models\BaseEntity.cs" />

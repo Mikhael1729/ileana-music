@@ -18,28 +18,48 @@ namespace IleanaMusic.Screens
         {
             var writer = new ConsoleWriter(0);
 
-            writer.Write("Agregar nueva playlist \n"
-                    + "----------------------\n\n");
+            writer.WriteLine(
+                "Agregar nueva playlist \n" +
+                "----------------------\n"
+            );
 
-            RequestName(ref playlist, writer);
-            RequestLogo(ref playlist, writer);
-            RequestPieces(ref playlist, writer);
+            var validName = false;
+            var validLogo = false;
+            var validPieces = false;
 
-            // Adding id.
-            try
+            validName = RequestName(ref playlist, writer);
+
+            if(validName)
             {
-                playlistService.Add(playlist);
-                writer.WriteLine(
-                    text: "-->> Playlist agregada <<--\n", 
-                    spaceBefore:true
-                );
-            } 
-            catch(InvalidOperationException e)
+                validLogo = RequestLogo(ref playlist, writer);
+                validPieces = RequestPieces(ref playlist, writer);
+
+                writer.WriteLine("");
+
+                if(validPieces)
+                {
+                    playlistService.Add(playlist);
+
+                    writer.WriteLine(
+                        text: "-->> Playlist agregada <<--\n",
+                        spaceBefore: true
+                    );
+                }
+            }
+
+            if (!validName || !validPieces)
             {
-                writer.WriteLine(
-                    text: $">> OPERACIÓN BLOQUEADA: {e.Message} <<",
-                    spaceBefore: true
-                );
+                writer.WriteLine("[INSERCIÓN CANCELADA]\n");
+
+                if(!validName)
+                    writer.WriteLine(
+                         text: $"- No se puede tener una lista de reproducción con el nombre de otra ya existente <<"
+                    );
+
+                if (!validPieces)
+                    writer.WriteLine(
+                        text: $"- No está permitido agregar una playlist sin canciones"
+                    );
             }
         }
     }
