@@ -45,7 +45,7 @@ namespace IleanaMusic.Screens
                 if (searchedPlaylist != null)
                 {
                     writer.WriteLine(
-                        ">> ¡Playlist encontrada!\n"
+                        "[Playlist encontrada]\n"
                     );
 
                     writer.WriteLine(
