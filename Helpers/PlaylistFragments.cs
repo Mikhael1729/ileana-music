@@ -220,27 +220,27 @@ namespace IleanaMusic.Helpers
 
             var options = ConsoleReader.ReadNumberOptions();
 
-            /* Piece list */
-
-            writer.WriteLine(
-                text: "[Lista de piezas]\n",
-                indent: indent + 2,
-                spaceBefore: true
-            );
-
-            var j = pieceService.GetAll();
-
-            PrintOneLinePieces(
-                consoleWriter: writer,
-                pieceList: j,
-                indent: indent + 2
-            );
-
             foreach (var i in options)
             {
                 // Add piece to playlist.
                 if (i == 1)
                 {
+                    /* Piece list */
+
+                    writer.WriteLine(
+                        text: "[Lista de piezas]\n",
+                        indent: indent + 2,
+                        spaceBefore: true
+                    );
+
+                    var j = pieceService.GetAll();
+
+                    PrintOneLinePieces(
+                        consoleWriter: writer,
+                        pieceList: j,
+                        indent: indent + 2
+                    );
+
                     writer.WriteLine(
                         text: "[Agregar piezas]\n",
                         indent: indent + 2,
