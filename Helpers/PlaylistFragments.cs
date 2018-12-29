@@ -17,23 +17,38 @@ namespace IleanaMusic.Helpers
         {
         }
 
-        public static void PrintPlaylist(Playlist playlist, ConsoleWriter consoleWriter = null, bool withNumeration = false, bool withPieces = false)
+        public static void PrintPlaylist(Playlist playlist, ConsoleWriter consoleWriter = null, bool withNumeration = false, bool withPieces = false, int indentation=0)
         {
-            var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
+            var writer = consoleWriter ?? new ConsoleWriter(0);
             var option = withNumeration;
 
-            writer.Write($"{(!option ? "- " : "   ")}ID: {playlist.Id}\n");
-            writer.Write($"{(!option ? "  " : "1. ")}Logo: {playlist.Logo}\n");
-            writer.Write($"{(!option ? "  " : "2. ")}Nombre: {playlist.Name}\n");
+            writer.Write(
+                text: $"{(!option ? "- " : "   ")}ID: {playlist.Id}\n",
+                indent: indentation
+            );
+            writer.Write(
+                text: $"{(!option ? "  " : "1. ")}Logo: {playlist.Logo}\n",
+                indent: indentation
+            );
+            writer.Write(
+                text: $"{(!option ? "  " : "2. ")}Nombre: {playlist.Name}\n",
+                indent: indentation
+            );
 
             if (!withPieces)
             {
-                writer.Write($"{(!option ? "  " : "3. ")}Cantidad de canciones: {playlist.PieceList.Count}\n");
+                writer.Write(
+                    text:$"{(!option ? "  " : "3. ")}Cantidad de canciones: {playlist.PieceList.Count}\n",
+                    indent: indentation
+                );
             }
             else
             {
-                writer.Write($"{(!option ? "  " : "3. ")}Piezas: \n");
-                PrintPlaylistPieces(playlist, writer, 1);
+                writer.Write(
+                    text: $"{(!option ? "  " : "3. ")}Piezas: \n",
+                    indent: indentation
+                );
+                PrintPlaylistPieces(playlist, writer, indentation);
             }
         }
 
@@ -46,7 +61,7 @@ namespace IleanaMusic.Helpers
             {
                 writer.WriteLine(
                     text: $"- ID: {piece.Id}, Nombre: {piece.Name}",
-                    indent: indent);
+                    indent: indent + 1);
             }
         }
 

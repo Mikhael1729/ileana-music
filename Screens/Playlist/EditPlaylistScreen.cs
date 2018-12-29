@@ -49,10 +49,16 @@ namespace IleanaMusic.Screens
 
                 if (searchedPlaylist != null)
                 {
-                    PlaylistFragments.PrintPlaylist(playlist: searchedPlaylist, withNumeration:true, withPieces: true);
+                    WriteLine("- Playlist encontrada: \n");
+                    PlaylistFragments.PrintPlaylist(
+                        playlist: searchedPlaylist, 
+                        withNumeration:true, 
+                        withPieces: true, 
+                        indentation: 1
+                    );
 
                     // Requesting what fields want to modify.
-                    Write("\n>> ¿Qué campos quieres editar? (separa con coma): ");
+                    Write("\n- ¿Qué campos quieres editar? (separa con coma): ");
                     var options = ReadLine();
                     var selected = options.Split(',');
 
@@ -81,7 +87,7 @@ namespace IleanaMusic.Screens
                 else
                 {
                     WriteLine(">> Playlist no encontrada. : (");
-                    WriteLine(">> El Id o nombre que introdujiste no es una playlist");
+                    WriteLine("   El ID o nombre introducido no coincidió con ningún resultado de búsqueda <<");
                 }
             }
         }

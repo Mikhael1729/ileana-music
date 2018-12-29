@@ -144,6 +144,9 @@ namespace IleanaMusic.Data.Services
 
         public Playlist Update(Playlist entity)
         {
+            if (!ItCanBeUpdated(entity))
+                throw new InvalidOperationException("No pueden existir dos listas de reproducción con el mismo nombre");
+
             var query = (
                 from element in GetAllElements()
                 where Int32.Parse(element.Attribute("Id").Value) == entity.Id
@@ -176,6 +179,13 @@ namespace IleanaMusic.Data.Services
             }
 
             return entity;
+        }
+
+        private bool ItCanBeUpdated(Playlist entity)
+        {
+            // Has another ID and the same name.
+            var anotherWithTheSameName = Find((Playlist p) => p.Id != entity.Id && p.Name.ToLower() == entity.Name.ToLower());
+            return anotherWithTheSameName == null ? true : false;
         }
 
         public Playlist Find(Func<Playlist, bool> critery) => GetAll().Where(critery).FirstOrDefault();
