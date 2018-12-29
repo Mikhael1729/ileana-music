@@ -1,12 +1,10 @@
 using IleanaMusic.Data;
-using IleanaMusic.Models;
-using static System.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using IleanaMusic.Data.Services;
 using IleanaMusic.Helpers;
-using static IleanaMusic.Helpers.ConsoleWriter;
+using IleanaMusic.Models;
+using System;
+using System.Collections.Generic;
+using static IleanaMusic.Helpers.PlaylistFragments;
 
 namespace IleanaMusic.Screens
 {
@@ -23,9 +21,9 @@ namespace IleanaMusic.Screens
             writer.Write("Agregar nueva playlist \n"
                     + "----------------------\n\n");
 
-            PlaylistFragments.RequestName(ref playlist, writer);
-            PlaylistFragments.RequestLogo(ref playlist, writer);
-            PlaylistFragments.RequestPieces(ref playlist, writer);
+            RequestName(ref playlist, writer);
+            RequestLogo(ref playlist, writer);
+            RequestPieces(ref playlist, writer);
 
             // Adding id.
             try
