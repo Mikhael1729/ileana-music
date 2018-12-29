@@ -19,8 +19,8 @@ namespace IleanaMusic.Screens
             var pieceService = AppData.Instance.PieceService;
 
             PrintLine(
-                "Importar desde XML\n" +
-                "------------------\n"
+                "Importar desde JSON\n" +
+                "-------------------\n"
             );
 
             Print("Escribe la ubicación del archivo: ");
@@ -66,7 +66,7 @@ namespace IleanaMusic.Screens
                 }
                 else
                 {
-                    PrintLine($">> Ha ocurrido un error. Vuelva a intentarlo << ");
+                    PrintLine($">> Ha ocurrido un error. No pudimos encontrar un archivo JSON válido. Vuelva a intentarlo  <<");
                 }
             }
         }

@@ -67,7 +67,7 @@
     <Compile Include="Helpers\ConsoleReader.cs" />
     <Compile Include="Helpers\ConsoleWriter.cs" />
     <Compile Include="Helpers\ExporterHelper.cs" />
-    <Compile Include="Helpers\ImportHelper.cs" />
+    <Compile Include="Helpers\PieceImporterHelper.cs" />
     <Compile Include="Helpers\PlaylistFragments.cs" />
     <Compile Include="Helpers\ReportingHelper.cs" />
     <Compile Include="Helpers\TurnHelper.cs" />

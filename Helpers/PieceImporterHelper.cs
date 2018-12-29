@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace IleanaMusic.Helpers
 {
-    public static class ImportHelper
+    public static class PieceImporterHelper
     {
 
         public static IEnumerable<Piece> ExtractPieces(this XDocument document, PieceService service)

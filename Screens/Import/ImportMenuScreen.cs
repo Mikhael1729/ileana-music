@@ -46,7 +46,10 @@ namespace IleanaMusic.Screens
                         break;
                 }
 
-                Pause();
+                if(option != 3)
+                {
+                    Pause();
+                }
             }
         }
     }

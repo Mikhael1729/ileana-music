@@ -48,7 +48,7 @@ namespace IleanaMusic.Data.Services
 
         int ComputeNextId()
         {
-            var query = (
+            var query = (   
                 from element in _document.Element(rootNode)?.Elements(playlistNode)
                 select element
             ).LastOrDefault();
