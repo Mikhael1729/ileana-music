@@ -2,10 +2,9 @@ using System;
 using System.Collections.Generic;
 using IleanaMusic.Data;
 using IleanaMusic.Models;
-using System.Linq;
-using static System.Console;
 using IleanaMusic.Helpers;
 using IleanaMusic.Data.Services;
+using static IleanaMusic.Helpers.ConsoleReader;
 
 namespace IleanaMusic.Screens
 {
@@ -18,23 +17,23 @@ namespace IleanaMusic.Screens
         {
             Playlist searchedPlaylist;
 
-            WriteLine("Editar playlist\n"
+            Console.WriteLine("Editar playlist\n"
                     + "---------------\n");
 
             if (playlistService.Count() < 0)
             {
-                WriteLine(">> No tines playlists en tu lista. Agrega una para usar esta función.");
+                Console.WriteLine(">> No tines playlists en tu lista. Agrega una para usar esta función.");
             }
             else
             {
-                Write("- Escribe el ID o el Nombre de la playlist: ");
+                Console.Write("- Escribe el ID o el Nombre de la playlist: ");
                 string option;
                 string name = "";
                 int id = 0;
 
                 option = ReadLine();
 
-                WriteLine("");
+                Console.WriteLine("");
 
                 // Si fue ID.
                 if (Int32.TryParse(option, out id))
@@ -49,7 +48,7 @@ namespace IleanaMusic.Screens
 
                 if (searchedPlaylist != null)
                 {
-                    WriteLine("- Playlist encontrada: \n");
+                    Console.WriteLine("- Playlist encontrada: \n");
                     PlaylistFragments.PrintPlaylist(
                         playlist: searchedPlaylist, 
                         withNumeration:true, 
@@ -58,36 +57,43 @@ namespace IleanaMusic.Screens
                     );
 
                     // Requesting what fields want to modify.
-                    Write("\n- ¿Qué campos quieres editar? (separa con coma): ");
-                    var options = ReadLine();
-                    var selected = options.Split(',');
+                    Console.Write("\n- ¿Qué campos quieres editar? (separa con coma): ");
+                    var options = ReadNumberOptions();
 
-                    WriteLine("");
-                    foreach (var i in selected)
+                    Console.WriteLine("");
+                    var canceled = false;
+                    foreach (var i in options)
                     {
-                        var n = Convert.ToInt32(i.Trim());
-                        if (n == 1)
-                        {
-                            PlaylistFragments.RequestLogo(ref searchedPlaylist, indent:1);
-                        }
-                        else if (n == 2)
-                        {
-                            PlaylistFragments.RequestName(ref searchedPlaylist, indent:1);
-                        }
-                        else if (n == 3)
-                        {
+                        if (i == 1)
+                            PlaylistFragments.RequestLogo(ref searchedPlaylist, indent: 1);
+                        else if (i == 2)
+                            PlaylistFragments.RequestName(ref searchedPlaylist, indent: 1);
+                        else if (i == 3)
                             PlaylistFragments.EditPlaylistPieces(ref searchedPlaylist);
+                        else
+                        {
+                            canceled = true;
+                            Console.WriteLine("\n>> EDICIÓN CANCELADA: Dato introducio no válido <<");
                         }
                     }
 
-                    WriteLine("\n>> Playlist editada correctamente <<");
-
-                    playlistService.Update(searchedPlaylist);
+                    if (!canceled)
+                    {
+                        try
+                        {
+                            playlistService.Update(searchedPlaylist);
+                            Console.WriteLine("\n>> Edición guardada <<");
+                        }
+                        catch(InvalidOperationException ex)
+                        {
+                            Console.WriteLine($"\n>> EDICIÓN CANCELADA: {ex.Message}");
+                        }
+                    }
                 }
                 else
                 {
-                    WriteLine(">> Playlist no encontrada. : (");
-                    WriteLine("   El ID o nombre introducido no coincidió con ningún resultado de búsqueda <<");
+                    Console.WriteLine(">> Playlist no encontrada. : (");
+                    Console.WriteLine("   El ID o nombre introducido no coincidió con ningún resultado de búsqueda <<");
                 }
             }
         }
