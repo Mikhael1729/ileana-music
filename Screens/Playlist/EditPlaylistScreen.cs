@@ -59,7 +59,7 @@ namespace IleanaMusic.Screens
                         indent: 1
                     );
 
-                    PlaylistFragments.PrintPlaylist(
+                    PrintPlaylist(
                         playlist: searchedPlaylist, 
                         withNumeration:true, 
                         withPieces: true, 
