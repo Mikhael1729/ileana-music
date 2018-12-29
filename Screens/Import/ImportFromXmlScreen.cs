@@ -28,13 +28,18 @@ namespace IleanaMusic.Screens
 
             try
             {
+                // Loading xml file.
                 var xml = XDocument.Load(path);
-                var pieces = xml.ExtractPieces();// TODO: Add imported pieces to piece list.
+
+                // Extrating pieces.
+                var pieces = xml.ExtractPieces(); // TODO: Add imported pieces to piece list.
+
+                // Adding imported pieces to the list of pieces.
                 pieces.ToList().ForEach(p => pieceService.Add(p));
             }
             catch(Exception e)
             {
-                PrintLine(">> Error al tratar de importar el archivo <<");
+                PrintLine(">> Ha ocurrido un error al tratar de importar el archivo <<");
             }
         }
     }
