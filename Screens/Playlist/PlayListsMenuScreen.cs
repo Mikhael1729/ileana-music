@@ -6,20 +6,20 @@ namespace IleanaMusic.Screens
 {
     public class PlayListsMenuScreen
     {
-        int option;
-
+        readonly int option;
 
         public PlayListsMenuScreen()
         {
-            var option = ReadNumberWithValidation(() =>
-            {
-                Clear();
-                Render();
-            });
-
             while (option != 7)
             {
+                option = ReadNumberWithValidation(() =>
+                {
+                    Clear();
+                    Render();
+                });
+
                 Clear();
+
                 switch (option)
                 {
                     case 1:
