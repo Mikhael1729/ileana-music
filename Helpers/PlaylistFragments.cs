@@ -74,7 +74,7 @@ namespace IleanaMusic.Helpers
             {
                 writer.WriteLine(
                     text: $"- ID: {piece.Id}, Nombre: {piece.Name}",
-                    indent: 4);
+                    indent: indent);
             }
         }
 
@@ -144,7 +144,7 @@ namespace IleanaMusic.Helpers
             var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
 
             writer.WriteLine(
-                text: "- ¿Qué deseas hacer?: \n",
+                text: "- Editando \"Piezas\"\n",
                 indent: indent + 1);
 
             writer.WriteLine(
@@ -157,7 +157,7 @@ namespace IleanaMusic.Helpers
             );
 
             writer.Write(
-                text: "- Escoge [1 y/o 2]: ",
+                text: "Escoge [1 y/o 2]: ",
                 indent: indent + 2);
 
             var options = ReadLine();
@@ -166,27 +166,39 @@ namespace IleanaMusic.Helpers
             foreach (var i in separated)
             {
                 var n = Convert.ToInt32(i.Trim());
-                // If you want to add a new piece to playlist.
+                // Add piece to playlist.
                 if (n == 1)
                 {
                     WriteLine("");
                     writer.WriteLine(
-                        text: "- Agregar piezas ",
+                        text: "- Agregar piezas a la playlist\n",
+                        indent: indent + 2
+                    );
+
+                    writer.WriteLine(
+                        text: "[Lista de piezas]\n",
                         indent: indent + 3
                     );
 
                     var j = pieceService.GetAll();
+
                     // Printing pieces.
-                    PrintOneLinePieces(consoleWriter: writer, pieceList: j, indent: indent + 4);
+                    PrintOneLinePieces(
+                        consoleWriter: writer, 
+                        pieceList: j, 
+                        indent: indent + 3
+                    );
 
-                    WriteLine("");
-                    writer.Write(text: "- Escribe sus id, separados por coma: ", indent: indent + 4);
-                    var pieceIds = ReadLine();
-                    var pieceIdsSplited = pieceIds.Split(',');
-
-                    foreach (var pieceId in pieceIdsSplited)
+                    writer.WriteLine(
+                        text: "[Agregar piezas]\n",
+                        indent: indent + 3,
+                        spaceBefore: true
+                    );
+                    writer.Write(text: "Escribe sus id, separados por coma: ", indent: indent + 3);
+                    var pieceIds = ConsoleReader.ReadNumberOptions();
+                    foreach (var id in pieceIds)
                     {
-                        var piece = pieceService.Get(Convert.ToInt32(pieceId.Trim()));
+                        var piece = pieceService.Get(id);
 
                         if (piece != null)
                             playlist.PieceList.Add(piece);
