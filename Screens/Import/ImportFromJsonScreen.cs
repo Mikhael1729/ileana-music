@@ -1,6 +1,10 @@
 ﻿using IleanaMusic.Data;
 using IleanaMusic.Helpers;
+using IleanaMusic.Models;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using static IleanaMusic.Helpers.ConsoleReader;
@@ -8,15 +12,15 @@ using static IleanaMusic.Helpers.ConsoleWriter;
 
 namespace IleanaMusic.Screens
 {
-    class ImportFromXmlScreen
+    class ImportFromJsonScreen
     {
-        public ImportFromXmlScreen()
+        public ImportFromJsonScreen()
         {
             var pieceService = AppData.Instance.PieceService;
 
             PrintLine(
-                "Importar desde JSON\n" +
-                "-------------------\n"
+                "Importar desde XML\n" +
+                "------------------\n"
             );
 
             Print("Escribe la ubicación del archivo: ");
@@ -27,16 +31,14 @@ namespace IleanaMusic.Screens
             try
             {
                 // Loading xml file.
-                var xml = XDocument.Load(path);
-
                 PrintLine("Cargando datos...\n");
 
-                // Extrating pieces.
-                var pieces = xml.ExtractPieces(pieceService); // TODO: Add imported pieces to piece list.
+                // Extracting pieces.
+                var pieces = JsonConvert.DeserializeObject<List<Piece>>(File.ReadAllText(path));
 
-                // Adding imported pieces to the list of pieces.
-                pieces.ToList().ForEach(p => {
-                    if(p.ItCanBeAdded(pieceService))
+                pieces.ForEach(p =>
+                {
+                    if (p.ItCanBeAdded(pieceService))
                     {
                         pieceService.Add(p);
 
@@ -52,13 +54,13 @@ namespace IleanaMusic.Screens
 
                 PrintLine("\n¡Proceso finalizado!");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                if(e is InvalidOperationException)
+                if (e is InvalidOperationException)
                 {
                     PrintLine($">> {e.Message} <<");
                 }
-                else if(e is ArgumentException)
+                else if (e is ArgumentException)
                 {
                     PrintLine($">> Debe introducir una Uri válida. (Nada se ha procesado) <<");
                 }

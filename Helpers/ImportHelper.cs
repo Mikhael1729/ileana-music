@@ -4,6 +4,7 @@ using System.Linq;
 using System.Xml.Linq;
 using IleanaMusic.Data;
 using IleanaMusic.Data.Services;
+using Newtonsoft.Json;
 
 namespace IleanaMusic.Helpers
 {
@@ -15,6 +16,11 @@ namespace IleanaMusic.Helpers
             return document.Element(service.RootNode)?
                 .Elements(service.ChildNode)
                 .Select(p => Piece.ConvertFromXElement(p));
+        }
+
+        public static IEnumerable<Piece> ExtractPiecesFromJson(this string json, PieceService service)
+        {
+            return JsonConvert.DeserializeObject<List<Piece>>(json);
         }
 
         public static bool ItCanBeAdded(this Piece piece, PieceService service)

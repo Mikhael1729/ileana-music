@@ -40,7 +40,7 @@ namespace IleanaMusic.Screens
                         new ImportFromXmlScreen();
                         break;
                     case 2:
-                        PrintLine("Nothing here 2");
+                        new ImportFromJsonScreen();
                         break;
                     default:
                         break;

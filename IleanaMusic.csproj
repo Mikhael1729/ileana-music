@@ -83,6 +83,7 @@
     <Compile Include="Screens\Export\ExportMenuScreen.cs" />
     <Compile Include="Screens\Export\JsonExportScreen.cs" />
     <Compile Include="Screens\Export\XmlExportScreen.cs" />
+    <Compile Include="Screens\Import\ImportFromJsonScreen.cs" />
     <Compile Include="Screens\Import\ImportFromXmlScreen.cs" />
     <Compile Include="Screens\Import\ImportMenuScreen.cs" />
     <Compile Include="Screens\Piece\AddPieceScreen.cs" />
