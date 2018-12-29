@@ -9,7 +9,7 @@ namespace IleanaMusic.Screens
     public class CsvReportScreen
     {
         ConsoleWriter writer = new ConsoleWriter(0);
-        PieceService pieceService = AppData.Instance.PieceService;
+        PieceService pieceService = PieceService.Instance;
         ReportingHelper reporter = AppData.Instance.ReportingHelper;
 
         public CsvReportScreen()

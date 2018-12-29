@@ -10,7 +10,7 @@ namespace IleanaMusic
 {
     public class DeletePieceScreen
     {
-        PieceService pieceService = AppData.Instance.PieceService;
+        PieceService pieceService = PieceService.Instance;
 
         public DeletePieceScreen()
         {

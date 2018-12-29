@@ -4,12 +4,13 @@ using System;
 using IleanaMusic.Data;
 using System.Linq;
 using System.Collections.Generic;
+using IleanaMusic.Data.Services;
 
 namespace IleanaMusic.Screens
 {
     public class PieceList
     {
-        List<Piece> pieces = AppData.Instance.PieceService.GetAll();
+        List<Piece> pieces = PieceService.Instance.GetAll();
 
         public PieceList()
         {

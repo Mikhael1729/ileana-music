@@ -1,11 +1,6 @@
-using IleanaMusic.Models;
-using System.Collections.Generic;
-using System;
 using IleanaMusic.Data.Services;
 using IleanaMusic.Helpers;
-using static System.IO.Path;
-using static System.IO.Directory;
-using System.IO;
+using System;
 
 namespace IleanaMusic.Data
 {
@@ -13,7 +8,6 @@ namespace IleanaMusic.Data
     {
         private static readonly Lazy<AppData> instance = new Lazy<AppData>(() => new AppData());
         
-        public PieceService PieceService { get; set; }
         public PlaylistService PlaylistService { get; set; }
         public ReportingHelper ReportingHelper { get; set; }
 
@@ -21,7 +15,6 @@ namespace IleanaMusic.Data
         {
 
             // Piece service.
-            PieceService = new PieceService("Pieces.xml");
 
             // Playlist service.
             PlaylistService = new PlaylistService("Playlists.xml");

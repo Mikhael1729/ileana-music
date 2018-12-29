@@ -1,4 +1,5 @@
 using IleanaMusic.Data;
+using IleanaMusic.Data.Services;
 using static IleanaMusic.Helpers.ConsoleReader;
 using static IleanaMusic.Helpers.ConsoleWriter;
 using static IleanaMusic.Helpers.TurnHelper;
@@ -14,7 +15,7 @@ namespace IleanaMusic.Screens
             Render();
             Clear();
 
-            var thereArePieces = AppData.Instance.PieceService.Count() > 0;
+            var thereArePieces = PieceService.Instance.Count() > 0;
 
             if (!thereArePieces)
             {

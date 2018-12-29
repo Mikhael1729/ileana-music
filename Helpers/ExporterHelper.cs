@@ -26,7 +26,7 @@ namespace IleanaMusic.Helpers
 
         private ExporterHelper()
         {
-            pieceService = AppData.Instance.PieceService;
+            pieceService = PieceService.Instance;
             basePath = Path.Combine(Directory.GetCurrentDirectory(), "Exportaciones");
             piecesPath = Path.Combine(basePath, "Piezas.xml");
             piecesJsonPath = Path.Combine(basePath, "Piezas.json");

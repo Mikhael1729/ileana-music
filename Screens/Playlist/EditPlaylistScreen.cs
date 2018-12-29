@@ -12,7 +12,7 @@ namespace IleanaMusic.Screens
     public class EditPlayListScreen
     {
         PlaylistService playlistService = AppData.Instance.PlaylistService;
-        readonly List<Piece> pieceList = AppData.Instance.PieceService.GetAll();
+        readonly List<Piece> pieceList = PieceService.Instance.GetAll();
 
         public EditPlayListScreen()
         {

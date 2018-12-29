@@ -1,4 +1,5 @@
 ﻿using IleanaMusic.Data;
+using IleanaMusic.Data.Services;
 using IleanaMusic.Helpers;
 using IleanaMusic.Models;
 using Newtonsoft.Json;
@@ -16,7 +17,7 @@ namespace IleanaMusic.Screens
     {
         public ImportFromJsonScreen()
         {
-            var pieceService = AppData.Instance.PieceService;
+            var pieceService = PieceService.Instance;
 
             PrintLine(
                 "Importar desde JSON\n" +

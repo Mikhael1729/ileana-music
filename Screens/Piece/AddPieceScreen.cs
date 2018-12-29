@@ -3,6 +3,7 @@ using IleanaMusic.Models;
 using System;
 using IleanaMusic.Data;
 using IleanaMusic.Helpers;
+using IleanaMusic.Data.Services;
 
 namespace IleanaMusic.Screens
 {
@@ -12,7 +13,7 @@ namespace IleanaMusic.Screens
 
         public AddPieceScreen()
         {
-            var pieceService = AppData.Instance.PieceService;
+            var pieceService = PieceService.Instance;
 
             piece = new Piece();
 

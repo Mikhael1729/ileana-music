@@ -11,6 +11,12 @@ namespace IleanaMusic.Data.Services
 {
     public class PieceService : IPieceService
     {
+        private static readonly Lazy<PieceService> instance = new Lazy<PieceService>(() => new PieceService("Pieces.xml"));
+        public static PieceService Instance
+        {
+            get => instance.Value;
+        }
+
         readonly string isolatedFilePath;
         readonly string isolatedDirectory = "IleanaData";
         XDocument _document;
@@ -20,7 +26,7 @@ namespace IleanaMusic.Data.Services
         public string RootNode { get; } = "PieceList";
         public string ChildNode { get; } = "Piece";
 
-        public PieceService(string fileName)
+        private PieceService(string fileName)
         {
             this.isolatedFilePath = Path.Combine(isolatedDirectory, fileName);
             InitializeDocument();

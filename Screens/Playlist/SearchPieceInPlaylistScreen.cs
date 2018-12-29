@@ -12,7 +12,7 @@ namespace IleanaMusic.Screens
     public class SearchPieceInPlaylistScreen
     {
         PlaylistService playlistService = AppData.Instance.PlaylistService;
-        PieceService pieceService = AppData.Instance.PieceService;
+        PieceService pieceService = PieceService.Instance;
         Playlist searchedPlaylist;
         Piece searchedPiece;
 

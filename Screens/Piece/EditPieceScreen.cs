@@ -11,7 +11,7 @@ namespace IleanaMusic.Screens
 {
     public class EditPieceScreen
     {
-        PieceService pieceService = AppData.Instance.PieceService;
+        PieceService pieceService = PieceService.Instance;
         Piece piece;
 
         public EditPieceScreen()

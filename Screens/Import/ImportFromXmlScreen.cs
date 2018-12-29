@@ -1,4 +1,5 @@
 ﻿using IleanaMusic.Data;
+using IleanaMusic.Data.Services;
 using IleanaMusic.Helpers;
 using System;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace IleanaMusic.Screens
     {
         public ImportFromXmlScreen()
         {
-            var pieceService = AppData.Instance.PieceService;
+            var pieceService = PieceService.Instance;
 
             PrintLine(
                 "Importar desde XML\n" +

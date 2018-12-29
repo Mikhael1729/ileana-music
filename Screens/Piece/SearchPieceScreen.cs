@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using IleanaMusic.Data;
+using IleanaMusic.Data.Services;
 using IleanaMusic.Models;
 using static System.Console;
 
@@ -10,7 +11,7 @@ namespace IleanaMusic
 {
     public class SearchPieceScreen
     {
-        List<Piece> pieceList = AppData.Instance.PieceService.GetAll();
+        List<Piece> pieceList = PieceService.Instance.GetAll();
         Piece searchedPiece;
 
         public SearchPieceScreen()

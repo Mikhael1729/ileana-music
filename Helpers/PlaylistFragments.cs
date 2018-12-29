@@ -10,7 +10,7 @@ namespace IleanaMusic.Helpers
 {
     public class PlaylistFragments
     {
-        static PieceService pieceService = AppData.Instance.PieceService;
+        static PieceService pieceService = PieceService.Instance;
         static PlaylistService playlistService = AppData.Instance.PlaylistService;
 
         public PlaylistFragments()
