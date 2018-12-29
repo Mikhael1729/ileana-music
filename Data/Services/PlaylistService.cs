@@ -64,47 +64,54 @@ namespace IleanaMusic.Data.Services
 
         public Playlist Add(Playlist entity)
         {
-            entity.Id = ComputeNextId();
-            XElement playlist = null;
-
-            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null))
+            if(ItCanBeAdded(entity))
             {
-                // Playlists (parent node).
-                playlist = _document.Descendants(rootNode)?.FirstOrDefault();
+                entity.Id = ComputeNextId();
+                XElement playlist = null;
 
-                // Playlist element (child node)
-                var playlistElement = new XElement(
-                    name: playlistNode,
-                    content: new[] {
-                        new XAttribute("Id", entity.Id),
-                        new XAttribute("Name", entity.Name),
-                        new XAttribute("Logo", entity.Logo),
+                using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null))
+                {
+                    // Playlists (parent node).
+                    playlist = _document.Descendants(rootNode)?.FirstOrDefault();
+
+                    // Playlist element (child node)
+                    var playlistElement = new XElement(
+                        name: playlistNode,
+                        content: new[] {
+                            new XAttribute("Id", entity.Id),
+                            new XAttribute("Name", entity.Name),
+                            new XAttribute("Logo", entity.Logo),
+                        }
+                    );
+
+                    // Adding piece IDs to Playlist element..
+                    var pieces = entity.PieceList.Select<Piece, XElement>(p =>
+                    {
+                        var element = new XElement("PieceId");
+                        element.Add(p.Id);
+                        return element;
+                    });
+
+                    foreach (var p in pieces)
+                        playlistElement.Add(p);
+
+                    // If exists, add the new piece to descendatants
+                    playlist?.Add(playlistElement);
+
+                    using (Stream stream = storage.CreateFile(isolatedFilePath))
+                    {
+                        _document.Save(stream);
                     }
-                );
-
-                // Adding piece IDs to Playlist element..
-                var pieces = entity.PieceList.Select<Piece, XElement>(p =>
-                {
-                    var element = new XElement("PieceId");
-                    element.Add(p.Id);
-                    return element;
-                });
-
-                foreach (var p in pieces)
-                    playlistElement.Add(p);
-
-                // If exists, add the new piece to descendatants
-                playlist?.Add(playlistElement);
-
-                using (Stream stream = storage.CreateFile(isolatedFilePath))
-                {
-                    _document.Save(stream);
                 }
+
+                this.count++;
+
+                return entity;
             }
-
-            this.count++;
-
-            return entity;
+            else
+            {
+                throw new InvalidOperationException("Operación bloqueada: No se puede agregar una lista de reproducción ya existente");
+            }
         }
 
         public int Count()
@@ -172,5 +179,12 @@ namespace IleanaMusic.Data.Services
         }
 
         public Playlist Find(Func<Playlist, bool> critery) => GetAll().Where(critery).FirstOrDefault();
+
+        public bool ItCanBeAdded(Playlist playlist)
+        {
+            // Playlists with the same name of another can't be added
+            var searched = Find((Playlist p) => p.Name.ToLower() == playlist.Name.ToLower());
+            return searched == null ? true : false;
+        }
     }
 }
