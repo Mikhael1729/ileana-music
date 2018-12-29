@@ -110,7 +110,7 @@ namespace IleanaMusic.Data.Services
             }
             else
             {
-                throw new InvalidOperationException("Operación bloqueada: No se puede agregar una lista de reproducción ya existente");
+                throw new InvalidOperationException("No se puede agregar una lista de reproducción con el nombre de una ya existente");
             }
         }
 

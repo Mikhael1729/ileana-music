@@ -6,13 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using IleanaMusic.Data.Services;
 using IleanaMusic.Helpers;
+using static IleanaMusic.Helpers.ConsoleWriter;
 
 namespace IleanaMusic.Screens
 {
     public class AddPlayListScreen
     {
-        Playlist playlist = new Playlist();
         PlaylistService playlistService = AppData.Instance.PlaylistService;
+        Playlist playlist = new Playlist();
         List<Piece> pieceList = AppData.Instance.PieceService.GetAll();
 
         public AddPlayListScreen()
@@ -27,9 +28,21 @@ namespace IleanaMusic.Screens
             PlaylistFragments.RequestPieces(ref playlist, writer);
 
             // Adding id.
-            playlistService.Add(playlist);
-
-            WriteLine("\n-->> Playlist agregada <<--\n");
+            try
+            {
+                playlistService.Add(playlist);
+                writer.WriteLine(
+                    text: "-->> Playlist agregada <<--\n", 
+                    spaceBefore:true
+                );
+            } 
+            catch(InvalidOperationException e)
+            {
+                writer.WriteLine(
+                    text: $">> OPERACIÓN BLOQUEADA: {e.Message} <<",
+                    spaceBefore: true
+                );
+            }
         }
     }
 }
