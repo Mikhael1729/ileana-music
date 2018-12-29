@@ -52,7 +52,7 @@ namespace IleanaMusic.Screens
                       $"- ID: {searchedPlaylist.Id}\n" +
                       $"- Logo: {searchedPlaylist.Logo}\n" +
                       $"- Nombre: {searchedPlaylist.Name}\n" +
-                      $"- Piezas: {searchedPlaylist.PieceList.Count}\n"
+                      $"- Piezas ({searchedPlaylist.PieceList.Count} en total): \n"
                     );
 
                     var pieces = searchedPlaylist.PieceList;
