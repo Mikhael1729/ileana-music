@@ -28,19 +28,18 @@ namespace IleanaMusic.Screens
                 Write("- Escribe el ID o el Nombre de la playlist: ");
                 string option;
                 string name = "";
-                int id = 0;
                 var writer = new ConsoleWriter(0);
 
                 option = ReadLine();
 
                 WriteLine("");
 
-                // Si fue ID.
-                if (Int32.TryParse(option, out id))
+                // If you wrote an ID.
+                if (Int32.TryParse(option, out int id))
                 {
                     searchedPlaylist = playlistService.Get(id);
                 }
-                else  // Si fue nombre
+                else // If you wrote a Name.
                 {
                     name = option;
                     searchedPlaylist = playlistService.Find(p => p.Name.ToLower() == name.ToLower());
@@ -48,11 +47,9 @@ namespace IleanaMusic.Screens
 
                 if (searchedPlaylist != null)
                 {
-                    writer.WriteLine(
-                        text:$">> ¿Qué canción quieres buscar en la playlist \"{searchedPlaylist.Name}\"?\n",
-                        indent: 1);
-
-                    writer.Write("- Escribe el ID o el Nombre de la canción: ", indent:2);
+                    writer.Write(
+                        $"- ¿Qué canción quieres buscar en la playlist \"{searchedPlaylist.Name}\"? (Escribe el ID o el Nombre): "
+                    );
 
                     string pieceOption;
                     
@@ -73,7 +70,7 @@ namespace IleanaMusic.Screens
 
                     if (searchedPiece != null)
                     {
-                        WriteLine(">> ¡Tu pieza ha sido encontada!\n");
+                        WriteLine("[Pieza encontrada]\n");
 
                         searchedPiece.Print();
                         WriteLine("");
