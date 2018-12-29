@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO.IsolatedStorage;
 using System.IO;
 using System.Xml.Linq;
+using IleanaMusic.Helpers;
 
 namespace IleanaMusic.Data.Services
 {
@@ -75,38 +76,45 @@ namespace IleanaMusic.Data.Services
 
         public Piece Add(Piece entity)
         {
-            entity.Id = GetNextId();
-            XElement pieceList = null;
-
-            using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null))
+            if (entity.ItCanBeAdded(this))
             {
-                // Getting PieceList node.
-                pieceList = _document.Descendants(RootNode)?.FirstOrDefault();
+                entity.Id = GetNextId();
+                XElement pieceList = null;
 
-                var pieceElement = new XElement(
-                    name: ChildNode,
-                    content: new[] {
-                        new XAttribute("Id", entity.Id),
-                        new XAttribute("Name", entity.Name),
-                        new XAttribute("Artist", entity.Artist),
-                        new XAttribute("Album", entity.Album),
-                        new XAttribute("Gender", Enum.GetName(entity.Gender.GetType(), entity.Gender)),
-                        new XAttribute("Duration", entity.Duration),
-                        new XAttribute("Quality", Enum.GetName(entity.Quality.GetType(), entity.Quality)),
-                        new XAttribute("Format", Enum.GetName(entity.Format.GetType(), entity.Format))
-                    }
-                );
-
-                // If exists, add the new piece to descendatants
-                pieceList?.Add(pieceElement);
-
-                using (Stream stream = storage.CreateFile(isolatedFilePath))
+                using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null))
                 {
-                    _document.Save(stream);
-                }
-            }
+                    // Getting PieceList node.
+                    pieceList = _document.Descendants(RootNode)?.FirstOrDefault();
 
-            return entity;
+                    var pieceElement = new XElement(
+                        name: ChildNode,
+                        content: new[] {
+                            new XAttribute("Id", entity.Id),
+                            new XAttribute("Name", entity.Name),
+                            new XAttribute("Artist", entity.Artist),
+                            new XAttribute("Album", entity.Album),
+                            new XAttribute("Gender", Enum.GetName(entity.Gender.GetType(), entity.Gender)),
+                            new XAttribute("Duration", entity.Duration),
+                            new XAttribute("Quality", Enum.GetName(entity.Quality.GetType(), entity.Quality)),
+                            new XAttribute("Format", Enum.GetName(entity.Format.GetType(), entity.Format))
+                        }
+                    );
+
+                    // If exists, add the new piece to descendatants
+                    pieceList?.Add(pieceElement);
+
+                    using (Stream stream = storage.CreateFile(isolatedFilePath))
+                    {
+                        _document.Save(stream);
+                    }
+                }
+
+                return entity;
+            } 
+            else
+            {
+                throw new InvalidOperationException("Operación bloqueada: No se permite agregar piezas con el mismo nombre y mismo artista");
+            }
         }
 
         public int Count()

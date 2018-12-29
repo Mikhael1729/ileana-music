@@ -31,15 +31,43 @@ namespace IleanaMusic.Screens
                 // Loading xml file.
                 var xml = XDocument.Load(path);
 
+                PrintLine("Cargando datos...\n");
+
                 // Extrating pieces.
-                var pieces = xml.ExtractPieces(); // TODO: Add imported pieces to piece list.
+                var pieces = xml.ExtractPieces(pieceService); // TODO: Add imported pieces to piece list.
 
                 // Adding imported pieces to the list of pieces.
-                pieces.ToList().ForEach(p => pieceService.Add(p));
+                pieces.ToList().ForEach(p => {
+                    if(p.ItCanBeAdded(pieceService))
+                    {
+                        pieceService.Add(p);
+
+                        PrintLine($"- La pieza \"{p}\" ha sido agregada.");
+                    }
+                    else
+                    {
+                        PrintLine(
+                            $"* La pieza \"{p}\" ya existe en la lista. No será agregada."
+                        );
+                    }
+                });
+
+                PrintLine("\n¡Proceso finalizado!");
             }
             catch(Exception e)
             {
-                PrintLine(">> Ha ocurrido un error al tratar de importar el archivo <<");
+                if(e is InvalidOperationException)
+                {
+                    PrintLine($">> {e.Message} <<");
+                }
+                else if(e is ArgumentException)
+                {
+                    PrintLine($">> Debe introducir una Uri válida. (Nada se ha procesado) <<");
+                }
+                else
+                {
+                    PrintLine($">> Ha ocurrido un error. Vuelva a intentarlo << ");
+                }
             }
         }
     }
