@@ -160,41 +160,40 @@ namespace IleanaMusic.Helpers
                 text: "Escoge [1 y/o 2]: ",
                 indent: indent + 2);
 
-            var options = ReadLine();
-            var separated = options.Split(',');
+            var options = ConsoleReader.ReadNumberOptions();
 
-            foreach (var i in separated)
+            /* Piece list */
+
+            writer.WriteLine(
+                text: "[Lista de piezas]\n",
+                indent: indent + 2,
+                spaceBefore: true
+            );
+
+            var j = pieceService.GetAll();
+
+            PrintOneLinePieces(
+                consoleWriter: writer,
+                pieceList: j,
+                indent: indent + 2
+            );
+
+            foreach (var i in options)
             {
-                var n = Convert.ToInt32(i.Trim());
                 // Add piece to playlist.
-                if (n == 1)
+                if (i == 1)
                 {
-                    WriteLine("");
                     writer.WriteLine(
-                        text: "- Agregar piezas a la playlist\n",
+                        text: "[Agregar piezas]\n",
+                        indent: indent + 2,
+                        spaceBefore: true
+                    );
+
+                    writer.Write(
+                        text: "- Escribe sus id, separados por coma: ", 
                         indent: indent + 2
                     );
 
-                    writer.WriteLine(
-                        text: "[Lista de piezas]\n",
-                        indent: indent + 3
-                    );
-
-                    var j = pieceService.GetAll();
-
-                    // Printing pieces.
-                    PrintOneLinePieces(
-                        consoleWriter: writer, 
-                        pieceList: j, 
-                        indent: indent + 3
-                    );
-
-                    writer.WriteLine(
-                        text: "[Agregar piezas]\n",
-                        indent: indent + 3,
-                        spaceBefore: true
-                    );
-                    writer.Write(text: "Escribe sus id, separados por coma: ", indent: indent + 3);
                     var pieceIds = ConsoleReader.ReadNumberOptions();
                     foreach (var id in pieceIds)
                     {
@@ -205,20 +204,24 @@ namespace IleanaMusic.Helpers
                     }
                 }
                 // If you want to remove a piece from playlist.PieceList.
-                else if (n == 2)
+                else if (i == 2)
                 {
-                    WriteLine("");
-                    writer.Write(
-                        text: "- Eliminar piezas (escribe sus id, separados por coma): ",
-                        indent: indent + 3
+                    writer.WriteLine(
+                        text: "[Eliminar piezas]\n",
+                        indent: indent + 2,
+                        spaceBefore: true
                     );
 
-                    var pieceIds = ReadLine();
-                    var pieceIdsSplited = pieceIds.Split(',');
+                    writer.Write(
+                        text: "- Escribe sus id separados por coma: ",
+                        indent: indent + 2
+                    );
 
-                    foreach (var pieceId in pieceIdsSplited)
+                    var pieceIds = ConsoleReader.ReadNumberOptions();
+
+                    foreach (var id in pieceIds)
                     {
-                        var piece = playlist.PieceList.Where(p => p.Id == Convert.ToInt32(pieceId.Trim())).FirstOrDefault();
+                        var piece = playlist.PieceList.Where(p => p.Id == id).FirstOrDefault();
 
                         if (piece != null)
                             playlist.PieceList.Remove(piece);

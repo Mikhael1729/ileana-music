@@ -16,27 +16,29 @@ namespace IleanaMusic.Screens
         public EditPlayListScreen()
         {
             Playlist searchedPlaylist;
+            var writer = new ConsoleWriter(0);
 
-            Console.WriteLine("Editar playlist\n"
-                    + "---------------\n");
+            writer.WriteLine(
+                "Editar playlist\n" +
+                "---------------\n"
+            );
 
             if (playlistService.Count() < 0)
             {
-                Console.WriteLine(">> No tines playlists en tu lista. Agrega una para usar esta función.");
+                writer.WriteLine(">> No tines playlists en tu lista. Agrega una para usar esta función.");
             }
             else
             {
-                Console.Write("- Escribe el ID o el Nombre de la playlist: ");
+                writer.Write("- Escribe el ID o el Nombre de la playlist: ");
                 string option;
                 string name = "";
-                int id = 0;
 
                 option = ReadLine();
 
                 Console.WriteLine("");
 
                 // Si fue ID.
-                if (Int32.TryParse(option, out id))
+                if (Int32.TryParse(option, out int id))
                 {
                     searchedPlaylist = playlistService.Get(id);
                 }
@@ -48,7 +50,11 @@ namespace IleanaMusic.Screens
 
                 if (searchedPlaylist != null)
                 {
-                    Console.WriteLine("- Playlist encontrada: \n");
+                    writer.WriteLine (
+                        text: "[Playlist encontrada] \n",
+                        indent: 1
+                    );
+
                     PlaylistFragments.PrintPlaylist(
                         playlist: searchedPlaylist, 
                         withNumeration:true, 
