@@ -1,10 +1,9 @@
-using static System.Console;
-using System;
-using IleanaMusic.Models;
-using System.Linq;
 using IleanaMusic.Data;
-using System.Collections.Generic;
 using IleanaMusic.Data.Services;
+using IleanaMusic.Helpers;
+using IleanaMusic.Models;
+using System;
+using static System.Console;
 
 namespace IleanaMusic.Screens
 {
@@ -15,23 +14,25 @@ namespace IleanaMusic.Screens
 
         public SearchPlaylistScreen()
         {
+            var writer = new ConsoleWriter(0);
 
-            WriteLine("Buscar playlist\n"
-                    + "-----------------\n");
+            writer.WriteLine(
+                "Buscar playlist\n"+ 
+                "---------------\n"
+            );
 
             if (playlistService.Count() > 0)
             {
-                Write("Escribe el ID o el Nombre de tu playlist: ");
+                writer.Write("Escribe el ID o el Nombre de tu playlist: ");
                 string option;
                 string name = "";
-                int id = 0;
 
                 option = ReadLine();
 
-                WriteLine("");
+                writer.WriteLine("");
 
                 // Si fue ID.
-                if (Int32.TryParse(option, out id))
+                if (Int32.TryParse(option, out int id))
                 {
                     searchedPlaylist = playlistService.Get(id);
                 }
@@ -43,21 +44,34 @@ namespace IleanaMusic.Screens
 
                 if (searchedPlaylist != null)
                 {
-                    WriteLine(">> ¡Playlist encontrada!\n");
+                    writer.WriteLine(
+                        ">> ¡Playlist encontrada!\n"
+                    );
 
-                    WriteLine($"- ID: {searchedPlaylist.Id}");
-                    WriteLine($"- Logo: {searchedPlaylist.Logo}");
-                    WriteLine($"- Nombre: {searchedPlaylist.Name}");
-                    WriteLine($"- Cantidad de canciones: {searchedPlaylist.PieceList.Count}");
+                    writer.WriteLine(
+                      $"- ID: {searchedPlaylist.Id}\n" +
+                      $"- Logo: {searchedPlaylist.Logo}\n" +
+                      $"- Nombre: {searchedPlaylist.Name}\n" +
+                      $"- Piezas: {searchedPlaylist.PieceList.Count}\n"
+                    );
+
+                    var pieces = searchedPlaylist.PieceList;
+
+                    // Printing pieces
+                    foreach (var piece in pieces)
+                        writer.WriteLine(
+                            text: $"- ID: {piece.Id}, Nombre: {piece.Name}, Artista: {piece.Artist}", 
+                            indent: 1
+                        );
                 }
                 else
                 {
-                    WriteLine(">> Playlist no encontrada");
+                    writer.WriteLine(">> Playlist no encontrada");
                 }
             }
             else
             {
-                WriteLine(">> No tienes playlists en tu lista <<");
+                writer.WriteLine(">> No tienes playlists en tu lista <<");
             }
         }
 
