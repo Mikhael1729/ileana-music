@@ -16,6 +16,9 @@ namespace IleanaMusic.Data.Services
 
         public XDocument Document { get => _document; }
 
+        public string RootNode { get; } = "PieceList";
+        public string ChildNode { get; } = "Piece";
+
         public PieceService(string fileName)
         {
             this.isolatedFilePath = Path.Combine(isolatedDirectory, fileName);
@@ -42,13 +45,13 @@ namespace IleanaMusic.Data.Services
                         } 
                         catch(System.Xml.XmlException e)
                         {
-                            _document = new XDocument(new XElement("PieceList"));
+                            _document = new XDocument(new XElement(RootNode));
                         }
                     }
                 }
                 else
                 {
-                    _document = new XDocument(new XElement("PieceList"));
+                    _document = new XDocument(new XElement(RootNode));
                 }
             }
         }
@@ -56,7 +59,7 @@ namespace IleanaMusic.Data.Services
         int GetNextId()
         {
             var query = (
-                from element in _document.Element("PieceList")?.Elements("Piece")
+                from element in _document.Element(RootNode)?.Elements(ChildNode)
                 select element
             ).LastOrDefault();
 
@@ -66,7 +69,7 @@ namespace IleanaMusic.Data.Services
 
         IEnumerable<XElement> GetAllElements()
         {
-            return from element in _document.Element("PieceList")?.Elements("Piece")
+            return from element in _document.Element(RootNode)?.Elements(ChildNode)
                    select element;
         }
 
@@ -78,10 +81,10 @@ namespace IleanaMusic.Data.Services
             using (var storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null))
             {
                 // Getting PieceList node.
-                pieceList = _document.Descendants("PieceList")?.FirstOrDefault();
+                pieceList = _document.Descendants(RootNode)?.FirstOrDefault();
 
                 var pieceElement = new XElement(
-                    name: "Piece",
+                    name: ChildNode,
                     content: new[] {
                         new XAttribute("Id", entity.Id),
                         new XAttribute("Name", entity.Name),
