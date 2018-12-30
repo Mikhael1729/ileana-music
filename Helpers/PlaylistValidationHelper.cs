@@ -43,7 +43,7 @@ namespace IleanaMusic.Helpers
         public static bool ItCanBeAdded(this IEnumerable<Playlist> playlists, string playlistName)
         {
             // Playlists with the same name of another can't be added
-            var searched = playlists.Where((Playlist p) => p.Name.ToLower() == playlistName).FirstOrDefault();
+            var searched = playlists.Where((Playlist p) => p.Name.ToLower() == playlistName.ToLower()).FirstOrDefault();
             return searched == null ? true : false;
         }
     }

@@ -31,6 +31,10 @@ namespace IleanaMusic.Screens
             }
             else
             {
+                var validName = true;
+                var validLogo = true;
+                var validPieces = true;
+
                 // Requesting ID or Name
                 writer.Write("- Escribe el ID o el Nombre de la playlist: ");
                 string option;
@@ -76,11 +80,25 @@ namespace IleanaMusic.Screens
                     foreach (var i in options)
                     {
                         if (i == 1)
-                            RequestLogo(ref searchedPlaylist, indent: 1);
+                        {
+                            validLogo = RequestLogo(ref searchedPlaylist, indent: 1);
+                        }
                         else if (i == 2)
-                            RequestName(ref searchedPlaylist, indent: 1);
+                        {
+                            validName = EditName(ref searchedPlaylist, indent: 1);
+
+                            if (!validName)
+                            {
+                                writer.WriteLine(
+                                    text: "  (Ya existe una playlist con ese nombre. El nombre no será cambiado)\n",
+                                    indent: 1
+                                );
+                            }
+                        }
                         else if (i == 3)
-                            EditPlaylistPieces(ref searchedPlaylist);
+                        {
+                            validPieces = EditPlaylistPieces(ref searchedPlaylist);
+                        }
                         else
                         {
                             canceled = true;
@@ -96,9 +114,7 @@ namespace IleanaMusic.Screens
                             writer.WriteLine("\n>> Edición guardada <<");
                         }
                         catch(InvalidOperationException ex)
-                        {
-                            writer.WriteLine($"\n>> EDICIÓN CANCELADA: {ex.Message}");
-                        }
+                        { }
                     }
                 }
                 else

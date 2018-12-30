@@ -89,6 +89,21 @@ namespace IleanaMusic.Helpers
             return playlistService.GetAll().ItCanBeAdded(playlist.Name);
         }
 
+        public static bool EditName(ref Playlist playlist, ConsoleWriter consoleWriter = null, int indent = 0)
+        {
+            var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
+
+            writer.Write(text: "- Nombre: ", indent: indent);
+
+            var newName = ReadLine();
+            var playlistCanBeAdded = playlistService.GetAll().ItCanBeAdded(newName);
+
+            if (playlistCanBeAdded)
+                playlist.Name = newName;
+
+            return playlistCanBeAdded;
+        }
+
         public static bool RequestLogo(ref Playlist playlist, ConsoleWriter consoleWriter = null, int indent = 0)
         {
             var writer = consoleWriter != null ? consoleWriter : new ConsoleWriter(0);
@@ -194,7 +209,7 @@ namespace IleanaMusic.Helpers
             return playlist.PieceList.Count > 0 ? true : false;
         }
 
-        public static void EditPlaylistPieces(ref Playlist playlist, ConsoleWriter consoleWriter = null, int indent = 0)
+        public static bool EditPlaylistPieces(ref Playlist playlist, ConsoleWriter consoleWriter = null, int indent = 0)
         {
             for (int i = 0; i < playlist.PieceList.Count; i++)
                 playlist.PieceList[i] = pieceService.Get(playlist.PieceList[i].Id);
@@ -253,12 +268,62 @@ namespace IleanaMusic.Helpers
                     );
 
                     var pieceIds = ConsoleReader.ReadNumberOptions();
+
+                    writer.WriteLine(
+                        text: "Insertando piezas...\n",
+                        indent: indent + 2,
+                        spaceBefore: true
+                    );
+
                     foreach (var id in pieceIds)
                     {
                         var piece = pieceService.Get(id);
 
                         if (piece != null)
-                            playlist.PieceList.Add(piece);
+                        {
+                            if (!playlist.HasReachedTheLimit())
+                            {
+                                if (!playlist.ExistInTheList(piece))
+                                {
+                                    if (!playlistService.GetAll().ExistInAnotherThreePlaylist(piece))
+                                    {
+                                        playlist.PieceList.Add(piece);
+                                        writer.WriteLine(
+                                            text: $"- La pieza {piece.Name} ha sido agregada",
+                                            indent: indent + 2
+                                        );
+                                    }
+                                    else
+                                    {
+                                        writer.WriteLine(
+                                            text: $"* INSERCIÓN NO PERMITIDA: La pieza \"{piece.Name}\" ya existe en otras tres playlist.",
+                                            indent: indent + 2
+                                        );
+                                    }
+                                }
+                                else
+                                {
+                                    writer.WriteLine(
+                                        text: $"* INSERCIÓN NO PERMITIDA: La pieza \"{piece.Name}\" ya existe en la lista.",
+                                        indent: indent + 2
+                                    );
+                                }
+                            }
+                            else
+                            {
+                                writer.WriteLine(
+                                    text: $"* LÍMITE EXCEDIDO: La pieza \"{piece.Name}\" no fue agregada.",
+                                    indent: indent + 2
+                                );
+                            }
+                        }
+                        else
+                        {
+                            writer.WriteLine(
+                                text: $"* PIEZA NO ENCONTRADA: La pieza con el ID \"{id}\" no fue encontrada.",
+                                indent: indent + 2
+                            );
+                        }
                     }
                 }
                 // If you want to remove a piece from playlist.PieceList.
@@ -277,15 +342,30 @@ namespace IleanaMusic.Helpers
 
                     var pieceIds = ConsoleReader.ReadNumberOptions();
 
+                    writer.WriteLine(
+                        text: "Eliminado piezas...\n",
+                        indent: indent + 2,
+                        spaceBefore: true
+                    );
+
                     foreach (var id in pieceIds)
                     {
                         var piece = playlist.PieceList.Where(p => p.Id == id).FirstOrDefault();
 
                         if (piece != null)
+                        {
+                            writer.WriteLine($"- La pieza {piece.Name} ha sido eliminada de la playlist", indent: indent + 2);
                             playlist.PieceList.Remove(piece);
+                        } 
+                        else
+                        {
+                            writer.WriteLine($"* No se encontró una pieza con id \"{id}\" en la playlist", indent: indent + 2);
+                        }
                     }
                 }
             }
+
+            return playlist.PieceList.Count > 0 ? true : false;
         }
     }
 }
