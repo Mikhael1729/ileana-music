@@ -1,12 +1,7 @@
-﻿using IleanaMusic.Data;
-using IleanaMusic.Data.Services;
-using IleanaMusic.Models;
+﻿using IleanaMusic.Data.Services;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Xml;
-using System.Xml.Linq;
 using System.Linq;
 
 namespace IleanaMusic.Helpers
@@ -21,16 +16,11 @@ namespace IleanaMusic.Helpers
 
         readonly PieceService pieceService;
         readonly string basePath;
-        readonly string piecesPath;
-        readonly string piecesJsonPath;
 
         private ExporterHelper()
         {
             pieceService = PieceService.Instance;
             basePath = Path.Combine(Directory.GetCurrentDirectory(), "Exportaciones");
-            piecesPath = Path.Combine(basePath, "Piezas.xml");
-            piecesJsonPath = Path.Combine(basePath, "Piezas.json");
-
 
             if (!File.Exists(basePath))
                 Directory.CreateDirectory(basePath);
@@ -42,7 +32,10 @@ namespace IleanaMusic.Helpers
 
             try
             {
-                pieceService.Document.Save(piecesPath);
+                var path = GenerateFilePath(Path.Combine(basePath, "Piezas"), ".xml");
+                pieceService.Document.Save(path);
+                System.Diagnostics.Process.Start(basePath);
+                System.Diagnostics.Process.Start(path);
                 completeExport = true;
             }
             catch (Exception e)
@@ -71,14 +64,33 @@ namespace IleanaMusic.Helpers
                         Format = Enum.GetName(piece.Format.GetType(), piece.Format)
                     });
 
+                var path = GenerateFilePath(Path.Combine(basePath, "Piezas"), ".json");
                 var json = JsonConvert.SerializeObject(pieces, Newtonsoft.Json.Formatting.Indented);
-                File.WriteAllText(piecesJsonPath, json);
+                File.WriteAllText(path, json);
+                System.Diagnostics.Process.Start(basePath);
+                System.Diagnostics.Process.Start(path);
                 completeExport = true;
             }
             catch(Exception e)
             { }
 
             return completeExport;
+        }
+
+        string GenerateFilePath(string pathWithoutExtension, string extension)
+        {
+            while (File.Exists(pathWithoutExtension + extension))
+            {
+                var lastCharacter = pathWithoutExtension[pathWithoutExtension.Length - 2];
+
+                var partOne = pathWithoutExtension.Split(' ');
+                if (Int32.TryParse(lastCharacter.ToString(), out int number))
+                    pathWithoutExtension = $"{partOne[0]} ({number + 1})";
+                else
+                    pathWithoutExtension = $"{partOne[0]} ({1})";
+            }
+
+            return pathWithoutExtension + extension;
         }
     }
 }
