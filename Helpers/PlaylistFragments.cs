@@ -170,7 +170,7 @@ namespace IleanaMusic.Helpers
                             {
                                 playlist.PieceList.Add(piece);
                                 writer.WriteLine(
-                                    text: $"- La pieza {piece.Name} ha sido agregada",
+                                    text: $"- La pieza \"{piece.Name}\" ha sido agregada",
                                     indent: indent+1
                                 );
                             }

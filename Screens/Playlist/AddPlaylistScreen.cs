@@ -49,7 +49,7 @@ namespace IleanaMusic.Screens
 
             if (!validName || !validPieces)
             {
-                writer.WriteLine("[INSERCIÓN CANCELADA]\n");
+                writer.WriteLine("\n[INSERCIÓN CANCELADA]\n");
 
                 if(!validName)
                     writer.WriteLine(
