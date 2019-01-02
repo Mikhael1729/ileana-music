@@ -72,7 +72,6 @@ namespace IleanaMusic.Helpers
                 Directory.CreateDirectory(reportsPath);
             }
 
-            var path = Path.Combine(reportsPath, fileName);
             var report = BaseReport( // Report
                 pieces: pieces,
                 reportTitle: title,
@@ -83,25 +82,52 @@ namespace IleanaMusic.Helpers
 
             try
             {
+                string extension = null;
+
                 switch (type)
                 {
                     case ReportType.Pdf:
-                        report.Save($"{path}.pdf");
+                        extension = $".pdf";
                         break;
                     case ReportType.Excel:
-                        report.Save($"{path}.xlsx");
+                        extension = ($".xlsx");
                         break;
                     case ReportType.Csv:
-                        report.Save($"{path}.csv");
+                        extension = ($".csv");
                         break;
                     default:
                         break;
                 }
 
+                var pathWithoutExtension = Path.Combine(reportsPath, fileName);
+
+                while(File.Exists(pathWithoutExtension + extension))
+                {
+                    var lastCharacter = pathWithoutExtension[pathWithoutExtension.Length - 2];
+
+                    var partOne = pathWithoutExtension.Split(' ');
+                    if(Int32.TryParse(lastCharacter.ToString(), out int number))
+                    {
+
+                        pathWithoutExtension = $"{partOne[0]} ({number + 1})";
+                    }
+                    else
+                    {
+                        pathWithoutExtension = $"{partOne[0]} ({1})";
+                    }
+                }
+
+                var finalPath = pathWithoutExtension + extension;
+
+                report.Save(finalPath); // Saving
+                System.Diagnostics.Process.Start(reportsPath);
+                System.Diagnostics.Process.Start(finalPath); // Opening.
                 created = true;
             } 
             catch(Exception e)
-            { }
+            {
+                created = false;
+            }
 
             return created;
         }

@@ -35,6 +35,7 @@ namespace IleanaMusic
                 });
 
                 Clear();
+
                 switch (option)
                 {
                     case 1:
