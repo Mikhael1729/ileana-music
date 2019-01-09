@@ -23,8 +23,16 @@ namespace IleanaMusic.Screens
             piece.RequestAll();
 
             // Adding id.
-            pieceService.Add(piece);
-            WriteLine("\n-->> Pieza agregada <<--\n");
+            try
+            {
+                pieceService.Add(piece);
+                WriteLine("\n-->> Pieza agregada <<--\n");
+            }
+            catch(Exception e)
+            {
+                WriteLine("");
+                WriteLine("* " + e.Message);
+            }
         }
 
         public Piece Data()

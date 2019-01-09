@@ -119,7 +119,7 @@ namespace IleanaMusic.Data.Services
             } 
             else
             {
-                throw new InvalidOperationException("Operación bloqueada: No se permite agregar piezas con el mismo nombre y mismo artista");
+                throw new InvalidOperationException("OPERAIÓN BLOQUEADA: No se permite agregar piezas con el mismo nombre y mismo artista");
             }
         }
 
