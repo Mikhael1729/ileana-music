@@ -9,14 +9,14 @@ namespace IleanaMusic.Screens
     public class ExcelReportScreen
     {
         ConsoleWriter writer = new ConsoleWriter(0);
-        PieceService pieceService = PieceService.Instance;
+        PlaylistService playlistSevice = AppData.Instance.PlaylistService;
         ReportingHelper reporter = AppData.Instance.ReportingHelper;
 
         public ExcelReportScreen()
         {
             Title();
 
-            var pieces = pieceService.GetAll();
+            var playlists = playlistSevice.GetAll();
 
             writer.WriteLine(
                 "Generando reporte..."
@@ -24,7 +24,7 @@ namespace IleanaMusic.Screens
 
             var successful = reporter.ReportPieces(
                 fileName: "Piezas",
-                pieces: pieces,
+                playlists: playlists,
                 title: "Reporte de Piezas",
                 type: ReportType.Excel,
                 portrait: false,

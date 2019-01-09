@@ -9,14 +9,14 @@ namespace IleanaMusic.Screens
     public class CsvReportScreen
     {
         ConsoleWriter writer = new ConsoleWriter(0);
-        PieceService pieceService = PieceService.Instance;
+        PlaylistService playlistService = AppData.Instance.PlaylistService;
         ReportingHelper reporter = AppData.Instance.ReportingHelper;
 
         public CsvReportScreen()
         {
             Title();
 
-            var pieces = pieceService.GetAll();
+            var playlists = playlistService.GetAll();
 
             writer.WriteLine(
                 "Generando reporte..."
@@ -24,7 +24,7 @@ namespace IleanaMusic.Screens
 
             var successful = reporter.ReportPieces(
                 fileName: "Piezas",
-                pieces: pieces,
+                playlists: playlists,
                 title: "Reporte de Piezas",
                 type: ReportType.Csv,
                 portrait: false,
