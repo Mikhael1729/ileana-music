@@ -58,7 +58,7 @@ namespace IleanaMusic.Helpers
             #endregion
 
             #region Headers
-            headers = new string[]{ "ID", "Nombre", "Artista", "Genero", "Album", "Duración", "Calidad", "Formato" };
+            headers = new string[]{ "ID", "Nombre", "Artista", "Genero", "Álbum", "Duración (minutos)", "Calidad", "Formato" };
             #endregion
         }
 
@@ -162,7 +162,10 @@ namespace IleanaMusic.Helpers
                 sheet.Columns[6].Width = (portrait && pdf ? 13 : pdf ? 19 : 20) & 256; // Calidad.
                 sheet.Columns[7].Width = (portrait && pdf ? 13 : pdf ? 19 : 20) * 256; // Formato.
 
-                n += 2;
+                if(n > 0)
+                {
+                    n += 2;
+                }
 
                 var title = sheet.Cells.GetSubrangeAbsolute(n, 0, n, 7);
                 try
@@ -233,7 +236,7 @@ namespace IleanaMusic.Helpers
                 var totalCell = sheet.Cells.GetSubrangeAbsolute(n, 0, n, 1);
                 totalCell.Merged = true;
                 totalCell.Style = totalStyle;
-                totalCell.Value = $"Total de piezas: {playlist.PieceList.Count}";
+                totalCell.Value = $"Total de canciones: {playlist.PieceList.Count}";
                 #endregion
             }
             sheet.PrintOptions.Portrait = portrait;

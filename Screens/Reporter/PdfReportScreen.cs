@@ -23,12 +23,12 @@ namespace IleanaMusic.Screens
             );
 
             var successful = reporter.ReportPieces(
-                fileName: "Piezas",
+                fileName: "Playlists",
                 playlists: playlists,
                 title: "Reporte de Piezas",
                 type: ReportType.Pdf,
                 portrait: false,
-                sheetName: "Piezas"
+                sheetName: "Playlists"
             );
 
             Clear();
